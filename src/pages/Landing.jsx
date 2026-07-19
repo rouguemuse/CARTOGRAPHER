@@ -172,7 +172,7 @@ export default function Landing() {
                     to="/stage/object" 
                     className="btn btn-primary" 
                     style={{fontSize: '0.8rem', padding: '0.5rem'}}
-                    onClick={() => localStorage.setItem('applebanana_journey_state', JSON.stringify({object: obj.id, stage: 'weather'}))}
+                    onClick={() => localStorage.setItem('applebanana_journey_state', JSON.stringify({object: obj.id, stage: 'valley'}))}
                   >
                     CARRY THIS
                   </Link>

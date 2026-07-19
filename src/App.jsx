@@ -30,72 +30,82 @@ import ArticleManager from './pages/admin/ArticleManager';
 import WallModeration from './pages/admin/WallModeration';
 import DearRedInbox from './pages/admin/DearRedInbox';
 import ProtectedRoute from './components/ProtectedRoute';
+import ArchiveShell from './components/ArchiveShell';
+import JourneyShell from './components/JourneyShell';
 
 function App() {
   return (
     <AuthProvider>
       <Routes>
         {/* Applebanana / Interactive Journey Routes */}
-        <Route path="/" element={<Landing />} />
-        <Route path="/journey" element={<JourneyController />} />
-        <Route path="/stage/object" element={<ObjectSelection />} />
-        <Route path="/stage/:stageId" element={<Stage />} />
-        <Route path="/result" element={<Result />} />
-        <Route path="/journal" element={<Journal />} />
+        <Route path="/" element={<JourneyShell><Landing /></JourneyShell>} />
+        <Route path="/journey" element={<JourneyShell><JourneyController /></JourneyShell>} />
+        <Route path="/stage/object" element={<JourneyShell><ObjectSelection /></JourneyShell>} />
+        <Route path="/stage/:stageId" element={<JourneyShell><Stage /></JourneyShell>} />
+        <Route path="/result" element={<JourneyShell><Result /></JourneyShell>} />
+        <Route path="/journal" element={<JourneyShell><Journal /></JourneyShell>} />
 
         {/* Editorial Archive Routes */}
-        <Route path="/archive" element={<Archive />} />
-        <Route path="/atlas/explore" element={<AtlasIntro />} />
+        <Route path="/archive" element={<ArchiveShell><Archive /></ArchiveShell>} />
+        <Route path="/atlas/explore" element={<ArchiveShell><AtlasIntro /></ArchiveShell>} />
         
         {/* Library Routes */}
-        <Route path="/library" element={<Library />} />
-        <Route path="/library/stories" element={<Stories />} />
-        <Route path="/library/field-guide" element={<FieldGuide />} />
-        <Route path="/library/inventory" element={<Inventory />} />
-        <Route path="/library/glossary" element={<Glossary />} />
-        <Route path="/library/:collection/:slug" element={<ArticleView />} />
+        <Route path="/library" element={<ArchiveShell><Library /></ArchiveShell>} />
+        <Route path="/library/stories" element={<ArchiveShell><Stories /></ArchiveShell>} />
+        <Route path="/library/field-guide" element={<ArchiveShell><FieldGuide /></ArchiveShell>} />
+        <Route path="/library/inventory" element={<ArchiveShell><Inventory /></ArchiveShell>} />
+        <Route path="/library/glossary" element={<ArchiveShell><Glossary /></ArchiveShell>} />
+        <Route path="/library/:collection/:slug" element={<ArchiveShell><ArticleView /></ArchiveShell>} />
         
         {/* Forms & Content */}
-        <Route path="/things-i-should-have-said" element={<ThingsIShouldHaveSaid />} />
-        <Route path="/dear-red" element={<DearRed />} />
+        <Route path="/things-i-should-have-said" element={<ArchiveShell><ThingsIShouldHaveSaid /></ArchiveShell>} />
+        <Route path="/dear-red" element={<ArchiveShell><DearRed /></ArchiveShell>} />
         
         {/* Static Content */}
-        <Route path="/workbook" element={<Workbook />} />
-        <Route path="/book" element={<Book />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/workbook" element={<ArchiveShell><Workbook /></ArchiveShell>} />
+        <Route path="/book" element={<ArchiveShell><Book /></ArchiveShell>} />
+        <Route path="/about" element={<ArchiveShell><About /></ArchiveShell>} />
 
         {/* Admin Routes */}
-        <Route path="/admin/login" element={<AdminLogin />} />
+        <Route path="/admin/login" element={<ArchiveShell><AdminLogin /></ArchiveShell>} />
         <Route 
           path="/admin" 
           element={
-            <ProtectedRoute>
-              <AdminDashboard />
-            </ProtectedRoute>
+            <ArchiveShell>
+              <ProtectedRoute>
+                <AdminDashboard />
+              </ProtectedRoute>
+            </ArchiveShell>
           } 
         />
         <Route 
           path="/admin/articles" 
           element={
-            <ProtectedRoute>
-              <ArticleManager />
-            </ProtectedRoute>
+            <ArchiveShell>
+              <ProtectedRoute>
+                <ArticleManager />
+              </ProtectedRoute>
+            </ArchiveShell>
           } 
         />
         <Route 
           path="/admin/wall" 
           element={
-            <ProtectedRoute>
-              <WallModeration />
-            </ProtectedRoute>
+            <ArchiveShell>
+              <ProtectedRoute>
+                <WallModeration />
+              </ProtectedRoute>
+            </ArchiveShell>
           } 
         />
         <Route 
           path="/admin/dear-red" 
           element={
-            <ProtectedRoute>
-              <DearRedInbox />
-            </ProtectedRoute>
+            <ArchiveShell>
+              <ProtectedRoute>
+                <DearRedInbox />
+              </ProtectedRoute>
+            </ArchiveShell>
           } 
         />
       </Routes>

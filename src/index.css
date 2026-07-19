@@ -11,17 +11,25 @@
   --color-off-white: #e3e3e3;
   
   /* New Red System */
-  --red: #c92f3a;
+  --red: #b3211d;
   --red-bright: #e13b47;
   --red-deep: #841e29;
   --red-glow: rgba(225, 59, 71, 0.30);
 
-  /* New Surface System */
+  /* New Surface System (Journey) */
   --surface-page: #080d0c;
   --surface-panel: #0d1714;
   --surface-card: #121c18;
   --surface-card-hover: #17241f;
   --surface-border: rgba(222, 205, 169, 0.20);
+
+  /* New Surface System (Archive) */
+  --paper: #f4f1e8;
+  --card: #fffefa;
+  --ink: #121212;
+  --rule: #151515;
+  --muted: #746f67;
+  --paper-line: #d9cfb6;
   
   /* Typography */
   --font-display: 'Fraunces', serif;
@@ -32,8 +40,6 @@
   --glow-red: var(--red-glow);
   
   /* Base settings */
-  --bg-color: var(--surface-page);
-  --text-color: var(--color-parchment);
   --max-width: 1200px;
 }
 
@@ -44,8 +50,6 @@
 }
 
 html, body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
   font-family: var(--font-body);
   line-height: 1.65;
   font-size: clamp(16px, 1.5vw + 14px, 19px);
@@ -56,8 +60,21 @@ html, body {
   overflow-x: clip; /* Fix for horizontal scroll */
 }
 
-/* Texture overlay for the whole site */
-body::before {
+/* Theme Shells */
+.theme-journey {
+  background-color: var(--surface-page);
+  color: var(--color-parchment);
+  min-height: 100vh;
+}
+
+.theme-archive {
+  background-color: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+/* Texture overlay for the Journey */
+.theme-journey::before {
   content: "";
   position: fixed;
   top: 0;
@@ -93,13 +110,13 @@ p {
 }
 
 a {
-  color: var(--color-parchment);
+  color: inherit;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 a:hover, a:focus {
-  color: var(--color-oxblood);
+  color: var(--red-bright);
 }
 
 /* UI Elements */

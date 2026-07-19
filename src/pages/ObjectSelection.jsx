@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { objects } from '../data/storyData';
 import { useJourneyState } from '../hooks/useJourneyState';
@@ -7,8 +7,16 @@ import './ObjectSelection.css';
 export default function ObjectSelection() {
   const [selectedId, setSelectedId] = useState(null);
   const [showConsequence, setShowConsequence] = useState(false);
-  const { selectObject } = useJourneyState();
+  const { selectObject, state } = useJourneyState();
   const navigate = useNavigate();
+
+  // If we already have a selected object (e.g. clicked CARRY THIS on the landing page),
+  // we should fast-forward straight to the first stage (valley).
+  useEffect(() => {
+    if (state && state.object) {
+      navigate('/stage/valley', { replace: true });
+    }
+  }, [state, navigate]);
 
   const handleSelect = (id) => {
     setSelectedId(id);

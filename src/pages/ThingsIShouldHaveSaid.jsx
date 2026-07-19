@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Header from '../components/Header';
 import ExplanationForm from '../components/ExplanationForm';
 import { db } from '../firebase';
 import { collection, query, orderBy, getDocs } from 'firebase/firestore';
@@ -22,27 +21,31 @@ export default function ThingsIShouldHaveSaid() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#E6DCC3]">
-      <Header />
-      <main className="container pt-32 pb-16 max-w-3xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="font-serif text-4xl mb-4 text-white">Things I Should Have Said</h1>
-          <p className="text-[#a1a1aa] mb-12">An anonymous public wall for the sentences that arrived after the conversation ended.</p>
-          <ExplanationForm />
-        </div>
+    <div className="container archive-page">
+      <div className="archive-masthead" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: '2rem' }}>
+        <h1>Things I Should Have Said</h1>
+        <p>An anonymous public wall for the sentences that arrived after the conversation ended.</p>
+      </div>
 
-        {submissions.length > 0 && (
-          <div className="wall-entries space-y-8 mt-16 border-t border-[rgba(230,220,195,0.1)] pt-16">
-            <h2 className="font-serif text-2xl text-center mb-12">From the Territory</h2>
+      <div style={{ maxWidth: '800px', margin: '0 auto', marginBottom: '4rem' }}>
+        <ExplanationForm />
+      </div>
+
+      {submissions.length > 0 && (
+        <div style={{ maxWidth: '800px', margin: '0 auto', borderTop: '2px solid var(--rule)', paddingTop: '3rem' }}>
+          <h2 style={{ textAlign: 'center', marginBottom: '2rem' }}>From the Territory</h2>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
             {submissions.map(sub => (
-              <div key={sub.id} className="p-8 border border-[rgba(230,220,195,0.14)] bg-[rgba(255,255,255,0.02)] rounded-lg">
-                <p className="font-serif text-lg leading-relaxed mb-4">"{sub.explanation}"</p>
-                <div className="text-sm text-[#a1a1aa] uppercase tracking-widest">— {sub.creditAs === 'anonymous' ? 'Anonymous' : (sub.alias || 'Anonymous')}</div>
+              <div key={sub.id} className="archive-card" style={{ padding: '2rem' }}>
+                <p style={{ fontSize: '1.1rem', fontStyle: 'italic', marginBottom: '1rem', lineHeight: '1.6' }}>"{sub.explanation}"</p>
+                <div style={{ textAlign: 'right', fontSize: '0.85rem', color: 'var(--muted)' }}>
+                  — {sub.creditAs === 'anonymous' ? 'Anonymous' : (sub.alias || 'Anonymous')}
+                </div>
               </div>
             ))}
           </div>
-        )}
-      </main>
+        </div>
+      )}
     </div>
   );
 }
