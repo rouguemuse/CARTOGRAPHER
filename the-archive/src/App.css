@@ -1,0 +1,210 @@
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--color-bone);
+  padding: 1.5rem 0;
+  position: sticky;
+  top: 0;
+  background: rgba(232, 226, 212, 0.95);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-logo {
+  width: 40px;
+  height: 40px;
+}
+
+.site-nav {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-link {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+}
+
+.nav-link:hover {
+  color: var(--red-bright);
+}
+
+/* Masthead */
+.masthead {
+  padding: 6rem 0 4rem;
+  text-align: center;
+  border-bottom: 2px solid var(--color-charcoal);
+  margin-bottom: 4rem;
+}
+
+.masthead h1 {
+  font-size: clamp(3rem, 6vw, 5rem);
+  margin-bottom: 1.5rem;
+}
+
+.masthead .subhead {
+  font-size: 1.25rem;
+  max-width: 65ch;
+  margin: 0 auto;
+  color: var(--color-charcoal-light);
+}
+
+/* Main Grid */
+.archive-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 4rem;
+  margin-bottom: 6rem;
+}
+
+@media (min-width: 900px) {
+  .archive-grid {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.featured-entry {
+  padding-right: 0;
+}
+
+@media (min-width: 900px) {
+  .featured-entry {
+    padding-right: 2rem;
+    border-right: 1px solid var(--color-bone);
+  }
+}
+
+.featured-entry h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.featured-entry .meta {
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+  color: var(--red-deep);
+  margin-bottom: 2rem;
+  display: block;
+}
+
+.featured-entry p {
+  margin-bottom: 1.5rem;
+}
+
+.valley-library h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-charcoal);
+}
+
+.library-item {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--color-bone);
+}
+
+.library-item h3 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.library-item p {
+  font-size: 0.95rem;
+  color: var(--color-charcoal-light);
+}
+
+/* Sections */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.section-header h2 {
+  font-size: 2rem;
+}
+
+.section-header .line {
+  flex-grow: 1;
+  height: 1px;
+  background: var(--color-bone);
+}
+
+/* Columns Grid */
+.columns-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-bottom: 6rem;
+}
+
+.column-card {
+  background: var(--color-parchment-light);
+  padding: 2rem;
+  border: 1px solid var(--color-bone);
+}
+
+.column-card h3 {
+  font-size: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+/* Form Container */
+.form-container {
+  background: var(--color-charcoal);
+  color: var(--color-parchment);
+  padding: 4rem 2rem;
+  border-radius: 4px;
+  margin: 4rem 0;
+  text-align: center;
+}
+
+.form-container h2 {
+  color: var(--color-parchment);
+  margin-bottom: 1rem;
+}
+
+.form-container p {
+  margin-bottom: 2rem;
+  color: var(--color-bone);
+}
+
+.form-wrapper {
+  max-width: 500px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+/* Specific red overrides for dark mode forms */
+.form-container input, .form-container textarea {
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(255,255,255,0.2);
+  color: white;
+}
+
+/* Footer */
+.site-footer {
+  text-align: center;
+  padding: 3rem 0;
+  border-top: 1px solid var(--color-bone);
+  margin-top: 4rem;
+  font-family: var(--font-ui);
+  font-size: 0.85rem;
+}
