@@ -5,88 +5,87 @@ import { objects } from '../data/storyData';
 import './Journal.css';
 
 export default function Journal() {
-  const { state, clearJourney, updateJournal } = useJourneyState();
+  const { state, getActiveJourney, updateJournal } = useJourneyState();
   const navigate = useNavigate();
   
-  const selectedObject = objects.find(o => o.id === state.objectSelected);
-  const journalEntries = Object.entries(state.journalEntries || {});
-
-  const handleClear = () => {
-    if (window.confirm('Are you sure you want to erase this journey? This cannot be undone.')) {
-      clearJourney();
-      navigate('/');
-    }
-  };
+  const activeJourney = getActiveJourney();
+  const activeJourneyId = activeJourney?.id;
 
   const handlePrint = () => {
     window.print();
   };
 
-  const handleReflectionChange = (stageId, text) => {
-    const entry = state.journalEntries[stageId];
-    updateJournal(stageId, { ...entry, reflection: text });
+  const handleBackup = () => {
+    if (!activeJourney) return;
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(activeJourney, null, 2));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", `journal-backup-${activeJourneyId}.json`);
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
   };
 
-  if (!state.objectSelected) {
+  const handleReflectionChange = (stageId, text) => {
+    if (!activeJourneyId) return;
+    const entries = state.journalEntries[activeJourneyId] || {};
+    const entry = entries[stageId] || {};
+    updateJournal(activeJourneyId, stageId, { ...entry, reflection: text });
+  };
+
+  if (!activeJourney || !activeJourney.carriedObject) {
     return (
       <div className="journal-page">
         <main className="container journal-empty">
           <p>The pages are blank. You have not begun the journey.</p>
-          <button onClick={() => navigate('/stage/object')} className="btn btn-primary">Begin</button>
+          <button onClick={() => navigate('/journey/carry')} className="btn btn-primary">Begin</button>
         </main>
       </div>
     );
   }
 
+  const selectedObject = objects.find(o => o.id === activeJourney.carriedObject);
+  const journalEntries = Object.entries(state.journalEntries[activeJourneyId] || {});
+
   return (
     <div className="journal-page">
-      {/* Return Navigation */}
-      <nav style={{position: 'absolute', top: 0, left: 0, right: 0, padding: '1.5rem', display: 'flex', justifyContent: 'space-between', zIndex: 10, borderBottom: '1px solid rgba(0,0,0,0.1)'}}>
-        <div style={{fontFamily: 'var(--font-display)', color: 'var(--color-charcoal)', fontSize: '1.1rem'}}>
-          <a href="/" style={{color: 'inherit', textDecoration: 'none'}}>The Archive</a>
-        </div>
-        <div style={{display: 'flex', gap: '1.5rem'}}>
-          <a href="/#library" style={{color: 'var(--color-charcoal)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Valley Library</a>
-          <a href="/#join" style={{color: 'var(--color-charcoal)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Join List</a>
-        </div>
-      </nav>
-
-      <div className="container journal-container" style={{paddingTop: '6rem'}}>
+      <div className="container journal-container" style={{paddingTop: '6rem', paddingBottom: '4rem'}}>
         <div className="journal-header">
-          <h1>Field Journal</h1>
-          <p className="journal-subtitle">A record of what you carried and how you answered.</p>
+          <h1 className="handwritten" style={{ fontSize: '3rem', color: 'var(--red-bright)' }}>Traveler's Field Journal</h1>
+          <p className="journal-subtitle">A private record of what you carried and how you answered.</p>
         </div>
 
         <div className="journal-content">
           
           <section className="journal-section object-record">
-            <span className="section-label">Object Carried</span>
-            <div className="record-item">
-              <img src={selectedObject.image} alt={selectedObject.name} className="record-icon" />
+            <span className="section-label" style={{ color: 'var(--color-bone)', opacity: 0.6 }}>Object Carried</span>
+            <div className="record-item" style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+              <img src={selectedObject?.image} alt={selectedObject?.name} className="record-icon" style={{ width: '80px', height: 'auto', border: '1px solid var(--surface-border)' }} />
               <div className="record-text">
-                <h3>{selectedObject.name}</h3>
-                <p className="handwritten">{selectedObject.consequence}</p>
+                <h3 style={{ color: 'var(--red-bright)' }}>{selectedObject?.name}</h3>
+                <p className="handwritten" style={{ fontSize: '1.1rem' }}>{selectedObject?.consequence}</p>
               </div>
             </div>
           </section>
 
           {journalEntries.map(([stageId, entry]) => (
-            <section key={stageId} className="journal-section stage-record">
-              <span className="section-label">{entry.title}</span>
+            <section key={stageId} className="journal-section stage-record" style={{ marginTop: '3rem', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '2rem' }}>
+              <span className="section-label" style={{ color: 'var(--color-bone)', opacity: 0.6, textTransform: 'uppercase', fontSize: '0.8rem', letterSpacing: '2px' }}>{entry.title || `Stage: ${stageId}`}</span>
               
-              <div className="record-qa">
-                <p className="record-q">{entry.question}</p>
-                <p className="record-a">You answered: "{entry.choiceText}"</p>
-                <p className="handwritten record-c">{entry.consequence}</p>
+              <div className="record-qa" style={{ margin: '1.5rem 0' }}>
+                <p className="record-q" style={{ fontSize: '1.2rem', marginBottom: '1rem', fontStyle: 'italic' }}>"{entry.question}"</p>
+                <p className="record-a" style={{ color: 'var(--red-bright)' }}>You answered: "{entry.choiceText}"</p>
+                <p className="handwritten record-c" style={{ marginTop: '1rem', fontSize: '1.1rem' }}>{entry.consequence}</p>
               </div>
               
-              <div className="record-reflection">
-                <label htmlFor={`reflect-${stageId}`}>Notes (Optional)</label>
+              <div className="record-reflection" style={{ marginTop: '2rem' }}>
+                <label htmlFor={`reflect-${stageId}`} style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.8rem', color: 'var(--color-bone)', opacity: 0.6 }}>Field Notes (Private)</label>
                 <textarea
                   id={`reflect-${stageId}`}
                   placeholder="Any weather observed here..."
                   value={entry.reflection || ''}
                   onChange={(e) => handleReflectionChange(stageId, e.target.value)}
+                  style={{ width: '100%', minHeight: '100px', padding: '1rem', background: 'rgba(0,0,0,0.2)', border: '1px solid rgba(255,255,255,0.1)', color: 'var(--color-bone)', fontFamily: 'var(--font-body)' }}
                 />
               </div>
             </section>
@@ -94,9 +93,9 @@ export default function Journal() {
           
         </div>
 
-        <div className="journal-actions hide-on-print">
-          <button onClick={handlePrint} className="btn">Print / Save Record</button>
-          <button onClick={handleClear} className="btn btn-text delete-btn">Burn this Journal</button>
+        <div className="journal-actions hide-on-print" style={{ marginTop: '4rem', display: 'flex', gap: '1rem' }}>
+          <button onClick={handlePrint} className="btn" style={{ border: '1px solid var(--color-bone)', background: 'transparent', color: 'var(--color-bone)' }}>Print Record</button>
+          <button onClick={handleBackup} className="btn btn-primary">Backup (JSON)</button>
         </div>
       </div>
     </div>

@@ -1,11 +1,11 @@
 import React from 'react';
-import Header from './Header';
+import JourneyHeader from './JourneyHeader';
 
 export default function JourneyShell({ children }) {
   // Adds the journey-specific layout class to the wrapper
   return (
     <div className="theme-journey journey-page-wrapper">
-      <Header variant="journey" />
+      <JourneyHeader />
       <main className="journey-main-content">
         {children}
       </main>

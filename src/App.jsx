@@ -1,10 +1,12 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Stage from './pages/Stage';
 import ObjectSelection from './pages/ObjectSelection';
 import Result from './pages/Result';
 import Journal from './pages/Journal';
+import Almanac from './pages/Almanac';
+import Endings from './pages/Endings';
 import JourneyController from './pages/JourneyController';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -40,10 +42,19 @@ function App() {
         {/* Applebanana / Interactive Journey Routes */}
         <Route path="/" element={<JourneyShell><Landing /></JourneyShell>} />
         <Route path="/journey" element={<JourneyShell><JourneyController /></JourneyShell>} />
-        <Route path="/stage/object" element={<JourneyShell><ObjectSelection /></JourneyShell>} />
-        <Route path="/stage/:stageId" element={<JourneyShell><Stage /></JourneyShell>} />
-        <Route path="/result" element={<JourneyShell><Result /></JourneyShell>} />
+        <Route path="/journey/carry" element={<JourneyShell><ObjectSelection /></JourneyShell>} />
+        <Route path="/journey/stage/:stageId" element={<JourneyShell><Stage /></JourneyShell>} />
+        <Route path="/journey/result" element={<JourneyShell><Result /></JourneyShell>} />
+        
+        {/* User Data Routes */}
         <Route path="/journal" element={<JourneyShell><Journal /></JourneyShell>} />
+        <Route path="/almanac" element={<ArchiveShell><Almanac /></ArchiveShell>} />
+        <Route path="/endings" element={<JourneyShell><Endings /></JourneyShell>} />
+
+        {/* Compatibility Redirects */}
+        <Route path="/stage/object" element={<Navigate to="/journey/carry" replace />} />
+        <Route path="/stage/:stageId" element={<Navigate to="/journey/stage/:stageId" replace />} />
+        <Route path="/result" element={<Navigate to="/journey/result" replace />} />
 
         {/* Editorial Archive Routes */}
         <Route path="/archive" element={<ArchiveShell><Archive /></ArchiveShell>} />

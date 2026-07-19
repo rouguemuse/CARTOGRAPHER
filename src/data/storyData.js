@@ -2,30 +2,44 @@ export const objects = [
   {
     id: 'red_coat',
     name: 'The Red Coat',
-    image: '/images/red_coat.jpg',
+    image: '/media/objects/red-coat.png',
     description: 'It is warm, visible, and heavy with the storms you believed you had to survive for other people.',
     consequence: 'The coat keeps you warm but makes you undeniably visible. You will be expected to endure the weather others refuse to walk through.'
   },
   {
     id: 'red_string',
-    name: 'The Red String',
-    image: '/images/red_string.jpg',
+    name: 'The Red Thread',
+    image: '/media/objects/red-thread.png',
     description: 'A tether. It either leads you safely out of the maze or keeps you tied to the person who built it.',
     consequence: 'You have chosen connection over freedom. You will always know where you are in relation to them, but you can never wander too far.'
   },
   {
     id: 'red_crane',
     name: 'The Red Crane',
-    image: '/images/red_crane.jpg',
+    image: '/media/objects/red-crane.png',
     description: 'Folded with sharp intention. It requires a delicate touch and is ruined the moment someone crushes it in their fist.',
     consequence: 'You offer something fragile, hoping the world will be gentle. When it is not, you will have to learn how to unfold the creases.'
   },
   {
     id: 'red_envelope',
-    name: 'The Red Envelope',
-    image: '/images/red_envelope.jpg',
+    name: 'The Red Letter',
+    image: '/media/objects/red-letter.png',
     description: 'A sealed explanation you never delivered. It contains the exact words that would finally make them understand.',
     consequence: 'You carry the heavy assumption that the right words exist. You will spend your journey waiting for the right moment to open it.'
+  },
+  {
+    id: 'compass',
+    name: 'The Compass',
+    image: '/media/objects/compass.png',
+    description: 'An antique brass compass that always points to the truth, even when it is inconvenient.',
+    consequence: 'You sought direction over comfort, preparing for a path that may not exist.'
+  },
+  {
+    id: 'lantern',
+    name: 'The Lantern',
+    image: '/media/objects/lantern.png',
+    description: 'An elegant antique lantern to cut through the fog and cast light on what is hidden.',
+    consequence: 'You sought direction over comfort, preparing for a path that may not exist.'
   }
 ];
 

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { objects } from '../data/storyData';
 import { useJourneyState } from '../hooks/useJourneyState';
@@ -7,16 +7,8 @@ import './ObjectSelection.css';
 export default function ObjectSelection() {
   const [selectedId, setSelectedId] = useState(null);
   const [showConsequence, setShowConsequence] = useState(false);
-  const { selectObject, state } = useJourneyState();
+  const { selectObject } = useJourneyState();
   const navigate = useNavigate();
-
-  // If we already have a selected object (e.g. clicked CARRY THIS on the landing page),
-  // we should fast-forward straight to the first stage (valley).
-  useEffect(() => {
-    if (state && state.object) {
-      navigate('/stage/valley', { replace: true });
-    }
-  }, [state, navigate]);
 
   const handleSelect = (id) => {
     setSelectedId(id);
@@ -33,12 +25,9 @@ export default function ObjectSelection() {
   const selectedObject = objects.find(o => o.id === selectedId);
 
   return (
-    <div className="object-selection-page">
+    <div className="object-page">
       {/* Return Navigation */}
-      <nav style={{position: 'absolute', top: 0, left: 0, right: 0, padding: '1.5rem', display: 'flex', justifyContent: 'space-between', zIndex: 10}}>
-        <div style={{fontFamily: 'var(--font-display)', color: 'var(--color-bone)', fontSize: '1.1rem'}}>
-          <a href="/" style={{color: 'inherit', textDecoration: 'none'}}>The Archive</a>
-        </div>
+      <nav style={{position: 'absolute', top: 0, left: 0, right: 0, padding: '1.5rem', display: 'flex', justifyContent: 'flex-end', zIndex: 10}}>
         <div style={{display: 'flex', gap: '1.5rem'}}>
           <a href="/#library" style={{color: 'var(--color-bone)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Valley Library</a>
           <a href="/#join" style={{color: 'var(--color-bone)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Join List</a>
