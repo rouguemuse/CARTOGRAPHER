@@ -55,7 +55,7 @@ const AtlasIntro = () => {
 
         <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
           <button 
-            onClick={() => navigate('/atlas/explore')}
+            onClick={() => window.location.href = import.meta.env.VITE_APPLEBANANA_URL || '/'}
             className="btn btn-primary"
             style={{ padding: '1rem 2rem', fontSize: '1.1rem' }}
           >
