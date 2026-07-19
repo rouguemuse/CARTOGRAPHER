@@ -1,0 +1,9 @@
+{
+  "name": "applebanana",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

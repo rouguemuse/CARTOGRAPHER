@@ -1,0 +1,214 @@
+:root {
+  /* Colors */
+  --color-charcoal: #121314;
+  --color-charcoal-light: #1c1d1f;
+  --color-parchment: #f2ede2; /* Lighter primary text */
+  --color-bone: #c5beb0; /* Secondary text */
+  --color-oxblood: #c92f3a; /* Fallback for old references */
+  --color-storm-blue: #3a4a58;
+  --color-brass: #b5985a;
+  --color-forest: #4a5d4e;
+  --color-off-white: #e3e3e3;
+  
+  /* New Red System */
+  --red: #c92f3a;
+  --red-bright: #e13b47;
+  --red-deep: #841e29;
+  --red-glow: rgba(225, 59, 71, 0.30);
+
+  /* New Surface System */
+  --surface-page: #080d0c;
+  --surface-panel: #0d1714;
+  --surface-card: #121c18;
+  --surface-card-hover: #17241f;
+  --surface-border: rgba(222, 205, 169, 0.20);
+  
+  /* Typography */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Literata', serif;
+  --font-ui: 'Manrope', sans-serif;
+  
+  /* Glows */
+  --glow-red: var(--red-glow);
+  
+  /* Base settings */
+  --bg-color: var(--surface-page);
+  --text-color: var(--color-parchment);
+  --max-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  line-height: 1.65;
+  font-size: clamp(16px, 1.5vw + 14px, 19px);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: clip; /* Fix for horizontal scroll */
+}
+
+/* Texture overlay for the whole site */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+h1, h2, h3, h4, h5, h6, .hero-title, .wordmark {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--color-parchment);
+  font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 1;
+}
+
+h2 {
+  font-size: clamp(40px, 4vw, 48px);
+}
+
+h3 {
+  font-size: clamp(23px, 2.5vw, 26px);
+}
+
+p {
+  max-width: 68ch; /* Updated line length for narrative */
+  margin-bottom: 1.5rem;
+  line-height: 1.7; /* increased line-height */
+}
+
+a {
+  color: var(--color-parchment);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover, a:focus {
+  color: var(--color-oxblood);
+}
+
+/* UI Elements */
+.sans-text, .ui-text {
+  font-family: var(--font-ui);
+  letter-spacing: 0.02em;
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-ui);
+  background-color: transparent;
+  color: var(--color-parchment);
+  border: 1px solid var(--color-parchment);
+  padding: 0.75rem 1.5rem;
+  font-size: max(14px, 0.9rem);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: var(--red-bright);
+  color: var(--color-parchment);
+  border: 1px solid var(--red-bright);
+}
+
+.btn-primary:hover, .btn-primary:focus {
+  background-color: var(--red-bright);
+  border-color: var(--red-bright);
+  box-shadow: 0 0 24px var(--red-glow);
+}
+
+.btn:hover, .btn:focus {
+  background-color: var(--color-parchment);
+  color: var(--color-charcoal);
+}
+
+/* Layout utilities */
+.container {
+  width: min(100% - 32px, var(--max-width));
+  margin: 0 auto;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-brass);
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Narrow-phone typography floor */
+@media (max-width: 600px) {
+  html, body {
+    font-size: 16px; /* Hard floor — never smaller than 16px base */
+  }
+
+  h2 {
+    font-size: clamp(28px, 8vw, 32px);
+    line-height: 1.1;
+  }
+
+  h3 {
+    font-size: clamp(20px, 5.5vw, 22px);
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+}
+
+/* Animations */
+@keyframes fireflyDrift {
+  0% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  33% { transform: translate(10px, -15px) scale(1.1); opacity: 0.6; }
+  66% { transform: translate(-8px, -20px) scale(0.9); opacity: 1; }
+  100% { transform: translate(0, 0) scale(1); opacity: 0.8; }
+}
+
+@keyframes mapPan {
+  0% { background-position: 50% 50%; }
+  50% { background-position: 51% 52%; }
+  100% { background-position: 50% 50%; }
+}
+
+@keyframes fogShift {
+  0% { background-position: 0% 0%; }
+  50% { background-position: -2% -1%; }
+  100% { background-position: 0% 0%; }
+}
+
+@keyframes drawRoute {
+  to { stroke-dashoffset: 0; }
+}

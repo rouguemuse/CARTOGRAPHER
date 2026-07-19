@@ -1,0 +1,237 @@
+.glass-header {
+  position: fixed !important;
+  top: 10px !important;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 32px, 1100px);
+  z-index: 9000 !important;
+  display: block;
+  border-radius: 12px;
+  padding: 0.75rem 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.solid-header {
+  background: rgba(6, 14, 12, 0.98);
+  border: 1px solid rgba(230, 220, 195, 0.14);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.32), inset 0 0 24px rgba(116, 16, 20, 0.05);
+}
+
+.transparent-header {
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.site-logo {
+  position: relative;
+}
+
+/* Subtle glow behind logo */
+.brand-group::before {
+  content: '';
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  background-color: var(--glow-red);
+  filter: blur(15px);
+  border-radius: 50%;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.wordmark {
+  font-family: var(--font-display);
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--color-parchment);
+  line-height: 1.1;
+}
+
+.secondary-line {
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-brass);
+  opacity: 0.8;
+  margin-top: 0.2rem;
+}
+
+.desktop-nav {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.nav-link {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-bone);
+  position: relative;
+  transition: color 0.3s ease;
+  padding: 0.5rem 0;
+}
+
+.nav-link:hover {
+  color: var(--color-parchment);
+}
+
+.active-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-oxblood);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: center;
+  box-shadow: 0 0 8px var(--glow-red);
+}
+
+.nav-link.active .active-indicator {
+  transform: scaleX(1);
+}
+
+.nav-cta {
+  font-size: 0.75rem;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.nav-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--color-charcoal);
+  border: 1px solid var(--color-charcoal-light);
+  border-radius: 8px;
+  min-width: 200px;
+  padding: 0.5rem 0;
+  z-index: 10000;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.nav-dropdown:hover .dropdown-menu,
+.nav-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  display: block;
+  padding: 0.75rem 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-bone);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.dropdown-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-parchment);
+}
+
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.bar {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background-color: var(--color-parchment);
+  margin: 4px 0;
+  transition: 0.3s;
+}
+
+@media (max-width: 900px) {
+  .secondary-line {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .glass-header {
+    top: 10px !important;
+    padding: 0.5rem 1rem;
+    /* Hard reset to ensure fixity even under stacking contexts */
+    position: fixed !important;
+    z-index: 9000 !important;
+  }
+  
+  .wordmark {
+    font-size: clamp(14px, 4vw, 18px);
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+  
+  .desktop-nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+    background: rgba(6, 14, 12, 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(230, 220, 195, 0.14);
+    border-radius: 8px;
+    flex-direction: column;
+    padding: 1.5rem;
+    gap: 1.5rem;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    z-index: 9001;
+  }
+  
+  .desktop-nav.mobile-open {
+    display: flex;
+  }
+  
+  .nav-cta {
+    width: 100%;
+    text-align: center;
+  }
+}

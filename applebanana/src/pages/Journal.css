@@ -1,0 +1,220 @@
+.journal-page {
+  min-height: 100vh;
+  padding-top: 100px;
+  background-color: var(--color-parchment);
+  color: var(--color-charcoal);
+}
+
+.journal-page .site-title,
+.journal-page .site-nav a {
+  color: var(--color-charcoal);
+}
+
+.journal-page .site-nav a:hover {
+  color: var(--color-oxblood);
+}
+
+.journal-empty {
+  text-align: center;
+  padding-top: 10rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 1.5rem;
+}
+
+.journal-main {
+  max-width: 800px;
+  padding-bottom: 5rem;
+}
+
+.journal-header {
+  margin-bottom: 4rem;
+  border-bottom: 2px solid var(--color-charcoal-light);
+  padding-bottom: 2rem;
+}
+
+.journal-header h1 {
+  font-family: var(--font-display);
+  color: var(--color-charcoal);
+  font-size: clamp(2.5rem, 6vw + 1rem, 4rem);
+  margin-bottom: 0.5rem;
+}
+
+.journal-subtitle {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.9rem;
+  color: rgba(18, 19, 20, 0.6);
+}
+
+.journal-content {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.journal-section {
+  position: relative;
+  padding-left: 2rem;
+  border-left: 1px solid rgba(18, 19, 20, 0.2);
+}
+
+.section-label {
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  background-color: var(--color-parchment);
+  padding: 0 10px;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: var(--color-oxblood);
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.record-item {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+
+.record-icon {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: sepia(0.5);
+}
+
+.record-text h3 {
+  font-family: var(--font-display);
+  color: var(--color-charcoal);
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.record-text .handwritten {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--color-charcoal);
+  opacity: 0.8;
+}
+
+.record-qa {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.record-q {
+  font-family: var(--font-ui);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: rgba(18, 19, 20, 0.6);
+  margin-bottom: 0.5rem;
+}
+
+.record-a {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 1rem;
+  color: var(--color-charcoal);
+}
+
+.record-c {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.5rem;
+  color: var(--color-oxblood);
+}
+
+.record-reflection label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: rgba(18, 19, 20, 0.5);
+  margin-bottom: 0.5rem;
+}
+
+.record-reflection textarea {
+  width: 100%;
+  background-color: transparent;
+  border: 1px dashed rgba(18, 19, 20, 0.2);
+  padding: 1rem;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--color-charcoal);
+  resize: vertical;
+  min-height: 100px;
+}
+
+.record-reflection textarea:focus {
+  outline: none;
+  border-color: var(--color-oxblood);
+}
+
+.journal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(18, 19, 20, 0.1);
+}
+
+.journal-page .btn {
+  border-color: var(--color-charcoal);
+  color: var(--color-charcoal);
+}
+
+.journal-page .btn:hover {
+  background-color: var(--color-charcoal);
+  color: var(--color-parchment);
+}
+
+.delete-btn {
+  color: var(--color-oxblood) !important;
+  border-color: transparent !important;
+}
+
+.delete-btn:hover {
+  background-color: rgba(107, 27, 34, 0.1) !important;
+}
+
+@media (max-width: 768px) {
+  .journal-actions {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .journal-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+  
+  .record-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}
+
+@media print {
+  .hide-on-print,
+  .site-header {
+    display: none !important;
+  }
+  
+  .journal-page {
+    padding-top: 0;
+    background-color: white;
+  }
+  
+  .record-reflection textarea {
+    border: none;
+  }
+}
