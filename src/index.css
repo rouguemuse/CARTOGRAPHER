@@ -1,0 +1,129 @@
+:root {
+  /* Colors */
+  --color-parchment: #e8e2d4; /* Warm paper */
+  --color-parchment-light: #f4f0e6;
+  --color-bone: #d8d3c5;
+  --color-charcoal: #121314; /* Black rules/text */
+  --color-charcoal-light: #2a2c2e;
+  
+  --red: #c92f3a;
+  --red-bright: #e13b47;
+  --red-deep: #841e29;
+  --color-brass: #b5985a; /* Muted gold */
+  
+  /* Typography */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Literata', serif;
+  --font-ui: 'Manrope', sans-serif;
+  
+  /* Base settings */
+  --bg-color: var(--color-parchment);
+  --text-color: var(--color-charcoal);
+  --max-width: 1200px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-size: clamp(16px, 1.5vw + 14px, 19px);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.1;
+  color: var(--color-charcoal);
+  font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 1;
+}
+
+a {
+  color: var(--color-charcoal);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--red-bright);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* UI Elements */
+.ui-text, label, input, button {
+  font-family: var(--font-ui);
+}
+
+.btn {
+  display: inline-block;
+  font-family: var(--font-ui);
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.85rem;
+  border: 1px solid var(--color-charcoal);
+  background: transparent;
+  color: var(--color-charcoal);
+}
+
+.btn:hover {
+  background: var(--color-charcoal);
+  color: var(--color-parchment);
+}
+
+.btn-primary {
+  background: var(--red-bright);
+  color: white;
+  border-color: var(--red-bright);
+}
+
+.btn-primary:hover {
+  background: var(--red-deep);
+  border-color: var(--red-deep);
+  color: white;
+}
+
+.small-label {
+  display: block;
+  font-family: var(--font-ui);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-deep);
+  margin-bottom: 0.5rem;
+}
+
+/* Forms */
+input, textarea {
+  width: 100%;
+  padding: 1rem;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  border: 1px solid var(--color-bone);
+  background: var(--color-parchment-light);
+  color: var(--color-charcoal);
+  margin-bottom: 1.5rem;
+  transition: border-color 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  outline: none;
+  border-color: var(--red-bright);
+}
