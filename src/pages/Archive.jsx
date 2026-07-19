@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom';
 import { db } from '../firebase';
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 
+const FEATURED_DISPATCH_SLUG = null; // Example: 'a-dispatch-slug'
+
 export default function Archive() {
   const [featuredStory, setFeaturedStory] = useState(null);
-  const [latestEntries, setLatestEntries] = useState([]);
+  
+  // Substack State
+  const [substackPosts, setSubstackPosts] = useState([]);
+  const [loadingSubstack, setLoadingSubstack] = useState(true);
+  const [substackError, setSubstackError] = useState(false);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -15,16 +21,44 @@ export default function Archive() {
         if (!featuredSnap.empty) {
           setFeaturedStory({ id: featuredSnap.docs[0].id, ...featuredSnap.docs[0].data() });
         }
-
-        const latestQ = query(collection(db, 'articles'), where('status', '==', 'published'), orderBy('createdAt', 'desc'), limit(3));
-        const latestSnap = await getDocs(latestQ);
-        setLatestEntries(latestSnap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } catch (err) {
-        console.error("Error fetching archive articles", err);
+        console.error("Error fetching archive featured story", err);
       }
     };
     fetchArticles();
   }, []);
+
+  useEffect(() => {
+    const fetchSubstack = async () => {
+      try {
+        setLoadingSubstack(true);
+        const res = await fetch('/api/substack-feed');
+        if (!res.ok) throw new Error('Failed to fetch Substack feed');
+        const data = await res.json();
+        setSubstackPosts(data);
+      } catch (err) {
+        console.error("Error fetching Substack feed", err);
+        setSubstackError(true);
+      } finally {
+        setLoadingSubstack(false);
+      }
+    };
+    fetchSubstack();
+  }, []);
+
+  // Filter Substack posts
+  let featuredDispatch = null;
+  let remainingPosts = [...substackPosts];
+
+  if (FEATURED_DISPATCH_SLUG) {
+    const idx = remainingPosts.findIndex(p => p.url.includes(FEATURED_DISPATCH_SLUG));
+    if (idx !== -1) {
+      featuredDispatch = remainingPosts.splice(idx, 1)[0];
+    }
+  }
+
+  const recentArrivals = remainingPosts.slice(0, 3);
+  const earlierDispatches = remainingPosts.slice(3, 6);
 
   return (
     <div className="container archive-page">
@@ -79,19 +113,90 @@ export default function Archive() {
               </div>
             )}
 
-            <div style={{ borderTop: '2px solid var(--rule)', paddingTop: '1.5rem' }}>
+            <div style={{ borderTop: '1px solid rgba(0,0,0,0.1)', paddingTop: '1.5rem' }}>
               <span className="archive-catalog-label">Recent Arrivals</span>
-              <ul style={{ listStyle: 'none' }}>
-                {latestEntries.map(entry => (
-                  <li key={entry.id} style={{ marginBottom: '1.5rem', borderBottom: '1px solid var(--paper-line)', paddingBottom: '1rem' }}>
-                    <Link to={`/library/${entry.collection || 'stories'}/${entry.id}`} style={{ display: 'block' }}>
-                      <h4 style={{ fontSize: '1.2rem', marginBottom: '0.5rem' }}>{entry.title}</h4>
-                      <p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>{entry.excerpt}</p>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-              <Link to="/library" className="btn btn-primary" style={{ width: '100%' }}>View Complete Library</Link>
+              
+              {loadingSubstack ? (
+                <div className="substack-skeleton" style={{ padding: '2rem 0' }}>
+                  <div style={{ width: '100%', height: '200px', backgroundColor: 'var(--paper-line)', marginBottom: '1rem' }}></div>
+                  <div style={{ width: '60%', height: '20px', backgroundColor: 'var(--paper-line)', marginBottom: '0.5rem' }}></div>
+                  <div style={{ width: '90%', height: '14px', backgroundColor: 'var(--paper-line)', marginBottom: '0.5rem' }}></div>
+                  <div style={{ width: '80%', height: '14px', backgroundColor: 'var(--paper-line)' }}></div>
+                </div>
+              ) : substackError ? (
+                <div className="archive-card" style={{ padding: '2rem', textAlign: 'center', backgroundColor: 'var(--paper-line)', border: '1px solid rgba(0,0,0,0.05)' }}>
+                  <p style={{ marginBottom: '1rem', color: 'var(--muted)' }}>The latest dispatches could not be retrieved.</p>
+                  <a href="https://otherpeoplesweather.substack.com" target="_blank" rel="noopener noreferrer" className="btn btn-primary" style={{ marginBottom: '1rem', display: 'inline-block' }}>Visit Other People's Weather</a>
+                  <br />
+                  <a href="https://substack.com/@jaymevolstad1" target="_blank" rel="noopener noreferrer" className="inline-link" style={{ fontSize: '0.85rem' }}>Follow Jayme on Substack</a>
+                </div>
+              ) : (
+                <div className="substack-feed">
+                  
+                  {featuredDispatch && (
+                    <div className="featured-dispatch archive-card" style={{ marginBottom: '3rem', padding: '1.5rem', backgroundColor: 'var(--paper-line)', border: '1px solid rgba(0,0,0,0.05)' }}>
+                      <span className="archive-catalog-label" style={{ color: 'var(--red)' }}>Featured Dispatch</span>
+                      {featuredDispatch.image && (
+                        <div className="archive-figure" style={{ marginBottom: '1rem' }}>
+                          <img src={featuredDispatch.image} alt={featuredDispatch.title} />
+                        </div>
+                      )}
+                      <h3 style={{ fontSize: '1.8rem', marginBottom: '0.5rem' }}>{featuredDispatch.title}</h3>
+                      <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1rem' }}>
+                        {new Date(featuredDispatch.publishedAt).toLocaleDateString()} • {featuredDispatch.category}
+                      </p>
+                      <p style={{ marginBottom: '1.5rem' }}>{featuredDispatch.excerpt}</p>
+                      <a href={featuredDispatch.url} target="_blank" rel="noopener noreferrer" className="btn btn-primary">Read on Substack</a>
+                    </div>
+                  )}
+
+                  <div className="recent-arrivals-list" style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+                    {recentArrivals.map((post, idx) => (
+                      <article key={post.id} className="archive-entry" style={{ paddingBottom: '2.5rem', borderBottom: '1px solid rgba(0,0,0,0.05)' }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem' }}>
+                          <span className="archive-catalog-label" style={{ margin: 0 }}>{post.category}</span>
+                          <span style={{ fontSize: '0.75rem', color: 'var(--red)', fontFamily: 'var(--font-mono)' }}>IDX-{String(idx + 1).padStart(3, '0')}</span>
+                        </div>
+                        
+                        {post.image && (
+                          <div className="archive-figure" style={{ marginBottom: '1.5rem' }}>
+                            <img src={post.image} alt={post.title} style={{ width: '100%', height: 'auto', display: 'block' }} />
+                          </div>
+                        )}
+                        
+                        <h4 style={{ fontSize: '1.4rem', marginBottom: '0.75rem', lineHeight: 1.2 }}>{post.title}</h4>
+                        <p style={{ fontSize: '0.85rem', color: 'var(--muted)', marginBottom: '1rem' }}>
+                          {new Date(post.publishedAt).toLocaleDateString()}
+                        </p>
+                        <p style={{ fontSize: '0.95rem', lineHeight: 1.6, marginBottom: '1.5rem' }}>{post.excerpt}</p>
+                        <a href={post.url} target="_blank" rel="noopener noreferrer" className="inline-link" style={{ fontSize: '0.9rem', fontWeight: 'bold' }}>Read on Substack &rarr;</a>
+                      </article>
+                    ))}
+                  </div>
+
+                  {earlierDispatches.length > 0 && (
+                    <div className="earlier-dispatches" style={{ marginTop: '3rem' }}>
+                      <span className="archive-catalog-label">Earlier Dispatches</span>
+                      <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                        {earlierDispatches.map(post => (
+                          <li key={post.id} style={{ marginBottom: '1.5rem' }}>
+                            <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
+                              <h5 style={{ fontSize: '1.1rem', marginBottom: '0.25rem', textDecoration: 'underline', textDecorationColor: 'transparent', transition: 'text-decoration-color 0.2s' }}>{post.title}</h5>
+                              <p style={{ fontSize: '0.85rem', color: 'var(--muted)' }}>
+                                {new Date(post.publishedAt).toLocaleDateString()} • {post.category}
+                              </p>
+                            </a>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <div style={{ marginTop: '3rem', paddingTop: '2rem', borderTop: '1px solid rgba(0,0,0,0.05)', textAlign: 'center' }}>
+                    <a href="https://substack.com/@jaymevolstad1" target="_blank" rel="noopener noreferrer" className="btn" style={{ backgroundColor: 'transparent', border: '1px solid rgba(0,0,0,0.2)' }}>Follow Jayme on Substack</a>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>
