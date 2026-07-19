@@ -1,5 +1,14 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Landing from './pages/Landing';
+import Stage from './pages/Stage';
+import ObjectSelection from './pages/ObjectSelection';
+import Result from './pages/Result';
+import Journal from './pages/Journal';
+import JourneyController from './pages/JourneyController';
+import { AuthProvider } from './contexts/AuthContext';
+
+// Archive Pages
 import Archive from './pages/Archive';
 import Library from './pages/Library';
 import Stories from './pages/library/Stories';
@@ -12,6 +21,7 @@ import DearRed from './pages/DearRed';
 import Workbook from './pages/Workbook';
 import Book from './pages/Book';
 import About from './pages/About';
+import AtlasIntro from './pages/AtlasIntro';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -21,14 +31,21 @@ import WallModeration from './pages/admin/WallModeration';
 import DearRedInbox from './pages/admin/DearRedInbox';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Authentication Provider
-import { AuthProvider } from './contexts/AuthContext';
-
 function App() {
   return (
     <AuthProvider>
       <Routes>
-        <Route path="/" element={<Archive />} />
+        {/* Applebanana / Interactive Journey Routes */}
+        <Route path="/" element={<Landing />} />
+        <Route path="/journey" element={<JourneyController />} />
+        <Route path="/stage/object" element={<ObjectSelection />} />
+        <Route path="/stage/:stageId" element={<Stage />} />
+        <Route path="/result" element={<Result />} />
+        <Route path="/journal" element={<Journal />} />
+
+        {/* Editorial Archive Routes */}
+        <Route path="/archive" element={<Archive />} />
+        <Route path="/atlas/explore" element={<AtlasIntro />} />
         
         {/* Library Routes */}
         <Route path="/library" element={<Library />} />

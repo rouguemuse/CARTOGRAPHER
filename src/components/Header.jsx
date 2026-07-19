@@ -74,7 +74,7 @@ export default function Header() {
             The Book
             <div className="active-indicator"></div>
           </Link>
-          <a href="/#join" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Join the List</a>
+          <Link to="/#join" className="nav-link" onClick={() => setIsMobileMenuOpen(false)}>Join the List</Link>
         </nav>
       </div>
     </header>
