@@ -50,6 +50,7 @@ export default function Landing() {
   return (
     <div className="landing-page">
       
+      {/* HERO SECTION */}
       <section className="hero-section">
         <div className="hero-background">
           <img src="/images/hero_artwork.png" alt="Atmospheric landscape with fireflies and a dark forest" className="hero-img" />
@@ -68,7 +69,7 @@ export default function Landing() {
             <p className="hero-question">
               What will you do when the road asks for your name?
             </p>
-            <div className="hero-actions" style={{display: 'flex', gap: '1rem', flexWrap: 'wrap'}}>
+            <div className="hero-actions" style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center'}}>
               <Link to="/journey" className="btn btn-primary btn-large">
                 {hasJourney ? 'Resume the Road' : 'Begin the Journey'}
               </Link>
@@ -84,6 +85,7 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* EXPERIENCE / MAP INTRODUCTION SECTION */}
       <section className="experience-section">
         <div className="journey-background"></div>
         <div className="container experience-content">
@@ -109,6 +111,7 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* HOW IT WORKS */}
       <section className="how-section container">
         <div className="how-steps">
           <div className="how-step glass-panel">
@@ -132,16 +135,11 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* FOREST TRANSITION SECTION */}
       <section className="forest-section">
         <div className="forest-background">
           <img src="/images/forest_weather.png" alt="The Forest of Other People's Weather" className="forest-img" />
           <div className="forest-graduated-shadow"></div>
-        </div>
-        
-        <div className="section-route-line">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M50 0 C 40 30, 20 70, 30 100" />
-          </svg>
         </div>
         
         <div className="container forest-content">
@@ -152,27 +150,12 @@ export default function Landing() {
               Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers.
             </p>
             <Link to="/library/field-guide" className="inline-link">ENTER THE FOREST &rarr;</Link>
-            
-            <div className="weather-mark">
-              <svg viewBox="0 0 40 40" stroke="var(--color-brass)" fill="none" strokeWidth="1" opacity="0.4">
-                <circle cx="20" cy="20" r="15" strokeDasharray="2 4"/>
-                <path d="M5 20 Q 20 5 35 20" />
-                <path d="M10 25 Q 20 15 30 25" />
-              </svg>
-            </div>
           </div>
         </div>
       </section>
 
+      {/* OBJECT SYMBOLS CAROUSEL SECTION */}
       <section className="symbols-section">
-        <div className="symbols-texture"></div>
-        
-        <div className="section-route-line">
-          <svg viewBox="0 0 100 100" preserveAspectRatio="none">
-            <path d="M30 0 C 50 30, 70 70, 50 100" />
-          </svg>
-        </div>
-        
         <div className="container symbols-content">
           <div className="symbols-header">
             <h2>The Symbols You May Carry</h2>
@@ -181,15 +164,24 @@ export default function Landing() {
           <div className="symbols-grid" id="symbols-carousel">
             {objects.map((obj, i) => (
               <div key={obj.id} className="symbol-card layered-card" tabIndex={0} data-index={i} aria-hidden={activeIndex !== i}>
-                <div className="card-light-glow"></div>
-                <div className="card-texture"></div>
-                <img src={obj.image} alt={obj.name} className="symbol-icon" />
+                <picture className="symbol-image-area">
+                  <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
+                  <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
+                  <img 
+                    src={obj.image} 
+                    alt={obj.name} 
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
                 <h3>{obj.name}</h3>
                 <p>{obj.description}</p>
-                <div style={{marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                <div style={{marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
                   <button 
                     className="btn btn-primary" 
-                    style={{fontSize: '0.8rem', padding: '0.5rem', cursor: 'pointer'}}
+                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', cursor: 'pointer'}}
                     onClick={(e) => {
                       e.preventDefault();
                       selectObject(obj.id);
@@ -201,9 +193,9 @@ export default function Landing() {
                   <Link 
                     to={`/library/inventory`} 
                     className="btn" 
-                    style={{fontSize: '0.8rem', padding: '0.5rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.1)'}}
+                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)'}}
                   >
-                    VIEW IN THE INVENTORY
+                    VIEW IN INVENTORY
                   </Link>
                 </div>
               </div>
@@ -225,8 +217,8 @@ export default function Landing() {
         </div>
       </section>
 
+      {/* ARCHIVE / SIGNUP SECTION */}
       <section id="join" className="archive-section">
-        <div className="archive-texture"></div>
         <div className="container archive-container">
           <div className="archive-editorial">
             <span className="small-label">FROM THE CARTOGRAPHER'S ARCHIVE</span>
@@ -256,12 +248,13 @@ export default function Landing() {
         </div>
       </section>
       
+      {/* FOOTER */}
       <footer className="site-footer">
-        <div className="container" style={{textAlign: 'center', padding: '4rem 0'}}>
-          <h3 style={{fontFamily: 'var(--font-display)', fontSize: '1.5rem', marginBottom: '2rem', color: 'var(--color-parchment)'}}>
+        <div className="container" style={{textAlign: 'center', padding: '2.5rem 0'}}>
+          <h3 style={{fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-parchment)'}}>
             Continue exploring the world surrounding the forthcoming book How to Explain Yourself to Wolves.
           </h3>
-          <div style={{display: 'flex', gap: '2rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '3rem'}}>
+          <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem'}}>
             <Link to="/archive" className="inline-link">Explore the Archive</Link>
             <Link to="/library" className="inline-link">Visit the Valley Library</Link>
             <Link to="/dear-red" className="inline-link">Write to Dear Red</Link>

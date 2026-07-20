@@ -12,9 +12,10 @@ dist
 dist-ssr
 *.local
 
-# Test outputs
+# Test & scratch outputs
 playwright-report/
 test-results/
+scratch/
 
 # Editor directories and files
 .vscode/*

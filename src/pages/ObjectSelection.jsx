@@ -83,9 +83,18 @@ export default function ObjectSelection() {
               onClick={(e) => handleSelect(obj.id, e)}
               aria-pressed={selectedId === obj.id}
             >
-              <div className="object-image">
-                <img src={obj.image} alt={obj.name} />
-              </div>
+              <picture className="object-image-area">
+                <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
+                <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
+                <img 
+                  src={obj.image} 
+                  alt={obj.name}
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
               <h3>{obj.name}</h3>
               <p>{obj.description}</p>
             </button>
