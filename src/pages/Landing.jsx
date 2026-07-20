@@ -7,45 +7,12 @@ import './Landing.css';
 
 export default function Landing() {
   const [hasJourney, setHasJourney] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
   const { selectObject, getActiveJourney } = useJourneyState();
   const navigate = useNavigate();
 
   useEffect(() => {
     setHasJourney(!!getActiveJourney());
-
-    const carousel = document.getElementById('symbols-carousel');
-    if (!carousel) return;
-
-    const cards = carousel.querySelectorAll('.symbol-card');
-    
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const index = Number(entry.target.getAttribute('data-index'));
-            setActiveIndex(index);
-          }
-        });
-      },
-      {
-        root: carousel,
-        threshold: 0.6
-      }
-    );
-
-    cards.forEach(card => observer.observe(card));
-
-    return () => observer.disconnect();
   }, []);
-
-  const scrollToSlide = (index) => {
-    const carousel = document.getElementById('symbols-carousel');
-    const cards = carousel.querySelectorAll('.symbol-card');
-    if (cards[index]) {
-      cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-  };
 
   const getObjectSlug = (id) => {
     switch(id) {
@@ -100,7 +67,7 @@ export default function Landing() {
           <div className="hero-text-panel">
             <span className="location-label">AN INTERACTIVE LITERARY EXPERIENCE</span>
             <h1 className="hero-title">
-              How to Explain Yourself<br />to <span className="title-highlight">Wolves</span>
+              How to Explain Yourself<br className="hero-title-break" />to <span className="title-highlight">Wolves</span>
             </h1>
             <p className="hero-desc">
               An interactive journey through the maps we inherit, the weather we mistake for our own, and the exhausting hope that the right explanation might finally make us safe.
@@ -108,11 +75,11 @@ export default function Landing() {
             <p className="hero-question">
               What will you do when the road asks for your name?
             </p>
-            <div className="hero-actions" style={{display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center'}}>
+            <div className="hero-actions">
               <Link to="/journey" className="btn btn-primary btn-large">
                 {hasJourney ? 'Resume the Road' : 'Begin the Journey'}
               </Link>
-              <Link to="/archive" className="btn btn-large" style={{background: 'rgba(6, 14, 12, 0.8)', border: '1px solid rgba(230, 220, 195, 0.2)', color: 'var(--color-bone)'}}>
+              <Link to="/archive" className="btn btn-secondary-dark btn-large">
                 Enter the Archive
               </Link>
             </div>
@@ -140,10 +107,10 @@ export default function Landing() {
               className="section-bg-img" 
             />
           </picture>
-          <div className="section-dark-overlay"></div>
+          <div className="premise-localized-overlay"></div>
         </div>
         <div className="container premise-content">
-          <div className="premise-panel">
+          <div className="premise-editorial-panel">
             <span className="small-label">THE PREMISE</span>
             <blockquote className="premise-quote">
               "We spend years translating ourselves for rooms that have already decided who we are. This project is an investigation into the weather we carry, the silence we swallow, and the peace that arrives when you stop convincing wolves not to bite."
@@ -168,12 +135,12 @@ export default function Landing() {
               className="section-bg-img" 
             />
           </picture>
-          <div className="section-dark-overlay"></div>
+          <div className="journey-localized-overlay"></div>
         </div>
         <div className="container experience-content">
-          <div className="experience-copy field-note-panel">
+          <div className="journey-asymmetric-panel">
             <span className="small-label">HOW THE JOURNEY WORKS</span>
-            <h2 style={{ marginBottom: '1.5rem', color: 'var(--color-parchment)' }}>The Path Through the Valley</h2>
+            <h2 className="section-h2">The Path Through the Valley</h2>
             <div className="how-steps-list">
               <div className="how-step-item">
                 <span className="step-badge">01</span>
@@ -207,65 +174,89 @@ export default function Landing() {
       {/* 4. FEATURED ARCHIVE ENTRY */}
       <section className="featured-archive-section">
         <div className="container">
-          <div className="featured-archive-card field-note-panel">
-            <span className="small-label">ROOM I — FEATURED FIELD GUIDE ESSAY</span>
-            <h2 className="featured-essay-title">Other People's Weather</h2>
-            <blockquote className="featured-essay-excerpt">
-              "Not every storm that fills a room was created by the person standing in it. Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers."
-            </blockquote>
-            <Link to="/archive/field-guide/other-peoples-weather" className="inline-link" style={{ marginTop: '1.25rem' }}>
-              Read Field Guide Entry &rarr;
-            </Link>
+          <div className="featured-archive-layout">
+            <div className="featured-archive-media">
+              <picture>
+                <source srcSet="/images/artwork/archive-detail.avif" type="image/avif" />
+                <source srcSet="/images/artwork/archive-detail.webp" type="image/webp" />
+                <img 
+                  src="/images/artwork/archive-detail.jpg" 
+                  alt="Atmospheric archive document details" 
+                  width="2752"
+                  height="1536"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </picture>
+            </div>
+            <div className="featured-archive-copy">
+              <span className="small-label">ROOM I — FEATURED FIELD GUIDE ESSAY</span>
+              <h2 className="featured-essay-title">Other People's Weather</h2>
+              <blockquote className="featured-essay-excerpt">
+                "Not every storm that fills a room was created by the person standing in it. Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers."
+              </blockquote>
+              <div style={{ marginTop: '1.75rem' }}>
+                <Link to="/archive/field-guide/other-peoples-weather" className="btn btn-secondary-light">
+                  Read Field Guide Entry &rarr;
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* 5. THE SIX OBJECTS (MUSEUM CATALOGUE PRESENTATION) */}
+      {/* 5. THE SIX OBJECTS (MUSEUM CATALOGUE GRID: 3x2 Desktop, 2x3 Tablet, 1x6 Mobile) */}
       <section className="symbols-section">
-        <div className="container symbols-content">
+        <div className="container">
           <div className="symbols-header">
             <span className="small-label">ROOM II — THE INVENTORY</span>
-            <h2>The Six Symbolic Objects</h2>
-            <p>Examine what each item protected, what it cost to carry, and what happens when it is set down.</p>
+            <h2 className="section-h2">The Six Symbolic Objects</h2>
+            <p className="section-intro-desc">
+              Examine what each item protected, what it cost to carry, and what happens when it is set down.
+            </p>
           </div>
-          <div className="symbols-grid" id="symbols-carousel">
-            {objects.map((obj, i) => (
-              <div key={obj.id} className="symbol-card layered-card" tabIndex={0} data-index={i} aria-hidden={activeIndex !== i}>
-                <picture className="symbol-image-area">
-                  <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
-                  <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
-                  <img 
-                    src={obj.image} 
-                    alt={obj.name} 
-                    width="800"
-                    height="800"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-                <span className="detail-label" style={{ color: 'var(--color-brass)', marginBottom: '0.25rem' }}>
-                  {getCatalogueNumber(obj.id)}
-                </span>
-                <h3>{obj.name}</h3>
-                <p>{obj.description}</p>
-                <div style={{marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%'}}>
+          
+          <div className="symbols-3x2-grid">
+            {objects.map((obj) => (
+              <div key={obj.id} className="symbol-museum-card">
+                <div className="symbol-stage">
+                  <picture>
+                    <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
+                    <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
+                    <img 
+                      src={obj.image} 
+                      alt={obj.name} 
+                      width="800"
+                      height="800"
+                      loading="lazy"
+                      decoding="async"
+                      className="symbol-rendered-img"
+                    />
+                  </picture>
+                </div>
+                
+                <span className="symbol-cat-num">{getCatalogueNumber(obj.id)}</span>
+                <h3 className="symbol-title">{obj.name}</h3>
+                <p className="symbol-desc">{obj.description}</p>
+                
+                <div className="symbol-actions">
                   <button 
-                    className="btn btn-primary" 
-                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', cursor: 'pointer', width: '100%'}}
+                    className="btn btn-primary btn-sm"
+                    aria-label={`Carry the ${obj.name} into the Journey`}
                     onClick={(e) => {
                       e.preventDefault();
                       selectObject(obj.id);
                       navigate('/journey/stage/valley');
                     }}
                   >
-                    Carry This Into the Journey
+                    Carry This
                   </button>
                   <Link 
                     to={`/archive/inventory/${getObjectSlug(obj.id)}`} 
-                    className="btn" 
-                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', width: '100%', textDecoration: 'none'}}
+                    className="btn btn-ghost-sm"
+                    aria-label={`Examine the ${obj.name} in the Inventory`}
                   >
-                    Examine in Inventory &rarr;
+                    Examine in Inventory
                   </Link>
                 </div>
               </div>
@@ -274,15 +265,15 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* 6. PARTICIPATORY ROOMS (DEAR RED & UNSAID WALL) */}
+      {/* 6. PARTICIPATORY ROOMS */}
       <section className="participatory-section">
         <div className="container">
           <div className="participatory-grid">
             
             {/* Dear Red Panel */}
-            <div className="participatory-card field-note-panel">
+            <div className="participatory-card">
               <span className="small-label">PRIVATE LETTER ROOM</span>
-              <h3>Dear Red</h3>
+              <h3 className="participatory-title">Dear Red</h3>
               <p className="participatory-subtitle">"Write to the version of yourself who kept explaining."</p>
               <p className="participatory-desc">
                 Letters for the selves we abandoned while trying to be understood. Submitted letters remain strictly private by default.
@@ -293,9 +284,9 @@ export default function Landing() {
             </div>
 
             {/* Unsaid Wall Panel */}
-            <div className="participatory-card field-note-panel">
+            <div className="participatory-card">
               <span className="small-label">PUBLIC TACTILE WALL</span>
-              <h3>Things I Should Have Said</h3>
+              <h3 className="participatory-title">Things I Should Have Said</h3>
               <p className="participatory-subtitle">"What did you need to say when it was no longer safe to say it?"</p>
               <p className="participatory-desc">
                 An anonymous wall of tactile paper fragments (max 300 chars) left behind after the conversation ended.
@@ -376,7 +367,7 @@ export default function Landing() {
               </ul>
             </div>
 
-            {/* Col 4: Manuscript & Legal */}
+            {/* Col 4: Manuscript & Info */}
             <div className="footer-col">
               <span className="footer-col-title">MANUSCRIPT & INFO</span>
               <ul className="footer-links">

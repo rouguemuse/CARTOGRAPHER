@@ -4,7 +4,68 @@
   color: var(--color-parchment);
 }
 
-/* 1. HERO SECTION */
+.landing-page .container {
+  width: min(100% - 40px, 1220px);
+  margin: 0 auto;
+}
+
+/* Button Variants & Hierarchy */
+.btn-secondary-dark {
+  background: rgba(6, 14, 12, 0.75);
+  border: 1px solid rgba(230, 220, 195, 0.25);
+  color: var(--color-parchment);
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-dark:hover {
+  background: rgba(18, 32, 28, 0.9);
+  border-color: var(--color-brass);
+  color: var(--color-parchment);
+}
+
+.btn-secondary-light {
+  background: rgba(230, 220, 195, 0.1);
+  border: 1px solid var(--color-brass);
+  color: var(--color-parchment);
+  padding: 0.6rem 1.25rem;
+  font-size: 14px;
+  font-family: var(--font-ui);
+  text-decoration: none;
+  border-radius: 4px;
+  display: inline-block;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary-light:hover {
+  background: var(--color-brass);
+  color: var(--color-charcoal);
+}
+
+.btn-sm {
+  padding: 0.5rem 0.85rem;
+  font-size: 14px;
+}
+
+.btn-ghost-sm {
+  background: transparent;
+  border: 1px solid rgba(230, 220, 195, 0.2);
+  color: var(--color-bone);
+  padding: 0.5rem 0.85rem;
+  font-size: 14px;
+  font-family: var(--font-ui);
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.btn-ghost-sm:hover {
+  border-color: var(--color-brass);
+  color: var(--color-parchment);
+  background: rgba(230, 220, 195, 0.05);
+}
+
+/* 1. CINEMATIC HERO SECTION */
 .hero-section {
   position: relative;
   min-height: clamp(550px, 85vh, 800px);
@@ -35,11 +96,11 @@
   display: block;
 }
 
-/* Localized gradient behind hero text panel */
+/* Localized darkening overlay focused behind hero text panel */
 .hero-localized-gradient {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(6, 14, 12, 0.45) 0%, rgba(6, 14, 12, 0.85) 100%);
+  background: radial-gradient(circle at center, rgba(6, 14, 12, 0.4) 0%, rgba(6, 14, 12, 0.8) 100%);
   pointer-events: none;
 }
 
@@ -53,14 +114,24 @@
 }
 
 .hero-text-panel {
-  max-width: 66ch;
+  max-width: 68ch;
   background: rgba(6, 14, 12, 0.65);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  padding: 2.5rem 2rem;
+  padding: 2.75rem 2.25rem;
   border-radius: 6px;
   border: 1px solid rgba(230, 220, 195, 0.18);
   box-shadow: 0 16px 36px rgba(0,0,0,0.4);
+}
+
+.hero-title-break {
+  display: none;
+}
+
+@media (min-width: 600px) {
+  .hero-title-break {
+    display: block;
+  }
 }
 
 .hero-title {
@@ -93,6 +164,13 @@
   margin-bottom: 2rem;
 }
 
+.hero-actions {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 .hero-scroll-indicator {
   position: absolute;
   bottom: 1.5rem;
@@ -105,7 +183,7 @@
 /* 2. THE PREMISE SECTION */
 .premise-section {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
   overflow: hidden;
 }
 
@@ -122,10 +200,11 @@
   display: block;
 }
 
-.section-dark-overlay {
+/* Localized non-blanket overlay revealing artwork */
+.premise-localized-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(6, 14, 12, 0.78);
+  background: radial-gradient(circle at center, rgba(6, 14, 12, 0.45) 0%, rgba(6, 14, 12, 0.75) 100%);
 }
 
 .premise-content {
@@ -135,10 +214,12 @@
   justify-content: center;
 }
 
-.premise-panel {
+.premise-editorial-panel {
   max-width: 64ch;
-  background: var(--surface-panel);
-  border: 1px solid var(--surface-border);
+  background: rgba(6, 14, 12, 0.55);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(230, 220, 195, 0.15);
   padding: 3rem 2.5rem;
   border-radius: 4px;
   text-align: center;
@@ -156,30 +237,45 @@
 /* 3. HOW THE JOURNEY WORKS */
 .experience-section {
   position: relative;
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
+}
+
+.journey-localized-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(6, 14, 12, 0.85) 0%, rgba(6, 14, 12, 0.45) 60%, rgba(6, 14, 12, 0.2) 100%);
 }
 
 .experience-content {
   position: relative;
   z-index: 2;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
-.field-note-panel {
-  background: var(--surface-panel);
+.journey-asymmetric-panel {
+  background: rgba(6, 14, 12, 0.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--surface-border);
-  padding: 2.5rem;
+  padding: 2.75rem 2.5rem;
   border-radius: 4px;
-  max-width: 68ch;
+  max-width: 62ch;
   width: 100%;
+}
+
+.section-h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  color: var(--color-parchment);
+  margin-bottom: 1rem;
 }
 
 .how-steps-list {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
 .how-step-item {
@@ -190,7 +286,7 @@
 
 .step-badge {
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: 13px;
   font-weight: 700;
   color: var(--color-crimson);
   background: rgba(179, 33, 29, 0.15);
@@ -201,33 +297,63 @@
 
 .how-step-item h4 {
   font-family: var(--font-ui);
-  font-size: var(--text-sm);
+  font-size: 14px;
   letter-spacing: 0.1em;
   color: var(--color-parchment);
   margin-bottom: 0.35rem;
 }
 
 .how-step-item p {
-  font-size: var(--text-sm);
+  font-size: 15px;
   color: var(--color-bone);
   line-height: 1.55;
   margin: 0;
 }
 
-/* 4. FEATURED ARCHIVE ENTRY */
+/* 4. FEATURED ARCHIVE ENTRY (SUBSTANTIAL 2-COLUMN LAYOUT) */
 .featured-archive-section {
-  padding: 4rem 0;
-  background: rgba(0, 0, 0, 0.2);
+  padding: clamp(3.5rem, 6vw, 5.5rem) 0;
+  background: rgba(0, 0, 0, 0.25);
+  border-top: 1px solid var(--surface-border);
+  border-bottom: 1px solid var(--surface-border);
 }
 
-.featured-archive-card {
-  margin: 0 auto;
-  text-align: left;
+.featured-archive-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  align-items: center;
+  background: var(--surface-panel);
+  border: 1px solid var(--surface-border);
+  border-radius: 4px;
+  padding: 2.5rem;
+}
+
+@media (min-width: 900px) {
+  .featured-archive-layout {
+    grid-template-columns: 42% 1fr;
+    gap: 3.5rem;
+    padding: 3rem;
+  }
+}
+
+.featured-archive-media {
+  width: 100%;
+  height: clamp(200px, 30vh, 280px);
+  overflow: hidden;
+  border-radius: 4px;
+  border: 1px solid var(--surface-border);
+}
+
+.featured-archive-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .featured-essay-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   color: var(--color-parchment);
   margin: 0.5rem 0 1rem;
 }
@@ -243,42 +369,62 @@
   margin: 0;
 }
 
-/* 5. THE SIX OBJECTS */
+/* 5. THE SIX OBJECTS (EXACTLY 3x2 DESKTOP, 2x3 TABLET, 1x6 MOBILE) */
 .symbols-section {
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
   background: rgba(6, 14, 12, 0.95);
 }
 
 .symbols-header {
   text-align: center;
-  max-width: 60ch;
+  max-width: 62ch;
   margin: 0 auto 3rem;
 }
 
-.symbols-grid {
+.section-intro-desc {
+  font-size: var(--text-reading);
+  color: var(--color-bone);
+  margin-top: 0.5rem;
+}
+
+.symbols-3x2-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2rem;
 }
 
-.symbol-card {
+@media (min-width: 680px) and (max-width: 1023px) {
+  .symbols-3x2-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .symbols-3x2-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+}
+
+.symbol-museum-card {
   background: var(--surface-card);
   border: 1px solid var(--surface-border);
   padding: 1.75rem;
   border-radius: 4px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  justify-content: space-between;
+  height: 100%;
   transition: transform 0.25s ease, border-color 0.25s ease;
 }
 
-.symbol-card:hover {
+.symbol-museum-card:hover {
   transform: translateY(-4px);
   border-color: var(--color-brass);
 }
 
-.symbol-image-area {
+.symbol-stage {
   width: 100%;
   height: 160px;
   display: flex;
@@ -290,25 +436,93 @@
   padding: 1rem;
 }
 
-.symbol-image-area img {
-  max-width: 75%;
-  max-height: 75%;
+@media (max-width: 679px) {
+  .symbol-stage {
+    height: 145px;
+  }
+}
+
+.symbol-rendered-img {
+  max-width: 80%;
+  max-height: 135px;
   object-fit: contain;
+  margin: 0 auto;
+}
+
+@media (max-width: 679px) {
+  .symbol-rendered-img {
+    max-height: 120px;
+  }
+}
+
+.symbol-cat-num {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--color-brass);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.symbol-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-parchment);
+  margin-bottom: 0.5rem;
+}
+
+.symbol-desc {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--color-bone);
+  margin-bottom: 1.5rem;
+}
+
+.symbol-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: auto;
+  width: 100%;
+}
+
+.symbol-actions .btn {
+  width: 100%;
+  text-align: center;
 }
 
 /* 6. PARTICIPATORY ROOMS */
 .participatory-section {
-  padding: clamp(4rem, 8vw, 6rem) 0;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
   background: rgba(0, 0, 0, 0.3);
+  border-top: 1px solid var(--surface-border);
 }
 
 .participatory-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: 1fr;
   gap: 2.5rem;
 }
 
-.participatory-card h3 {
+@media (min-width: 800px) {
+  .participatory-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+.participatory-card {
+  background: var(--surface-panel);
+  border: 1px solid var(--surface-border);
+  padding: 2.5rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.participatory-title {
   font-family: var(--font-display);
   font-size: 1.8rem;
   color: var(--color-parchment);
@@ -324,23 +538,29 @@
 }
 
 .participatory-desc {
-  font-size: var(--text-sm);
+  font-size: 15px;
   color: var(--color-bone);
   line-height: 1.6;
 }
 
 /* 7. ARCHIVE & BOOK SIGNUP */
 .archive-section {
-  padding: clamp(4rem, 8vw, 7rem) 0;
+  padding: clamp(4rem, 7vw, 6.5rem) 0;
   background: rgba(6, 14, 12, 0.98);
   border-top: 1px solid var(--surface-border);
 }
 
 .archive-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-template-columns: 1fr;
   gap: 3.5rem;
   align-items: center;
+}
+
+@media (min-width: 900px) {
+  .archive-container {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 .archive-headline {
@@ -355,7 +575,7 @@
   display: flex;
   gap: 1.5rem;
   margin-bottom: 0.5rem;
-  font-size: var(--text-xs);
+  font-size: 13px;
 }
 
 .detail-label {
@@ -373,14 +593,27 @@
 .site-footer {
   background: #040908;
   border-top: 1px solid var(--surface-border);
-  padding: 4rem 0 3rem;
+  padding: 4.5rem 0 3.5rem;
   color: var(--color-bone);
 }
 
 .footer-sitemap {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: 1fr;
   gap: 3rem;
+}
+
+@media (min-width: 600px) {
+  .footer-sitemap {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .footer-sitemap {
+    grid-template-columns: 32% repeat(3, 1fr);
+    gap: 3rem;
+  }
 }
 
 .footer-brand-title {
@@ -391,20 +624,20 @@
 }
 
 .footer-brand-desc {
-  font-size: var(--text-xs);
+  font-size: 14px;
   line-height: 1.6;
   color: var(--color-bone);
   margin-bottom: 1.5rem;
 }
 
 .footer-copy {
-  font-size: var(--text-xs);
+  font-size: 13px;
   color: rgba(255, 255, 255, 0.4);
 }
 
 .footer-col-title {
   font-family: var(--font-ui);
-  font-size: var(--text-xs);
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.15em;
   color: var(--color-brass);
@@ -424,10 +657,18 @@
 .footer-links a {
   color: var(--color-bone);
   text-decoration: none;
-  font-size: var(--text-sm);
+  font-size: 14px;
   transition: color 0.2s ease;
 }
 
 .footer-links a:hover {
   color: var(--color-crimson);
+}
+
+.small-label {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: var(--color-brass);
+  display: block;
 }
