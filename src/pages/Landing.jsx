@@ -47,19 +47,58 @@ export default function Landing() {
     }
   };
 
+  const getObjectSlug = (id) => {
+    switch(id) {
+      case 'red_coat': return 'red-coat';
+      case 'red_string': return 'red-thread';
+      case 'red_crane': return 'red-crane';
+      case 'red_envelope': return 'red-letter';
+      case 'compass': return 'compass';
+      case 'lantern': return 'lantern';
+      default: return id;
+    }
+  };
+
+  const getCatalogueNumber = (id) => {
+    switch(id) {
+      case 'red_coat': return 'CAT-OBJ-001';
+      case 'red_string': return 'CAT-OBJ-002';
+      case 'red_crane': return 'CAT-OBJ-003';
+      case 'red_envelope': return 'CAT-OBJ-004';
+      case 'compass': return 'CAT-OBJ-005';
+      case 'lantern': return 'CAT-OBJ-006';
+      default: return 'CAT-OBJ-000';
+    }
+  };
+
   return (
     <div className="landing-page">
       
-      {/* HERO SECTION */}
+      {/* 1. CINEMATIC HERO */}
       <section className="hero-section">
         <div className="hero-background">
-          <img src="/images/hero_artwork.png" alt="Atmospheric landscape with fireflies and a dark forest" className="hero-img" />
-          <div className="hero-radial-darken"></div>
+          <picture className="hero-artwork-picture">
+            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.avif" type="image/avif" />
+            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.webp" type="image/webp" />
+            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.jpg" type="image/jpeg" />
+            <source media="(max-width: 599px)" srcSet="/images/artwork/hero-mobile.avif" type="image/avif" />
+            <source media="(max-width: 599px)" srcSet="/images/artwork/hero-mobile.webp" type="image/webp" />
+            <img 
+              src="/images/artwork/hero-mobile.jpg" 
+              alt="How to Explain Yourself to Wolves territory map" 
+              width="1344" 
+              height="768" 
+              loading="eager" 
+              fetchPriority="high" 
+              className="hero-img" 
+            />
+          </picture>
+          <div className="hero-localized-gradient"></div>
         </div>
         
         <div className="hero-content container">
           <div className="hero-text-panel">
-            <span className="location-label">The Territory</span>
+            <span className="location-label">AN INTERACTIVE LITERARY EXPERIENCE</span>
             <h1 className="hero-title">
               How to Explain Yourself<br />to <span className="title-highlight">Wolves</span>
             </h1>
@@ -73,8 +112,8 @@ export default function Landing() {
               <Link to="/journey" className="btn btn-primary btn-large">
                 {hasJourney ? 'Resume the Road' : 'Begin the Journey'}
               </Link>
-              <Link to="/archive" className="btn btn-large" style={{background: 'rgba(6, 14, 12, 0.8)', border: '1px solid rgba(230, 220, 195, 0.14)', color: 'var(--color-bone)'}}>
-                Explore the Archive
+              <Link to="/archive" className="btn btn-large" style={{background: 'rgba(6, 14, 12, 0.8)', border: '1px solid rgba(230, 220, 195, 0.2)', color: 'var(--color-bone)'}}>
+                Enter the Archive
               </Link>
             </div>
           </div>
@@ -85,81 +124,109 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* EXPERIENCE / MAP INTRODUCTION SECTION */}
+      {/* 2. THE PREMISE */}
+      <section className="premise-section">
+        <div className="premise-background">
+          <picture>
+            <source srcSet="/images/artwork/archive-premise.avif" type="image/avif" />
+            <source srcSet="/images/artwork/archive-premise.webp" type="image/webp" />
+            <img 
+              src="/images/artwork/archive-premise.jpg" 
+              alt="Atmospheric territory horizon" 
+              width="2752" 
+              height="1536" 
+              loading="lazy" 
+              decoding="async" 
+              className="section-bg-img" 
+            />
+          </picture>
+          <div className="section-dark-overlay"></div>
+        </div>
+        <div className="container premise-content">
+          <div className="premise-panel">
+            <span className="small-label">THE PREMISE</span>
+            <blockquote className="premise-quote">
+              "We spend years translating ourselves for rooms that have already decided who we are. This project is an investigation into the weather we carry, the silence we swallow, and the peace that arrives when you stop convincing wolves not to bite."
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. HOW THE JOURNEY WORKS */}
       <section className="experience-section">
-        <div className="journey-background"></div>
+        <div className="journey-background">
+          <picture>
+            <source srcSet="/images/artwork/journey-explanation.avif" type="image/avif" />
+            <source srcSet="/images/artwork/journey-explanation.webp" type="image/webp" />
+            <img 
+              src="/images/artwork/journey-explanation.jpg" 
+              alt="The territory path" 
+              width="2560" 
+              height="1440" 
+              loading="lazy" 
+              decoding="async" 
+              className="section-bg-img" 
+            />
+          </picture>
+          <div className="section-dark-overlay"></div>
+        </div>
         <div className="container experience-content">
           <div className="experience-copy field-note-panel">
-            <div className="compass-detail">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1"><circle cx="12" cy="12" r="10"/><path d="M12 2 L14 12 L12 22 L10 12 Z"/></svg>
+            <span className="small-label">HOW THE JOURNEY WORKS</span>
+            <h2 style={{ marginBottom: '1.5rem', color: 'var(--color-parchment)' }}>The Path Through the Valley</h2>
+            <div className="how-steps-list">
+              <div className="how-step-item">
+                <span className="step-badge">01</span>
+                <div>
+                  <h4>CHOOSE WHAT YOU CARRY</h4>
+                  <p>Select one of six symbolic objects to frame every question you will be asked.</p>
+                </div>
+              </div>
+              <div className="how-step-item">
+                <span className="step-badge">02</span>
+                <div>
+                  <h4>NAVIGATE FIVE ENCOUNTERS</h4>
+                  <p>Face situation encounters of misunderstanding, coercion, and borrowed weather.</p>
+                </div>
+              </div>
+              <div className="how-step-item">
+                <span className="step-badge">03</span>
+                <div>
+                  <h4>RECEIVE YOUR MAP</h4>
+                  <p>Receive your personalized map snapshot with route annotations drawn from your choices.</p>
+                </div>
+              </div>
             </div>
-            <h2>The Journey</h2>
-            <p>
-              You will be asked what you carry, how you respond to unfamiliar weather, what you offer the wolves, and what you are finally willing to leave behind. Your choices will alter the language, symbols, and final map you receive.
-            </p>
-            <p>
-              No two journeys arrive at the same destination.
-            </p>
-            <Link to="/journey" className="inline-link" style={{marginTop: '1.5rem', display: 'inline-block'}}>BEGIN THE JOURNEY &rarr;</Link>
-          </div>
-          
-          <div className="map-trail">
-            <svg className="trail-route" viewBox="0 0 200 600" preserveAspectRatio="none">
-              <path d="M 40 48 C 100 48, 150 100, 150 150 C 150 220, 80 230, 80 300 C 80 380, 140 380, 140 450 C 140 500, 110 500, 110 552 C 110 580, 100 590, 100 600" />
-            </svg>
+            <Link to="/journey" className="btn btn-primary" style={{ marginTop: '2rem', display: 'inline-block' }}>
+              Begin the Journey
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* HOW IT WORKS */}
-      <section className="how-section container">
-        <div className="how-steps">
-          <div className="how-step glass-panel">
-            <span className="step-num">01</span>
-            <h3>CHOOSE YOUR OBJECT</h3>
-            <p>Select the item you carry into the valley. It frames every question you will be asked.</p>
-          </div>
-          <div className="how-step glass-panel">
-            <span className="step-num">02</span>
-            <h3>NAVIGATE FIVE CHAPTERS</h3>
-            <p>Each location presents a situation. Your choices are recorded, not scored.</p>
-          </div>
-          <div className="how-step glass-panel">
-            <span className="step-num">03</span>
-            <h3>RECEIVE YOUR MAP</h3>
-            <p>Receive a personal route with annotations drawn from your choices.</p>
-          </div>
-        </div>
-        <div className="how-cta">
-          <Link to="/journey" className="btn btn-primary btn-large">Begin the Journey</Link>
-        </div>
-      </section>
-
-      {/* FOREST TRANSITION SECTION */}
-      <section className="forest-section">
-        <div className="forest-background">
-          <img src="/images/forest_weather.png" alt="The Forest of Other People's Weather" className="forest-img" />
-          <div className="forest-graduated-shadow"></div>
-        </div>
-        
-        <div className="container forest-content">
-          <div className="forest-text-panel field-note-panel narrow-panel">
-            <span className="small-label">THE FOREST OF OTHER PEOPLE'S WEATHER</span>
-            <h2 className="main-line">Not every storm belongs to you.</h2>
-            <p>
-              Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers.
-            </p>
-            <Link to="/library/field-guide" className="inline-link">ENTER THE FOREST &rarr;</Link>
+      {/* 4. FEATURED ARCHIVE ENTRY */}
+      <section className="featured-archive-section">
+        <div className="container">
+          <div className="featured-archive-card field-note-panel">
+            <span className="small-label">ROOM I — FEATURED FIELD GUIDE ESSAY</span>
+            <h2 className="featured-essay-title">Other People's Weather</h2>
+            <blockquote className="featured-essay-excerpt">
+              "Not every storm that fills a room was created by the person standing in it. Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers."
+            </blockquote>
+            <Link to="/archive/field-guide/other-peoples-weather" className="inline-link" style={{ marginTop: '1.25rem' }}>
+              Read Field Guide Entry &rarr;
+            </Link>
           </div>
         </div>
       </section>
 
-      {/* OBJECT SYMBOLS CAROUSEL SECTION */}
+      {/* 5. THE SIX OBJECTS (MUSEUM CATALOGUE PRESENTATION) */}
       <section className="symbols-section">
         <div className="container symbols-content">
           <div className="symbols-header">
-            <h2>The Symbols You May Carry</h2>
-            <p>The journey requires an object. Choose carefully.</p>
+            <span className="small-label">ROOM II — THE INVENTORY</span>
+            <h2>The Six Symbolic Objects</h2>
+            <p>Examine what each item protected, what it cost to carry, and what happens when it is set down.</p>
           </div>
           <div className="symbols-grid" id="symbols-carousel">
             {objects.map((obj, i) => (
@@ -176,52 +243,77 @@ export default function Landing() {
                     decoding="async"
                   />
                 </picture>
+                <span className="detail-label" style={{ color: 'var(--color-brass)', marginBottom: '0.25rem' }}>
+                  {getCatalogueNumber(obj.id)}
+                </span>
                 <h3>{obj.name}</h3>
                 <p>{obj.description}</p>
-                <div style={{marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
+                <div style={{marginTop: '1.25rem', display: 'flex', flexDirection: 'column', gap: '0.5rem', width: '100%'}}>
                   <button 
                     className="btn btn-primary" 
-                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', cursor: 'pointer'}}
+                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', cursor: 'pointer', width: '100%'}}
                     onClick={(e) => {
                       e.preventDefault();
                       selectObject(obj.id);
                       navigate('/journey/stage/valley');
                     }}
                   >
-                    CARRY THIS
+                    Carry This Into the Journey
                   </button>
                   <Link 
-                    to={`/library/inventory`} 
+                    to={`/archive/inventory/${getObjectSlug(obj.id)}`} 
                     className="btn" 
-                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)'}}
+                    style={{fontSize: 'var(--text-xs)', padding: '0.5rem', background: 'transparent', border: '1px solid rgba(255,255,255,0.15)', width: '100%', textDecoration: 'none'}}
                   >
-                    VIEW IN INVENTORY
+                    Examine in Inventory &rarr;
                   </Link>
                 </div>
               </div>
             ))}
           </div>
-          <p className="carousel-hint">Swipe to explore</p>
-          <div className="carousel-dots" role="tablist" aria-label="Object Selection">
-            {objects.map((_, i) => (
-              <button 
-                key={i} 
-                role="tab"
-                aria-selected={activeIndex === i}
-                aria-label={`Go to slide ${i + 1}`}
-                className={`carousel-dot${activeIndex === i ? ' active' : ''}`}
-                onClick={() => scrollToSlide(i)}
-              />
-            ))}
+        </div>
+      </section>
+
+      {/* 6. PARTICIPATORY ROOMS (DEAR RED & UNSAID WALL) */}
+      <section className="participatory-section">
+        <div className="container">
+          <div className="participatory-grid">
+            
+            {/* Dear Red Panel */}
+            <div className="participatory-card field-note-panel">
+              <span className="small-label">PRIVATE LETTER ROOM</span>
+              <h3>Dear Red</h3>
+              <p className="participatory-subtitle">"Write to the version of yourself who kept explaining."</p>
+              <p className="participatory-desc">
+                Letters for the selves we abandoned while trying to be understood. Submitted letters remain strictly private by default.
+              </p>
+              <Link to="/dear-red" className="btn btn-primary" style={{ marginTop: '1.5rem', display: 'inline-block' }}>
+                Write to Red &rarr;
+              </Link>
+            </div>
+
+            {/* Unsaid Wall Panel */}
+            <div className="participatory-card field-note-panel">
+              <span className="small-label">PUBLIC TACTILE WALL</span>
+              <h3>Things I Should Have Said</h3>
+              <p className="participatory-subtitle">"What did you need to say when it was no longer safe to say it?"</p>
+              <p className="participatory-desc">
+                An anonymous wall of tactile paper fragments (max 300 chars) left behind after the conversation ended.
+              </p>
+              <Link to="/things-i-should-have-said" className="btn btn-primary" style={{ marginTop: '1.5rem', display: 'inline-block' }}>
+                Visit the Wall &rarr;
+              </Link>
+            </div>
+
           </div>
         </div>
       </section>
 
-      {/* ARCHIVE / SIGNUP SECTION */}
+      {/* 7. THE BOOK & SIGNUP */}
       <section id="join" className="archive-section">
         <div className="container archive-container">
           <div className="archive-editorial">
-            <span className="small-label">FROM THE CARTOGRAPHER'S ARCHIVE</span>
+            <span className="small-label">FORTHCOMING MANUSCRIPT</span>
             <h2 className="archive-headline">This experience belongs to the world of the forthcoming book How to Explain Yourself to Wolves.</h2>
             <div className="archive-annotation">
               <div className="archive-details">
@@ -248,21 +340,53 @@ export default function Landing() {
         </div>
       </section>
       
-      {/* FOOTER */}
+      {/* 8. FOOTER WITH COMPLETE SITEMAP */}
       <footer className="site-footer">
-        <div className="container" style={{textAlign: 'center', padding: '2.5rem 0'}}>
-          <h3 style={{fontFamily: 'var(--font-display)', fontSize: '1.25rem', marginBottom: '1.5rem', color: 'var(--color-parchment)'}}>
-            Continue exploring the world surrounding the forthcoming book How to Explain Yourself to Wolves.
-          </h3>
-          <div style={{display: 'flex', gap: '1.5rem', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '2rem'}}>
-            <Link to="/archive" className="inline-link">Explore the Archive</Link>
-            <Link to="/library" className="inline-link">Visit the Valley Library</Link>
-            <Link to="/dear-red" className="inline-link">Write to Dear Red</Link>
-            <Link to="/book" className="inline-link">The Book</Link>
-            <Link to="/about" className="inline-link">About Jayme</Link>
-            <a href="#join" className="inline-link">Join the Book List</a>
+        <div className="container">
+          <div className="footer-sitemap">
+            {/* Col 1: Brand */}
+            <div className="footer-col">
+              <h4 className="footer-brand-title">How to Explain Yourself to Wolves</h4>
+              <p className="footer-brand-desc">
+                An interactive literary experience and editorial archive by Jayme Volstad.
+              </p>
+              <p className="footer-copy">© {new Date().getFullYear()} Jayme Volstad. All rights reserved.</p>
+            </div>
+
+            {/* Col 2: Archive */}
+            <div className="footer-col">
+              <span className="footer-col-title">THE ARCHIVE</span>
+              <ul className="footer-links">
+                <li><Link to="/archive">Archive Portal</Link></li>
+                <li><Link to="/archive/field-guide">The Field Guide</Link></li>
+                <li><Link to="/archive/inventory">The Inventory</Link></li>
+                <li><Link to="/archive/glossary">Glossary of Impossible Places</Link></li>
+              </ul>
+            </div>
+
+            {/* Col 3: Participate & Journey */}
+            <div className="footer-col">
+              <span className="footer-col-title">PARTICIPATE & JOURNEY</span>
+              <ul className="footer-links">
+                <li><Link to="/journey">The Journey</Link></li>
+                <li><Link to="/journey/field-notes">Field Notes</Link></li>
+                <li><Link to="/journey/maps-returned">Maps Returned</Link></li>
+                <li><Link to="/dear-red">Dear Red</Link></li>
+                <li><Link to="/things-i-should-have-said">Unsaid Wall</Link></li>
+              </ul>
+            </div>
+
+            {/* Col 4: Manuscript & Legal */}
+            <div className="footer-col">
+              <span className="footer-col-title">MANUSCRIPT & INFO</span>
+              <ul className="footer-links">
+                <li><Link to="/book">The Book</Link></li>
+                <li><Link to="/workbook">The Pilgrim Workbook</Link></li>
+                <li><Link to="/about">About Jayme</Link></li>
+                <li><a href="/#join">Join the Book List</a></li>
+              </ul>
+            </div>
           </div>
-          <p>© 2026 Jayme Volstad. All rights reserved.</p>
         </div>
       </footer>
     </div>

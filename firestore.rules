@@ -1,0 +1,50 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper: Check if request is from authenticated admin
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    // Raw Dear Red submissions — strictly private by default!
+    match /dear_red_submissions/{documentId} {
+      allow create: if true; // Public letter submission allowed
+      allow read, update, delete: if isAdmin(); // ONLY admin can read raw letters!
+    }
+
+    // Public Dear Red responses — public projection of anonymized excerpts & Cartographer responses
+    match /dear_red_public_responses/{documentId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    // Unsaid Wall submissions
+    match /wall_submissions/{documentId} {
+      allow create: if true; // Public submission allowed
+      allow read: if resource.data.status == 'approved' || isAdmin();
+      allow update, delete: if isAdmin();
+    }
+
+    // Archive collections (Field Guide, Inventory, Glossary, Legacy Articles)
+    match /field_guide_entries/{documentId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /inventory_objects/{documentId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /glossary_terms/{documentId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+
+    match /articles/{documentId} {
+      allow read: if resource.data.status == 'published' || isAdmin();
+      allow write: if isAdmin();
+    }
+  }
+}

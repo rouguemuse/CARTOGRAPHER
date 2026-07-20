@@ -1,0 +1,157 @@
+.archive-portal-page {
+  width: min(100% - 32px, 1240px);
+  margin: 0 auto;
+}
+
+.archive-portal-masthead {
+  border-bottom: 3px solid var(--paper-line);
+  padding-bottom: 2rem;
+  margin-bottom: 3.5rem;
+}
+
+.rooms-container {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+@media (min-width: 1100px) {
+  .rooms-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2.5rem;
+    align-items: stretch;
+  }
+}
+
+.portal-room {
+  background-color: var(--card);
+  border: 1px solid var(--paper-line);
+  padding: 2.25rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 4px;
+  position: relative;
+  transition: transform 0.25 ease, box-shadow 0.25s ease;
+}
+
+.portal-room:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.06);
+}
+
+/* Distinct Visual Languages for the 3 Rooms */
+.room-field-guide {
+  border-top: 4px solid var(--red);
+  background-color: #fdfbf7;
+}
+
+.room-inventory {
+  border-top: 4px solid var(--color-brass);
+  background-color: #f7f4ec;
+}
+
+.room-glossary {
+  border-top: 4px solid var(--color-storm-blue);
+  background-color: #f4f6f8;
+}
+
+.room-tag {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.room-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.2vw, 2rem);
+  margin-bottom: 0.75rem;
+  color: var(--ink);
+}
+
+.room-purpose {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.room-featured-content {
+  border-top: 1px dashed var(--paper-line);
+  padding-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.featured-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--red);
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.featured-title {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.featured-title a {
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.featured-title a:hover {
+  color: var(--red);
+}
+
+.featured-intro {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--muted);
+  font-style: italic;
+  margin-bottom: 0.75rem;
+}
+
+.featured-meta {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--muted);
+}
+
+.inventory-preview-layout {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.inventory-preview-img img {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  border-radius: 4px;
+  background: rgba(0,0,0,0.03);
+  padding: 0.35rem;
+}
+
+.room-action-bar {
+  margin-top: auto;
+  padding-top: 1rem;
+}
+
+.room-btn {
+  width: 100%;
+  display: block;
+  text-align: center;
+}

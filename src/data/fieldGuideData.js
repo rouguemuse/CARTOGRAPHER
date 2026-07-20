@@ -1,0 +1,50 @@
+export const fieldGuideEntries = [
+  {
+    slug: 'other-peoples-weather',
+    title: "Other People's Weather",
+    eyebrow: "Field Note 001",
+    introObservation: "Not every storm that fills a room was created by the person standing in it.",
+    observedPattern: "Absorbing unfamiliar mood changes as personal guilt or acute responsibility.",
+    feltFromInside: "An overwhelming urge to apologize for cloud cover you did not cause.",
+    oftenMistakenFor: "Empathy, intuition, sensitivity, or emotional maturity.",
+    cartographersNote: "The storm continues, but your skin remains your own boundary.",
+    relatedChapter: "Chapter II: The Forest",
+    relatedExcerpt: "Some people entered carrying rain. Some brought static. Some could frost a room with one polite sentence. The difficult part was learning that noticing the weather did not make it hers.",
+    relatedGlossaryTerms: ["borrowed-weather", "forest-of-other-peoples-weather"],
+    relatedObjects: ["red-coat", "compass"],
+    status: "published",
+    publishedAt: "2026-07-01T12:00:00Z"
+  },
+  {
+    slug: "the-house-of-almost-safe",
+    title: "The House of Almost Safe",
+    eyebrow: "Field Note 002",
+    introObservation: "Safety is not the absence of shouting; it is the presence of unconditional stillness.",
+    observedPattern: "Remaining hyper-vigilant inside spaces that look calm on the surface.",
+    feltFromInside: "Walking on floorboards you suspect will snap the moment you stop balancing.",
+    oftenMistakenFor: "Peace, harmony, domestic quiet, or successful negotiation.",
+    cartographersNote: "Almost safe is still an interrogation room with lower lighting.",
+    relatedChapter: "Chapter III: The Bridge",
+    relatedExcerpt: "You were safe as long as you remained low-maintenance and required nothing.",
+    relatedGlossaryTerms: ["house-of-almost-safe", "proof"],
+    relatedObjects: ["red-crane", "red-letter"],
+    status: "published",
+    publishedAt: "2026-07-05T12:00:00Z"
+  },
+  {
+    slug: "the-interrogation-of-curiosity",
+    title: "The Interrogation of Curiosity",
+    eyebrow: "Field Note 003",
+    introObservation: "Not every question is an invitation to be known. Some are probes for vulnerability.",
+    observedPattern: "Responding to bad-faith questioning with increasing detail and exhaustion.",
+    feltFromInside: "Bleeding out in explanations while the listener counts your drops.",
+    oftenMistakenFor: "Open communication, intellectual debate, or working through misunderstandings.",
+    cartographersNote: "You cannot explain yourself to wolves who are hungry for your reaction.",
+    relatedChapter: "Chapter IV: The Wolves",
+    relatedExcerpt: "They asked endless circular questions about your right to be here.",
+    relatedGlossaryTerms: ["wolves", "valley-of-please-understand-me"],
+    relatedObjects: ["red-letter", "lantern"],
+    status: "published",
+    publishedAt: "2026-07-10T12:00:00Z"
+  }
+];

@@ -4,10 +4,9 @@ import Landing from './pages/Landing';
 import Stage from './pages/Stage';
 import ObjectSelection from './pages/ObjectSelection';
 import Result from './pages/Result';
-import Journal from './pages/Journal';
-import Almanac from './pages/Almanac';
-import Endings from './pages/Endings';
 import JourneyController from './pages/JourneyController';
+import FieldNotes from './pages/journey/FieldNotes';
+import MapsReturned from './pages/journey/MapsReturned';
 import { AuthProvider } from './contexts/AuthContext';
 import { JourneyProvider } from './context/JourneyProvider';
 import { useJourneyState } from './hooks/useJourneyState';
@@ -22,12 +21,10 @@ function RequireActiveJourney({ children }) {
     return <Navigate to="/journey/carry" replace />;
   }
 
-  // Ensure stageId is valid
   if (stageId && !journeyConfig.isValidStageId(stageId)) {
     return <Navigate to={`/journey/stage/${journey.currentStage}`} replace />;
   }
 
-  // Prevent skipping ahead
   const requestedIndex = journeyConfig.getStageIndex(stageId);
   const currentIndex = journeyConfig.getStageIndex(journey.currentStage);
   
@@ -50,20 +47,21 @@ function RequireCompletedJourney({ children }) {
   return children;
 }
 
-// Archive Pages
-import Archive from './pages/Archive';
-import Library from './pages/Library';
-import Stories from './pages/library/Stories';
-import FieldGuide from './pages/library/FieldGuide';
-import Inventory from './pages/library/Inventory';
-import Glossary from './pages/library/Glossary';
-import ArticleView from './pages/library/ArticleView';
+// Archive Rooms & Detail Components
+import ArchivePortal from './pages/archive/ArchivePortal';
+import FieldGuideIndex from './pages/archive/FieldGuideIndex';
+import FieldGuideDetail from './pages/archive/FieldGuideDetail';
+import InventoryIndex from './pages/archive/InventoryIndex';
+import InventoryDetail from './pages/archive/InventoryDetail';
+import GlossaryIndex from './pages/archive/GlossaryIndex';
+import GlossaryDetail from './pages/archive/GlossaryDetail';
+
+// Participatory & Static Pages
 import ThingsIShouldHaveSaid from './pages/ThingsIShouldHaveSaid';
 import DearRed from './pages/DearRed';
 import Workbook from './pages/Workbook';
 import Book from './pages/Book';
 import About from './pages/About';
-import AtlasIntro from './pages/AtlasIntro';
 
 // Admin Pages
 import AdminLogin from './pages/admin/AdminLogin';
@@ -72,6 +70,8 @@ import ArticleManager from './pages/admin/ArticleManager';
 import WallModeration from './pages/admin/WallModeration';
 import DearRedInbox from './pages/admin/DearRedInbox';
 import ProtectedRoute from './components/ProtectedRoute';
+
+// Shells & Managers
 import ArchiveShell from './components/ArchiveShell';
 import JourneyShell from './components/JourneyShell';
 import ScrollAndFocusManager from './components/ScrollAndFocusManager';
@@ -82,41 +82,49 @@ function App() {
       <JourneyProvider>
         <ScrollAndFocusManager />
         <Routes>
-          {/* Applebanana / Interactive Journey Routes */}
+          {/* Interactive Journey Routes */}
           <Route path="/" element={<JourneyShell><Landing /></JourneyShell>} />
           <Route path="/journey" element={<JourneyShell><JourneyController /></JourneyShell>} />
           <Route path="/journey/carry" element={<JourneyShell><ObjectSelection /></JourneyShell>} />
           <Route path="/journey/stage/:stageId" element={<JourneyShell><RequireActiveJourney><Stage /></RequireActiveJourney></JourneyShell>} />
           <Route path="/journey/result/:journeyId" element={<JourneyShell><RequireCompletedJourney><Result /></RequireCompletedJourney></JourneyShell>} />
           
-          {/* User Data Routes */}
-          <Route path="/journal" element={<JourneyShell><Journal /></JourneyShell>} />
-          <Route path="/almanac" element={<ArchiveShell><Almanac /></ArchiveShell>} />
-          <Route path="/endings" element={<JourneyShell><Endings /></JourneyShell>} />
+          {/* Journey Personal Space Routes */}
+          <Route path="/journey/field-notes" element={<JourneyShell><FieldNotes /></JourneyShell>} />
+          <Route path="/journey/maps-returned" element={<JourneyShell><MapsReturned /></JourneyShell>} />
 
-          {/* Compatibility Redirects */}
+          {/* Legacy Journey In-App Redirects */}
+          <Route path="/journal" element={<Navigate to="/journey/field-notes" replace />} />
+          <Route path="/endings" element={<Navigate to="/journey/maps-returned" replace />} />
+          <Route path="/almanac" element={<Navigate to="/archive/field-guide" replace />} />
           <Route path="/stage/object" element={<Navigate to="/journey/carry" replace />} />
           <Route path="/stage/:stageId" element={<Navigate to="/journey/stage/:stageId" replace />} />
           <Route path="/result" element={<Navigate to="/journey" replace />} />
           <Route path="/journey/result" element={<Navigate to="/journey" replace />} />
 
+          {/* Legacy Library In-App Redirects */}
+          <Route path="/library" element={<Navigate to="/archive" replace />} />
+          <Route path="/library/stories" element={<Navigate to="/archive/field-guide" replace />} />
+          <Route path="/library/field-guide" element={<Navigate to="/archive/field-guide" replace />} />
+          <Route path="/library/inventory" element={<Navigate to="/archive/inventory" replace />} />
+          <Route path="/library/glossary" element={<Navigate to="/archive/glossary" replace />} />
+          <Route path="/library/field-guide/:slug" element={<Navigate to="/archive/field-guide/:slug" replace />} />
+          <Route path="/library/stories/:slug" element={<Navigate to="/archive/field-guide/:slug" replace />} />
+          <Route path="/library/inventory/:slug" element={<Navigate to="/archive/inventory/:slug" replace />} />
+          <Route path="/library/glossary/:slug" element={<Navigate to="/archive/glossary/:slug" replace />} />
+
           {/* Editorial Archive Routes */}
-          <Route path="/archive" element={<ArchiveShell><Archive /></ArchiveShell>} />
-          <Route path="/atlas/explore" element={<ArchiveShell><AtlasIntro /></ArchiveShell>} />
+          <Route path="/archive" element={<ArchiveShell><ArchivePortal /></ArchiveShell>} />
+          <Route path="/archive/field-guide" element={<ArchiveShell><FieldGuideIndex /></ArchiveShell>} />
+          <Route path="/archive/field-guide/:entrySlug" element={<ArchiveShell><FieldGuideDetail /></ArchiveShell>} />
+          <Route path="/archive/inventory" element={<ArchiveShell><InventoryIndex /></ArchiveShell>} />
+          <Route path="/archive/inventory/:objectSlug" element={<ArchiveShell><InventoryDetail /></ArchiveShell>} />
+          <Route path="/archive/glossary" element={<ArchiveShell><GlossaryIndex /></ArchiveShell>} />
+          <Route path="/archive/glossary/:termSlug" element={<ArchiveShell><GlossaryDetail /></ArchiveShell>} />
           
-          {/* Library Routes */}
-          <Route path="/library" element={<ArchiveShell><Library /></ArchiveShell>} />
-          <Route path="/library/stories" element={<ArchiveShell><Stories /></ArchiveShell>} />
-          <Route path="/library/field-guide" element={<ArchiveShell><FieldGuide /></ArchiveShell>} />
-          <Route path="/library/inventory" element={<ArchiveShell><Inventory /></ArchiveShell>} />
-          <Route path="/library/glossary" element={<ArchiveShell><Glossary /></ArchiveShell>} />
-          <Route path="/library/:collection/:slug" element={<ArchiveShell><ArticleView /></ArchiveShell>} />
-          
-          {/* Forms & Content */}
+          {/* Participatory & Content Rooms */}
           <Route path="/things-i-should-have-said" element={<ArchiveShell><ThingsIShouldHaveSaid /></ArchiveShell>} />
           <Route path="/dear-red" element={<ArchiveShell><DearRed /></ArchiveShell>} />
-          
-          {/* Static Content */}
           <Route path="/workbook" element={<ArchiveShell><Workbook /></ArchiveShell>} />
           <Route path="/book" element={<ArchiveShell><Book /></ArchiveShell>} />
           <Route path="/about" element={<ArchiveShell><About /></ArchiveShell>} />

@@ -1,9 +1,19 @@
 {
-  "name": "applebanana",
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+  "redirects": [
+    { "source": "/journal", "destination": "/journey/field-notes", "permanent": true },
+    { "source": "/endings", "destination": "/journey/maps-returned", "permanent": true },
+    { "source": "/almanac", "destination": "/archive/field-guide", "permanent": true },
+    { "source": "/library", "destination": "/archive", "permanent": true },
+    { "source": "/library/field-guide", "destination": "/archive/field-guide", "permanent": true },
+    { "source": "/library/stories", "destination": "/archive/field-guide", "permanent": true },
+    { "source": "/library/inventory", "destination": "/archive/inventory", "permanent": true },
+    { "source": "/library/glossary", "destination": "/archive/glossary", "permanent": true },
+    { "source": "/library/field-guide/:slug", "destination": "/archive/field-guide/:slug", "permanent": true },
+    { "source": "/library/stories/:slug", "destination": "/archive/field-guide/:slug", "permanent": true },
+    { "source": "/library/inventory/:slug", "destination": "/archive/inventory/:slug", "permanent": true },
+    { "source": "/library/glossary/:slug", "destination": "/archive/glossary/:slug", "permanent": true },
+    { "source": "/stage/object", "destination": "/journey/carry", "permanent": true },
+    { "source": "/stage/:stageId", "destination": "/journey/stage/:stageId", "permanent": true },
+    { "source": "/result", "destination": "/journey", "permanent": true }
   ]
 }

@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { NavLink, Link, useLocation } from 'react-router-dom';
 import BrandLogo from './BrandLogo';
 import { useJourneyState } from '../hooks/useJourneyState';
+import { journeyConfig } from '../data/journeyConfig';
 import './GlobalHeader.css';
 
 export default function GlobalHeader({ variant = 'archive' }) {
@@ -90,15 +91,8 @@ export default function GlobalHeader({ variant = 'archive' }) {
     }
   }, [isMenuOpen]);
 
-  // Links configuration
-  const journeyLinks = [
-    { to: "/journal", label: "Journal" },
-    { to: "/almanac", label: "Almanac" },
-    { to: "/endings", label: "Endings" },
-    { to: "/archive", label: "Exit to Archive" },
-  ];
-
-  const ctaLabel = hasActiveJourney ? "Resume the Journey" : "Begin the Journey";
+  const activeStageId = activeJourney?.currentStage || journeyConfig.firstStageId;
+  const continueJourneyPath = hasActiveJourney ? `/journey/stage/${activeStageId}` : `/journey/carry`;
 
   return (
     <>
@@ -108,7 +102,7 @@ export default function GlobalHeader({ variant = 'archive' }) {
         className={`global-header header-${variant} ${isScrolled ? 'is-scrolled' : ''} ${isHomepage ? 'is-homepage' : ''}`}
       >
         <div className="header-container">
-          {/* Identity */}
+          {/* Logo & Title link to / */}
           <Link to="/" className="brand-link" aria-label="How to Explain Yourself to Wolves - Home">
             <BrandLogo variant={variant} className="header-logo" />
           </Link>
@@ -117,16 +111,26 @@ export default function GlobalHeader({ variant = 'archive' }) {
           {variant === 'journey' ? (
             <nav className="desktop-nav" aria-label="Journey Navigation">
               <ul className="nav-list">
-                {journeyLinks.map((link) => (
-                  <li key={link.to}>
-                    <NavLink 
-                      to={link.to} 
-                      className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}
-                    >
-                      {link.label}
-                    </NavLink>
-                  </li>
-                ))}
+                <li>
+                  <Link to={continueJourneyPath} className="nav-link">
+                    Continue Journey
+                  </Link>
+                </li>
+                <li>
+                  <NavLink to="/journey/field-notes" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                    Field Notes
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/journey/maps-returned" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                    Maps Returned
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/archive" className="nav-link">
+                    Exit to Archive
+                  </NavLink>
+                </li>
               </ul>
             </nav>
           ) : (
@@ -138,11 +142,6 @@ export default function GlobalHeader({ variant = 'archive' }) {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/library" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
-                    Library
-                  </NavLink>
-                </li>
-                <li>
                   <NavLink to="/archive" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Archive
                   </NavLink>
@@ -150,6 +149,16 @@ export default function GlobalHeader({ variant = 'archive' }) {
                 <li>
                   <NavLink to="/dear-red" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
                     Dear Red
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/things-i-should-have-said" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                    Unsaid Wall
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/book" className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}>
+                    The Book
                   </NavLink>
                 </li>
 
@@ -167,26 +176,16 @@ export default function GlobalHeader({ variant = 'archive' }) {
                   {isMoreOpen && (
                     <ul className="more-dropdown-menu" role="menu">
                       <li role="none">
-                        <NavLink to="/book" role="menuitem" className="dropdown-link">The Book</NavLink>
+                        <NavLink to="/about" role="menuitem" className="dropdown-link">About</NavLink>
                       </li>
                       <li role="none">
-                        <NavLink to="/things-i-should-have-said" role="menuitem" className="dropdown-link">Things I Should Have Said</NavLink>
+                        <a href="/#join" role="menuitem" className="dropdown-link">Join the Book List</a>
                       </li>
                       <li role="none">
-                        <NavLink to="/workbook" role="menuitem" className="dropdown-link">Workbook</NavLink>
-                      </li>
-                      <li role="none">
-                        <NavLink to="/about" role="menuitem" className="dropdown-link">About Jayme</NavLink>
+                        <NavLink to="/workbook" role="menuitem" className="dropdown-link">The Pilgrim Workbook</NavLink>
                       </li>
                     </ul>
                   )}
-                </li>
-
-                {/* Visually Dominant CTA */}
-                <li className="nav-cta-item">
-                  <Link to="/journey" className="btn btn-primary nav-cta-btn">
-                    {ctaLabel}
-                  </Link>
                 </li>
               </ul>
             </nav>
@@ -233,25 +232,29 @@ export default function GlobalHeader({ variant = 'archive' }) {
           <nav className="drawer-nav" aria-label="Mobile Navigation">
             {variant === 'journey' ? (
               <ul className="drawer-nav-list">
-                {journeyLinks.map((link) => (
-                  <li key={link.to}>
-                    <NavLink 
-                      to={link.to} 
-                      className={({ isActive }) => `drawer-nav-link ${isActive ? 'active' : ''}`}
-                    >
-                      {link.label}
-                    </NavLink>
-                  </li>
-                ))}
+                <li><Link to={continueJourneyPath} className="drawer-nav-link">Continue Journey</Link></li>
+                <li><NavLink to="/journey/field-notes" className="drawer-nav-link">Field Notes</NavLink></li>
+                <li><NavLink to="/journey/maps-returned" className="drawer-nav-link">Maps Returned</NavLink></li>
+                <li><NavLink to="/archive" className="drawer-nav-link">Exit to Archive</NavLink></li>
               </ul>
             ) : (
               <div className="drawer-groups">
                 <div className="drawer-group">
-                  <span className="drawer-group-title">EXPLORE</span>
+                  <span className="drawer-group-title">JOURNEY</span>
                   <ul className="drawer-group-list">
                     <li><NavLink to="/journey" className="drawer-nav-link">Journey</NavLink></li>
-                    <li><NavLink to="/library" className="drawer-nav-link">Valley Library</NavLink></li>
-                    <li><NavLink to="/archive" className="drawer-nav-link">Archive</NavLink></li>
+                    <li><NavLink to="/journey/field-notes" className="drawer-nav-link">Field Notes</NavLink></li>
+                    <li><NavLink to="/journey/maps-returned" className="drawer-nav-link">Maps Returned</NavLink></li>
+                  </ul>
+                </div>
+
+                <div className="drawer-group">
+                  <span className="drawer-group-title">THE ARCHIVE</span>
+                  <ul className="drawer-group-list">
+                    <li><NavLink to="/archive" className="drawer-nav-link">Archive Portal</NavLink></li>
+                    <li><NavLink to="/archive/field-guide" className="drawer-nav-link">The Field Guide</NavLink></li>
+                    <li><NavLink to="/archive/inventory" className="drawer-nav-link">The Inventory</NavLink></li>
+                    <li><NavLink to="/archive/glossary" className="drawer-nav-link">Glossary of Impossible Places</NavLink></li>
                   </ul>
                 </div>
 
@@ -259,23 +262,18 @@ export default function GlobalHeader({ variant = 'archive' }) {
                   <span className="drawer-group-title">PARTICIPATE</span>
                   <ul className="drawer-group-list">
                     <li><NavLink to="/dear-red" className="drawer-nav-link">Dear Red</NavLink></li>
-                    <li><NavLink to="/things-i-should-have-said" className="drawer-nav-link">Things I Should Have Said</NavLink></li>
+                    <li><NavLink to="/things-i-should-have-said" className="drawer-nav-link">Unsaid Wall</NavLink></li>
                   </ul>
                 </div>
 
                 <div className="drawer-group">
-                  <span className="drawer-group-title">ABOUT</span>
+                  <span className="drawer-group-title">ABOUT & BOOK</span>
                   <ul className="drawer-group-list">
                     <li><NavLink to="/book" className="drawer-nav-link">The Book</NavLink></li>
-                    <li><NavLink to="/workbook" className="drawer-nav-link">Workbook</NavLink></li>
+                    <li><NavLink to="/workbook" className="drawer-nav-link">The Pilgrim Workbook</NavLink></li>
                     <li><NavLink to="/about" className="drawer-nav-link">About Jayme</NavLink></li>
+                    <li><a href="/#join" className="drawer-nav-link">Join the Book List</a></li>
                   </ul>
-                </div>
-
-                <div className="drawer-cta-wrapper">
-                  <Link to="/journey" className="btn btn-primary drawer-cta-btn">
-                    {ctaLabel}
-                  </Link>
                 </div>
               </div>
             )}
