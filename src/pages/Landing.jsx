@@ -1,34 +1,54 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../components/Header';
+import { Link, useNavigate } from 'react-router-dom';
 import SignupForm from '../components/SignupForm';
 import { objects } from '../data/storyData';
+import { useJourneyState } from '../hooks/useJourneyState';
 import './Landing.css';
 
 export default function Landing() {
   const [hasJourney, setHasJourney] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const { selectObject, getActiveJourney } = useJourneyState();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    setHasJourney(!!localStorage.getItem('applebanana_journey_state'));
+    setHasJourney(!!getActiveJourney());
 
     const carousel = document.getElementById('symbols-carousel');
-    const dots = document.querySelectorAll('.carousel-dot');
-    if (!carousel || !dots.length) return;
+    if (!carousel) return;
 
-    const handleScroll = () => {
-      const scrollLeft = carousel.scrollLeft;
-      const cardWidth = carousel.scrollWidth / objects.length;
-      const index = Math.round(scrollLeft / cardWidth);
-      dots.forEach((dot, i) => dot.classList.toggle('active', i === index));
-    };
+    const cards = carousel.querySelectorAll('.symbol-card');
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const index = Number(entry.target.getAttribute('data-index'));
+            setActiveIndex(index);
+          }
+        });
+      },
+      {
+        root: carousel,
+        threshold: 0.6
+      }
+    );
 
-    carousel.addEventListener('scroll', handleScroll, { passive: true });
-    return () => carousel.removeEventListener('scroll', handleScroll);
+    cards.forEach(card => observer.observe(card));
+
+    return () => observer.disconnect();
   }, []);
+
+  const scrollToSlide = (index) => {
+    const carousel = document.getElementById('symbols-carousel');
+    const cards = carousel.querySelectorAll('.symbol-card');
+    if (cards[index]) {
+      cards[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  };
 
   return (
     <div className="landing-page">
-      <Header />
       
       <section className="hero-section">
         <div className="hero-background">
@@ -160,22 +180,24 @@ export default function Landing() {
           </div>
           <div className="symbols-grid" id="symbols-carousel">
             {objects.map((obj, i) => (
-              <div key={obj.id} className="symbol-card layered-card" tabIndex={0}>
+              <div key={obj.id} className="symbol-card layered-card" tabIndex={0} data-index={i} aria-hidden={activeIndex !== i}>
                 <div className="card-light-glow"></div>
                 <div className="card-texture"></div>
                 <img src={obj.image} alt={obj.name} className="symbol-icon" />
                 <h3>{obj.name}</h3>
-                <span className="secondary-annotation">Log #{Math.floor(Math.random()*900) + 100}</span>
                 <p>{obj.description}</p>
                 <div style={{marginTop: '1.5rem', display: 'flex', flexDirection: 'column', gap: '0.5rem'}}>
-                  <Link 
-                    to="/stage/object" 
+                  <button 
                     className="btn btn-primary" 
-                    style={{fontSize: '0.8rem', padding: '0.5rem'}}
-                    onClick={() => localStorage.setItem('applebanana_journey_state', JSON.stringify({object: obj.id, stage: 'valley'}))}
+                    style={{fontSize: '0.8rem', padding: '0.5rem', cursor: 'pointer'}}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      selectObject(obj.id);
+                      navigate('/journey/stage/valley');
+                    }}
                   >
                     CARRY THIS
-                  </Link>
+                  </button>
                   <Link 
                     to={`/library/inventory`} 
                     className="btn" 
@@ -188,15 +210,22 @@ export default function Landing() {
             ))}
           </div>
           <p className="carousel-hint">Swipe to explore</p>
-          <div className="carousel-dots" aria-hidden="true">
+          <div className="carousel-dots" role="tablist" aria-label="Object Selection">
             {objects.map((_, i) => (
-              <span key={i} className={`carousel-dot${i === 0 ? ' active' : ''}`} data-index={i}></span>
+              <button 
+                key={i} 
+                role="tab"
+                aria-selected={activeIndex === i}
+                aria-label={`Go to slide ${i + 1}`}
+                className={`carousel-dot${activeIndex === i ? ' active' : ''}`}
+                onClick={() => scrollToSlide(i)}
+              />
             ))}
           </div>
         </div>
       </section>
 
-      <section id="release" className="archive-section">
+      <section id="join" className="archive-section">
         <div className="archive-texture"></div>
         <div className="container archive-container">
           <div className="archive-editorial">

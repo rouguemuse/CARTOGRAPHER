@@ -1,46 +1,102 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useJourneyState } from '../hooks/useJourneyState';
+import './JourneyController.css';
 
 export default function JourneyController() {
   const navigate = useNavigate();
+  const { getActiveJourney, startNewJourney } = useJourneyState();
+  const dialogRef = useRef(null);
+
+  const activeJourney = getActiveJourney();
 
   useEffect(() => {
-    // Check if journey exists
-    const state = localStorage.getItem('applebanana_journey_state');
-    if (state) {
-      // Journey exists, we could show a "Resume the Road" / "Start Over" screen
-      // But user spec says: "If an unfinished Journey exists, offer Resume the Road."
-      // Since this is the controller page, let's just render the options here.
-    } else {
-      // If no Journey is in progress, continue to the existing object-selection entry
-      navigate('/stage/object', { replace: true });
+    // If no active journey or it's completed, go straight to carry
+    if (!activeJourney || activeJourney.status === 'completed') {
+      navigate('/journey/carry', { replace: true });
     }
-  }, [navigate]);
+  }, [activeJourney, navigate]);
+
+  if (!activeJourney || activeJourney.status === 'completed') return null;
+
+  const handleResume = () => {
+    const nextStage = activeJourney.currentStage || 'valley';
+    navigate(`/journey/stage/${nextStage}`);
+  };
+
+  const handleBeginAgain = () => {
+    if (dialogRef.current) {
+      dialogRef.current.showModal();
+    }
+  };
+
+  const confirmBeginAgain = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+    startNewJourney();
+    navigate('/journey/carry');
+  };
+
+  const handleCancel = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[#09090b] flex flex-col items-center justify-center text-white p-6">
-      <div className="max-w-md w-full glass-panel p-8 text-center" style={{border: '1px solid rgba(230, 220, 195, 0.14)', background: 'rgba(6, 14, 12, 0.8)', borderRadius: '12px'}}>
-        <h1 className="text-2xl font-serif text-[#E6DCC3] mb-4">Journey in Progress</h1>
-        <p className="text-[#a1a1aa] mb-8 text-sm uppercase tracking-widest">You have an unfinished map.</p>
-        <div className="flex flex-col gap-4">
-          <button 
-            className="btn btn-primary w-full py-3"
-            onClick={() => navigate('/stage/weather')} // Or whatever the next saved step is
-          >
-            Resume the Road
-          </button>
-          <button 
-            className="btn w-full py-3"
-            style={{background: 'transparent', border: '1px solid rgba(255,255,255,0.1)'}}
-            onClick={() => {
-              localStorage.removeItem('applebanana_journey_state');
-              navigate('/stage/object');
-            }}
-          >
-            Begin Again
-          </button>
+    <div className="journey-controller-page">
+      <div className="container controller-container">
+        <div className="field-note-panel text-center controller-panel">
+          <div className="controller-icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" aria-hidden="true">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M12 2 L14 12 L12 22 L10 12 Z"/>
+            </svg>
+          </div>
+          <h1 className="handwritten controller-title" style={{ fontSize: '2.5rem', color: 'var(--red-bright)', marginBottom: '1rem' }}>Journey in Progress</h1>
+          <p className="controller-subtitle">You have an unfinished map.</p>
+          
+          <div className="controller-actions">
+            <button 
+              className="btn btn-primary btn-large"
+              onClick={handleResume}
+            >
+              Resume the Road
+            </button>
+            <button 
+              className="btn btn-large"
+              style={{ background: 'transparent', border: '1px solid var(--surface-border)', color: 'var(--color-bone)' }}
+              onClick={handleBeginAgain}
+            >
+              Begin Again
+            </button>
+          </div>
         </div>
       </div>
+
+      <dialog 
+        ref={dialogRef} 
+        className="confirmation-dialog" 
+        aria-labelledby="controller-dialog-title" 
+        aria-describedby="controller-dialog-desc"
+        onCancel={handleCancel}
+      >
+        <div className="dialog-content">
+          <h3 id="controller-dialog-title">Abandon current route?</h3>
+          <p id="controller-dialog-desc">
+            Are you sure you want to abandon your current progress? This cannot be undone.
+          </p>
+          <div className="dialog-actions">
+            <button onClick={confirmBeginAgain} className="btn btn-primary">
+              Yes, start over
+            </button>
+            <button onClick={handleCancel} className="btn btn-text">
+              Cancel
+            </button>
+          </div>
+        </div>
+      </dialog>
     </div>
   );
 }

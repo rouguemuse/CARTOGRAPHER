@@ -164,43 +164,51 @@
   gap: 1rem;
 }
 
-.choice-btn {
-  font-family: var(--font-body);
-  font-size: 1.1rem;
+.choice-label {
+  display: block;
+  width: 100%;
   text-align: left;
-  padding: 1.5rem 2rem;
-  background: var(--surface-card); /* Slightly lighter cards */
+  padding: 1.25rem 1.5rem;
+  background: rgba(0, 0, 0, 0.3);
   border: 1px solid var(--surface-border);
-  color: var(--color-parchment);
+  border-radius: var(--radius-md);
+  color: var(--color-bone);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
   cursor: pointer;
-  transition: all 0.3s ease;
-  line-height: 1.5;
-  border-radius: 4px;
+  transition: all 0.2s ease;
 }
 
-.choice-btn:hover:not(:disabled) {
+.choice-label:hover:not(:disabled):not(.disabled) {
+  background: rgba(186, 45, 11, 0.1);
+  border-color: rgba(186, 45, 11, 0.3);
+  transform: translateX(4px);
+}
+
+.choice-label:focus-within {
+  outline: 2px solid var(--red-bright);
+  outline-offset: 2px;
+}
+
+.choice-label.selected {
+  background: rgba(186, 45, 11, 0.15);
   border-color: var(--red-bright);
-  background: var(--surface-card-hover);
-  transform: translateX(8px);
-  box-shadow: 0 0 24px var(--red-glow);
+  box-shadow: inset 4px 0 0 var(--red-bright);
 }
 
-.choice-btn.selected {
-  border-color: var(--red-bright);
-  background: rgba(201, 47, 58, 0.12); /* Crimson selected state */
-  box-shadow:
-    0 0 0 1px rgba(225, 59, 71, 0.20),
-    0 0 24px rgba(225, 59, 71, 0.14);
+.choice-label:disabled, .choice-label.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
-.choice-btn:disabled {
-  opacity: 0.4;
-  cursor: default;
+/* Ensure progress bar color */
+progress::-webkit-progress-value {
+  background-color: var(--red-bright);
+}
+progress::-moz-progress-bar {
+  background-color: var(--red-bright);
 }
 
-.choice-btn.selected:disabled {
-  opacity: 1;
-}
 
 .consequence-reveal {
   margin-top: 3rem;

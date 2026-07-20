@@ -1,0 +1,66 @@
+.journey-controller-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  background-color: var(--color-obsidian);
+  background-image: 
+    radial-gradient(circle at 50% 0%, rgba(175, 43, 30, 0.05) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23e6dcc3' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+.controller-container {
+  width: 100%;
+  max-width: 500px;
+}
+
+.controller-panel {
+  padding: 3rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: var(--radius-lg);
+}
+
+.controller-icon {
+  color: var(--color-brass);
+  margin-bottom: 1.5rem;
+  opacity: 0.8;
+}
+
+.controller-title {
+  margin: 0 0 0.5rem 0;
+}
+
+.controller-subtitle {
+  font-family: var(--font-ui);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 0.8rem;
+  color: var(--color-parchment);
+  opacity: 0.6;
+  margin-bottom: 3rem;
+}
+
+.controller-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  max-width: 300px;
+}
+
+.controller-actions .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+.controller-confirm {
+  animation: fadeIn 0.3s ease forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}

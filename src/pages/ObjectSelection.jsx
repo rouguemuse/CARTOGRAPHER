@@ -1,24 +1,67 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { objects } from '../data/storyData';
 import { useJourneyState } from '../hooks/useJourneyState';
+import { journeyConfig } from '../data/journeyConfig';
 import './ObjectSelection.css';
 
 export default function ObjectSelection() {
   const [selectedId, setSelectedId] = useState(null);
   const [showConsequence, setShowConsequence] = useState(false);
-  const { selectObject } = useJourneyState();
+  const dialogRef = useRef(null);
+  const confirmButtonRef = useRef(null);
+  const triggerButtonRef = useRef(null);
+  
+  const { selectObject, getActiveJourney, startNewJourney } = useJourneyState();
   const navigate = useNavigate();
 
-  const handleSelect = (id) => {
+  const activeJourney = getActiveJourney();
+  const hasAnswers = activeJourney && Object.keys(activeJourney.answers || {}).length > 0;
+
+  useEffect(() => {
+    if (activeJourney && activeJourney.carriedObject && !selectedId && !showConsequence) {
+      setSelectedId(activeJourney.carriedObject);
+      setShowConsequence(true);
+    }
+  }, [activeJourney, selectedId, showConsequence]);
+
+  const handleSelect = (id, event) => {
     setSelectedId(id);
     setShowConsequence(true);
+    triggerButtonRef.current = event.currentTarget;
   };
 
   const handleContinue = () => {
     if (selectedId) {
-      selectObject(selectedId);
-      navigate('/stage/valley');
+      if (hasAnswers && selectedId !== activeJourney.carriedObject) {
+        if (dialogRef.current) {
+          dialogRef.current.showModal();
+        }
+      } else {
+        selectObject(selectedId);
+        navigate(`/journey/stage/${journeyConfig.firstStageId}`);
+      }
+    }
+  };
+
+  const handleConfirmBeginAnew = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+    const newJourneyId = startNewJourney(selectedId);
+    navigate(`/journey/stage/${journeyConfig.firstStageId}`);
+  };
+
+  const handleCancel = () => {
+    if (dialogRef.current) {
+      dialogRef.current.close();
+    }
+    // Revert selection
+    if (activeJourney?.carriedObject) {
+      setSelectedId(activeJourney.carriedObject);
+    }
+    if (triggerButtonRef.current) {
+      triggerButtonRef.current.focus();
     }
   };
 
@@ -26,14 +69,6 @@ export default function ObjectSelection() {
 
   return (
     <div className="object-page">
-      {/* Return Navigation */}
-      <nav style={{position: 'absolute', top: 0, left: 0, right: 0, padding: '1.5rem', display: 'flex', justifyContent: 'flex-end', zIndex: 10}}>
-        <div style={{display: 'flex', gap: '1.5rem'}}>
-          <a href="/#library" style={{color: 'var(--color-bone)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Valley Library</a>
-          <a href="/#join" style={{color: 'var(--color-bone)', textDecoration: 'none', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '1px'}}>Join List</a>
-        </div>
-      </nav>
-
       <main className="object-main container">
         <div className="object-header">
           <h2>What will you carry?</h2>
@@ -45,7 +80,7 @@ export default function ObjectSelection() {
             <button 
               key={obj.id} 
               className={`tactile-card ${selectedId === obj.id ? 'selected' : ''}`}
-              onClick={() => handleSelect(obj.id)}
+              onClick={(e) => handleSelect(obj.id, e)}
               aria-pressed={selectedId === obj.id}
             >
               <div className="object-image">
@@ -61,10 +96,34 @@ export default function ObjectSelection() {
           <div className="consequence-panel reveal-anim">
             <p className="handwritten">{selectedObject.consequence}</p>
             <button onClick={handleContinue} className="btn btn-primary">
-              Begin the Journey
+              {hasAnswers && selectedId === activeJourney.carriedObject ? 'Continue the Journey' : 'Begin the Journey'}
             </button>
           </div>
         )}
+
+        {/* Native accessible dialog */}
+        <dialog 
+          ref={dialogRef} 
+          className="confirmation-dialog" 
+          aria-labelledby="dialog-title" 
+          aria-describedby="dialog-desc"
+          onCancel={handleCancel}
+        >
+          <div className="dialog-content">
+            <h3 id="dialog-title">Abandon current route?</h3>
+            <p id="dialog-desc">
+              You already have answers recorded for your current route. Changing your object now will permanently discard that progress and begin a completely new journey.
+            </p>
+            <div className="dialog-actions">
+              <button onClick={handleConfirmBeginAnew} className="btn btn-primary">
+                Discard this route and begin again
+              </button>
+              <button ref={confirmButtonRef} onClick={handleCancel} className="btn btn-text">
+                Keep current route
+              </button>
+            </div>
+          </div>
+        </dialog>
       </main>
     </div>
   );

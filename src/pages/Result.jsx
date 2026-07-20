@@ -1,96 +1,38 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useJourneyState } from '../hooks/useJourneyState';
 import { objects } from '../data/storyData';
 import './Result.css';
 
-function generateSnapshot(journey) {
-  const choices = journey.selectedChoices || {};
-  const carried = objects.find(o => o.id === journey.carriedObject) || { name: 'Unknown', consequence: 'Nothing carried.' };
-
-  let observation = "This route wandered through uncertain territory.";
-  let routeName = "The Unnamed Route";
-  let tension = "The tension between staying and leaving.";
-  let invitation = "An invitation to rest.";
-  let closingText = "The map expands, but the territory remains untamed.";
-
-  if (choices['valley']?.choiceId === 'c4' || choices['valley']?.choiceId === 'c3') {
-    observation = "This route repeatedly returned to the realization that not every observer deserves an explanation.";
-    routeName = "The Route of Quiet Boundaries";
-    tension = "The tension between the desire to be known and the safety of remaining illegible.";
-    invitation = "An invitation to let misunderstandings exist without rushing to correct them.";
-  } else if (choices['carnival']?.choiceId === 'c4') {
-    observation = "This route revealed a deep exhaustion with the performance of self-justification.";
-    routeName = "The Route of the Dropped Mask";
-    tension = "The tension of disappointing others to save yourself.";
-    invitation = "An invitation to exist without an audience.";
-  } else {
-    observation = "This route was marked by a persistent attempt to translate the self into a language the weather will understand.";
-    routeName = "The Route of Endless Translation";
-    tension = "The tension of hoping the right words will finally bridge the gap.";
-    invitation = "An invitation to ask whether the gap is yours to close.";
-  }
-
-  // Timeline generation based on choices
-  const timeline = Object.entries(choices).map(([stageId, data]) => ({
-    stageId,
-    label: `Passed through the ${stageId}`,
-    consequence: data.consequence
-  }));
-
-  return {
-    routeName,
-    observation,
-    tension,
-    invitation,
-    closingText,
-    objectInterpretation: carried.consequence,
-    timeline
-  };
-}
-
 export default function Result() {
-  const { state, getActiveJourney, setCompleted } = useJourneyState();
+  const { journeyId } = useParams();
+  const { getJourney, startNewJourney } = useJourneyState();
   const navigate = useNavigate();
-  const [snapshotToRender, setSnapshotToRender] = useState(null);
 
-  useEffect(() => {
-    const activeJourney = getActiveJourney();
-    if (activeJourney && !activeJourney.completedAt) {
-      // It's not completed yet, generate a snapshot and complete it
-      const snapshot = generateSnapshot(activeJourney);
-      
-      // We need a stable endingId based on the routeName
-      const endingId = snapshot.routeName.toLowerCase().replace(/\s+/g, '-');
-      setCompleted(snapshot, endingId);
-      setSnapshotToRender(snapshot);
-    } else if (activeJourney && activeJourney.completedAt && activeJourney.resultSnapshot) {
-      // Already completed, just display it
-      setSnapshotToRender(activeJourney.resultSnapshot);
-    }
-  }, [getActiveJourney, setCompleted]);
+  const journey = getJourney(journeyId);
 
-  const activeJourney = getActiveJourney();
-
-  if (!activeJourney || !activeJourney.carriedObject) {
+  // If somehow they got here without a valid completed journey, the route guard handles most of it,
+  // but just in case:
+  if (!journey || journey.status !== 'completed' || !journey.resultSnapshot) {
     return (
       <div className="result-page">
         <main className="container result-empty" style={{ textAlign: 'center', paddingTop: '10rem' }}>
-          <p style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>No route has been recorded on this device yet.</p>
-          <button onClick={() => navigate('/journey/carry')} className="btn btn-primary">Begin</button>
+          <p style={{ fontSize: '1.5rem', marginBottom: '2rem' }}>This map cannot be found.</p>
+          <button onClick={() => navigate('/journey')} className="btn btn-primary">Return</button>
         </main>
       </div>
     );
   }
 
-  const selectedObject = objects.find(o => o.id === activeJourney.carriedObject);
-  const snap = snapshotToRender || activeJourney.resultSnapshot;
-
-  if (!snap) return null; // Loading state
-
-  const completedDate = activeJourney.completedAt 
-    ? new Date(activeJourney.completedAt).toLocaleDateString() 
+  const snap = journey.resultSnapshot;
+  const selectedObject = objects.find(o => o.id === journey.carriedObject);
+  const completedDate = journey.completedAt 
+    ? new Date(journey.completedAt).toLocaleDateString() 
     : new Date().toLocaleDateString();
+
+  const handleWalkAnotherRoute = () => {
+    startNewJourney();
+    navigate('/journey/carry');
+  };
 
   return (
     <div className="result-page" style={{ position: 'relative' }}>
@@ -133,7 +75,7 @@ export default function Result() {
               <div className="result-actions" style={{ marginTop: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
                 <button onClick={() => navigate('/journal')} className="btn btn-primary">View Your Journal</button>
                 <button onClick={() => navigate('/endings')} className="btn" style={{ background: 'transparent', border: '1px solid var(--color-bone)', color: 'var(--color-bone)' }}>View All Endings</button>
-                <button onClick={() => navigate('/journey/carry')} className="btn btn-text" style={{ color: 'var(--color-bone)', opacity: 0.7 }}>Walk Another Route</button>
+                <button onClick={handleWalkAnotherRoute} className="btn btn-text" style={{ color: 'var(--color-bone)', opacity: 0.7 }}>Walk Another Route</button>
               </div>
             </div>
 

@@ -1,46 +1,76 @@
 :root {
-  /* Colors */
+  /* Core Brand Colors */
   --color-charcoal: #121314;
   --color-charcoal-light: #1c1d1f;
-  --color-parchment: #f2ede2; /* Lighter primary text */
-  --color-bone: #c5beb0; /* Secondary text */
-  --color-oxblood: #c92f3a; /* Fallback for old references */
+  --color-parchment: #f2ede2;
+  --color-bone: #c5beb0;
   --color-storm-blue: #3a4a58;
   --color-brass: #b5985a;
   --color-forest: #4a5d4e;
   --color-off-white: #e3e3e3;
   
-  /* New Red System */
+  /* Red System */
   --red: #b3211d;
   --red-bright: #e13b47;
   --red-deep: #841e29;
   --red-glow: rgba(225, 59, 71, 0.30);
+  --color-blood: var(--red); /* Compatibility alias */
 
-  /* New Surface System (Journey) */
+  /* Surface System (Journey) */
   --surface-page: #080d0c;
   --surface-panel: #0d1714;
   --surface-card: #121c18;
   --surface-card-hover: #17241f;
   --surface-border: rgba(222, 205, 169, 0.20);
+  --journey-text: var(--color-parchment);
+  --journey-muted: var(--color-bone);
+  --bg-color: var(--surface-page);
 
-  /* New Surface System (Archive) */
+  /* Surface System (Archive) */
   --paper: #f4f1e8;
   --card: #fffefa;
   --ink: #121212;
-  --rule: #151515;
+  --rule: rgba(18, 18, 18, 0.15);
   --muted: #746f67;
   --paper-line: #d9cfb6;
+  --archive-text: var(--ink);
   
-  /* Typography */
+  /* Typography Scale Tokens */
   --font-display: 'Fraunces', serif;
   --font-body: 'Literata', serif;
   --font-ui: 'Manrope', sans-serif;
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-reading: 1.0625rem;
+  --text-reading-large: 1.125rem;
+
+  --heading-card: clamp(1.2rem, 1.6vw, 1.45rem);
+  --heading-section: clamp(1.9rem, 3vw, 2.5rem);
+  --heading-page: clamp(2.5rem, 5vw, 4.5rem);
+  --heading-hero: clamp(2.65rem, 6vw, 4.5rem);
   
-  /* Glows */
-  --glow-red: var(--red-glow);
+  /* Layout & Spacing */
+  --max-width: 1240px;
+  --reading-width: 68ch;
+  --header-height: 72px;
+  --page-gutter: clamp(16px, 4vw, 48px);
   
-  /* Base settings */
-  --max-width: 1200px;
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 6rem;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 20px rgba(0,0,0,0.1);
+  --shadow-glow: 0 0 24px var(--red-glow);
 }
 
 * {
@@ -51,13 +81,18 @@
 
 html, body {
   font-family: var(--font-body);
-  line-height: 1.65;
-  font-size: clamp(16px, 1.5vw + 14px, 19px);
+  font-size: 16px; /* 16px floor for phones & tablets */
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   position: relative;
-  overflow-x: clip; /* Fix for horizontal scroll */
+}
+
+@media (min-width: 1024px) {
+  html, body {
+    font-size: 17px; /* 17px for desktop */
+  }
 }
 
 /* Theme Shells */
@@ -74,7 +109,7 @@ html, body {
 }
 
 /* Texture overlay for the Journey */
-.theme-journey::before {
+.theme-journey::after {
   content: "";
   position: fixed;
   top: 0;
@@ -90,23 +125,27 @@ html, body {
 h1, h2, h3, h4, h5, h6, .hero-title, .wordmark {
   font-family: var(--font-display);
   font-weight: 500;
-  line-height: 1.1;
+  line-height: 1.12;
   color: var(--color-parchment);
   font-variation-settings: "opsz" 72, "SOFT" 20, "WONK" 1;
 }
 
+h1 {
+  font-size: var(--heading-page);
+}
+
 h2 {
-  font-size: clamp(40px, 4vw, 48px);
+  font-size: var(--heading-section);
 }
 
 h3 {
-  font-size: clamp(23px, 2.5vw, 26px);
+  font-size: var(--heading-card);
 }
 
 p {
-  max-width: 68ch; /* Updated line length for narrative */
-  margin-bottom: 1.5rem;
-  line-height: 1.7; /* increased line-height */
+  max-width: 68ch;
+  margin-bottom: 1rem;
+  line-height: 1.6;
 }
 
 a {
@@ -131,12 +170,14 @@ a:hover, a:focus {
   background-color: transparent;
   color: var(--color-parchment);
   border: 1px solid var(--color-parchment);
-  padding: 0.75rem 1.5rem;
-  font-size: max(14px, 0.9rem);
+  padding: 0.65rem 1.25rem;
+  font-size: 0.875rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   cursor: pointer;
   transition: all 0.3s ease;
+  border-radius: var(--radius-sm);
+  text-align: center;
 }
 
 .btn-primary {
@@ -170,6 +211,93 @@ a:hover, a:focus {
   display: grid;
 }
 
+/* Reusable Typography Classes */
+.page-kicker {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--red);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-size: var(--heading-page);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+
+.page-introduction {
+  font-family: var(--font-body);
+  font-size: var(--text-reading);
+  line-height: 1.65;
+  color: var(--muted);
+  max-width: 60ch;
+  margin-bottom: 2rem;
+}
+
+.card-title {
+  font-family: var(--font-display);
+  font-size: var(--heading-card);
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.card-description {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.entry-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 2vw, 1.75rem);
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+.entry-meta {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+.entry-excerpt {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.section-label {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--color-brass);
+  margin-bottom: 0.75rem;
+}
+
+.text-link {
+  font-family: var(--font-ui);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--red);
+  text-decoration: none;
+}
+
+.compact-button {
+  font-family: var(--font-ui);
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  padding: 0.4rem 0.85rem;
+}
+
 /* Accessibility */
 :focus-visible {
   outline: 2px solid var(--color-brass);
@@ -182,27 +310,6 @@ a:hover, a:focus {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
-  }
-}
-
-/* Narrow-phone typography floor */
-@media (max-width: 600px) {
-  html, body {
-    font-size: 16px; /* Hard floor — never smaller than 16px base */
-  }
-
-  h2 {
-    font-size: clamp(28px, 8vw, 32px);
-    line-height: 1.1;
-  }
-
-  h3 {
-    font-size: clamp(20px, 5.5vw, 22px);
-  }
-
-  p {
-    font-size: 16px;
-    line-height: 1.65;
   }
 }
 
