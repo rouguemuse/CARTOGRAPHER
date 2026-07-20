@@ -47,12 +47,7 @@ export default function InventoryIndex() {
         </p>
       </header>
 
-      {/* Object Catalogue Registry Grid */}
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-        gap: '2rem'
-      }}>
+      <div className="symbols-3x2-grid">
         {objectsList.map((obj) => (
           <Link 
             key={obj.slug || obj.id} 
