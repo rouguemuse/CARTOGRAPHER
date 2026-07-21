@@ -1,27 +1,33 @@
-.svg-route-spine-container {
+/* CONTINUOUS NARRATIVE RED THREAD OVERLAY STYLING */
+.narrative-thread-container {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
   overflow: hidden;
 }
 
-.svg-route-canvas {
+.narrative-thread-svg {
   width: 100%;
   height: 100%;
   display: block;
 }
 
-.physical-red-thread-path {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+.thread-base {
+  transition: opacity 0.3s ease;
+}
+
+.thread-active {
   transition: stroke-dashoffset 0.1s ease-out;
 }
 
-@media (max-width: 768px) {
-  .svg-route-spine-container path {
-    stroke-width: 1.75;
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  .thread-active {
+    stroke-dashoffset: 0 !important;
+    filter: none !important;
   }
 }
