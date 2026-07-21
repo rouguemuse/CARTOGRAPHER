@@ -15,6 +15,19 @@ export default function MapsReturned() {
 
   return (
     <div className="maps-returned-environment">
+      {/* Relocated Map-in-Water Visual Background Environment */}
+      <div className="maps-returned-bg-layer">
+        <img 
+          src="/images/artwork/archive-detail.jpg" 
+          alt="A map floating and dissolving in water" 
+          width="2752"
+          height="1536"
+          loading="eager"
+          className="maps-returned-bg-img"
+        />
+        <div className="maps-returned-vignette"></div>
+      </div>
+
       <div className="maps-returned-container">
         
         {/* Page Header */}
@@ -24,7 +37,7 @@ export default function MapsReturned() {
           </span>
           <h1 className="maps-returned-title">Maps Returned</h1>
           <p className="maps-returned-subtitle">
-            Your completed journeys, personalized map snapshots, and unlocked alternate endings gathered from the valley.
+            "Some maps return altered by the weather."
           </p>
         </header>
 
@@ -36,8 +49,8 @@ export default function MapsReturned() {
             <p className="folio-desc">
               Complete a Journey to see where the road led.
             </p>
-            <Link to="/journey/carry" className="btn btn-primary">
-              BEGIN THE JOURNEY &rarr;
+            <Link to="/journey" className="btn btn-primary">
+              PREVIEW THE JOURNEY &rarr;
             </Link>
           </div>
         ) : (

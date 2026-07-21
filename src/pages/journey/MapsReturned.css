@@ -1,19 +1,44 @@
 /* LOCALLY SCOPED MAPS RETURNED PHYSICAL ARCHIVE STYLING */
 .maps-returned-environment {
+  position: relative;
   min-height: 100vh;
   background-color: #080f0d;
   color: var(--color-parchment);
-  padding: 2.5rem 1rem 6rem;
+  padding: 3.5rem 1rem 6rem;
   box-sizing: border-box;
+  overflow: hidden;
+}
+
+.maps-returned-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.maps-returned-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.maps-returned-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(8, 15, 13, 0.45) 0%, rgba(8, 15, 13, 0.88) 85%);
+  z-index: 2;
 }
 
 .maps-returned-container {
+  position: relative;
+  z-index: 5;
   width: min(100% - 24px, 920px);
   margin: 0 auto;
 }
 
 .maps-returned-header {
-  border-bottom: 2px dashed rgba(230, 220, 195, 0.2);
+  border-bottom: 2px dashed rgba(230, 220, 195, 0.25);
   padding-bottom: 1.5rem;
   margin-bottom: 3rem;
   text-align: center;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useJourneyState } from '../../hooks/useJourneyState';
 import './CorridorDoors.css';
@@ -8,8 +8,28 @@ export default function CorridorDoors() {
   const activeJourney = getActiveJourney();
   const carriedObject = activeJourney?.carriedObject;
 
+  const sceneRef = useRef(null);
+  const [lightPos, setLightPos] = useState({ x: 50, y: 50, active: false });
+
+  const handleMouseMove = (e) => {
+    if (!sceneRef.current) return;
+    const rect = sceneRef.current.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setLightPos({ x, y, active: true });
+  };
+
+  const handleMouseLeave = () => {
+    setLightPos(prev => ({ ...prev, active: false }));
+  };
+
   return (
-    <div className="home-corridor-scene">
+    <div 
+      ref={sceneRef}
+      className="home-corridor-scene"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
       {/* Approved Corridor Visual Background Environment */}
       <div className="home-corridor-bg-layer">
         <img 
@@ -23,7 +43,21 @@ export default function CorridorDoors() {
         />
       </div>
 
-      {/* Interactive Doorway Portals Stage */}
+      {/* Restrained Mouse Cursor Spotlight Glow */}
+      {lightPos.active && (
+        <div 
+          className="corridor-spotlight-glow"
+          style={{
+            left: `${lightPos.x}%`,
+            top: `${lightPos.y}%`,
+            background: lightPos.x < 50 
+              ? 'radial-gradient(circle, rgba(230, 200, 160, 0.18) 0%, rgba(200, 140, 90, 0.08) 50%, transparent 80%)'
+              : 'radial-gradient(circle, rgba(200, 215, 225, 0.18) 0%, rgba(140, 170, 190, 0.08) 50%, transparent 80%)'
+          }}
+        />
+      )}
+
+      {/* Physical Doorways Stage */}
       <div className="home-corridor-stage">
         
         {/* LEFT DOORWAY: DEAR RED */}
@@ -32,16 +66,12 @@ export default function CorridorDoors() {
           className="home-corridor-door-link door-left"
           aria-label="Enter Dear Red private room"
         >
-          {/* Live Replacement Plaque Positioned Directly Over Artwork Header */}
-          <div className="home-door-plaque">
-            <span className="home-door-plaque-tag">PRIVATE ROOM</span>
-            <h3 className="home-door-plaque-title">DEAR RED</h3>
-          </div>
-
-          {/* Small Localized Text Treatment Near Base */}
-          <div className="home-door-label-subtle">
-            <p className="home-door-sub">"A private room for the version of you who kept explaining."</p>
-            <span className="home-door-action">Enter Dear Red &rarr;</span>
+          <div className="home-door-label-compact">
+            <span className="home-door-eyebrow">PRIVATE ROOM</span>
+            <h3 className="home-door-title">Dear Red</h3>
+            <p className="home-door-sub">
+              A private room for the version of you who kept explaining.
+            </p>
           </div>
         </Link>
 
@@ -51,24 +81,20 @@ export default function CorridorDoors() {
           className="home-corridor-door-link door-right"
           aria-label="Step to Things I Should Have Said public wall"
         >
-          {/* Live Replacement Plaque Positioned Directly Over Artwork Header */}
-          <div className="home-door-plaque">
-            <span className="home-door-plaque-tag">PUBLIC WALL</span>
-            <h3 className="home-door-plaque-title">THINGS I SHOULD HAVE SAID</h3>
-          </div>
-
-          {/* Small Localized Text Treatment Near Base */}
-          <div className="home-door-label-subtle">
-            <p className="home-door-sub">"A public wall for words that arrived after the room was gone."</p>
-            <span className="home-door-action">Step to the wall &rarr;</span>
+          <div className="home-door-label-compact">
+            <span className="home-door-eyebrow">PUBLIC WALL</span>
+            <h3 className="home-door-title">Things I Should Have Said</h3>
+            <p className="home-door-sub">
+              A public wall for words that arrived after the room was gone.
+            </p>
           </div>
         </Link>
 
       </div>
 
       {carriedObject && (
-        <div style={{ position: 'absolute', bottom: '0.75rem', width: '100%', textAlign: 'center', zIndex: 10 }}>
-          <span className="small-label" style={{ fontSize: '11px', color: 'var(--color-brass)', background: 'rgba(10, 13, 12, 0.85)', padding: '0.2rem 0.6rem', borderRadius: '3px' }}>
+        <div className="corridor-object-trace">
+          <span className="small-label" style={{ fontSize: '11px', color: 'var(--color-brass)' }}>
             TRACE IN THE HALL: Carrying {carriedObject.replace('_', ' ')}
           </span>
         </div>

@@ -27,72 +27,85 @@ export default function CabinetOfRelics() {
 
   const handleCarry = (id) => {
     selectObject(id);
-    navigate('/journey/carry');
+    navigate('/journey');
   };
 
   return (
-    <div className="home-relic-scene">
-      {/* Approved Worktable Visual Background Environment */}
-      <div className="home-relic-bg-layer">
-        <img 
-          src="/images/homepage/relic-worktable.jpg" 
-          alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
-          width="1344"
-          height="768"
-          loading="lazy"
-          decoding="async"
-          className="home-relic-bg-img"
-        />
-      </div>
+    <div className="home-relic-container">
+      {/* Location Masthead */}
+      <header className="home-relic-header">
+        <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+          LOCATION V — THE WORKTABLE
+        </span>
+        <h2 className="home-relic-main-title">THE LEGEND</h2>
+        <p className="home-relic-subtitle">
+          Every map needs a legend. This one tells you what the objects mean—and asks which one you will carry.
+        </p>
+      </header>
 
-      {/* Interactive Relic Overlays Stage */}
-      <div className="home-relic-stage" role="radiogroup" aria-label="Cabinet of Relics Worktable">
-        {relics.map((obj) => {
-          const isSelected = obj.id === selectedId;
-          return (
-            <button
-              key={obj.id}
-              role="radio"
-              aria-checked={isSelected}
-              aria-label={`Select ${obj.title}`}
-              className={`home-relic-button home-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
-              onClick={() => setSelectedId(obj.id)}
-              onFocus={() => setSelectedId(obj.id)}
-            >
-              <img 
-                src={obj.image} 
-                alt={obj.alt}
-                width="800"
-                height="800"
-                loading="lazy"
-                decoding="async"
-                className="home-relic-img"
-              />
-            </button>
-          );
-        })}
+      {/* Physical Worktable Visual Scene */}
+      <div className="home-relic-scene">
+        <div className="home-relic-bg-layer">
+          <img 
+            src="/images/homepage/relic-worktable.jpg" 
+            alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
+            width="1344"
+            height="768"
+            loading="lazy"
+            decoding="async"
+            className="home-relic-bg-img"
+          />
+        </div>
 
-        {/* Selected Relic HTML Catalogue Record Panel */}
-        <div className="home-relic-dossier-panel">
-          <span className="home-relic-cat-tag">{activeRelic.catNum}</span>
-          <h3 className="home-relic-title">{activeRelic.title}</h3>
-          <p className="home-relic-desc">{activeRelic.description}</p>
-          
-          <div className="home-relic-actions">
-            <button 
-              className="btn btn-primary btn-sm"
-              onClick={() => handleCarry(activeRelic.id)}
-              aria-label={`Carry the ${activeRelic.title} into the Journey`}
-            >
-              Carry it with you
-            </button>
-            <Link 
-              to={`/archive/inventory/${getObjectSlug(activeRelic.id)}`}
-              className="btn btn-ghost-sm"
-              aria-label={`Examine the ${activeRelic.title} in the Inventory`}
-            >
-              Examine in Inventory
-            </Link>
+        {/* Interactive Relic Overlays Stage */}
+        <div className="home-relic-stage" role="radiogroup" aria-label="Cabinet of Relics Worktable">
+          {relics.map((obj) => {
+            const isSelected = obj.id === selectedId;
+            return (
+              <button
+                key={obj.id}
+                role="radio"
+                aria-checked={isSelected}
+                aria-label={`Select ${obj.title}`}
+                className={`home-relic-button home-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
+                onClick={() => setSelectedId(obj.id)}
+                onFocus={() => setSelectedId(obj.id)}
+              >
+                <img 
+                  src={obj.image} 
+                  alt={obj.alt}
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  className="home-relic-img"
+                />
+              </button>
+            );
+          })}
+
+          {/* Selected Relic HTML Catalogue Record Panel */}
+          <div className="home-relic-dossier-panel">
+            <span className="home-relic-cat-tag">{activeRelic.catNum}</span>
+            <h3 className="home-relic-title">{activeRelic.title}</h3>
+            <p className="home-relic-desc">{activeRelic.description}</p>
+            
+            <div className="home-relic-actions">
+              <button 
+                className="btn btn-primary btn-sm"
+                onClick={() => handleCarry(activeRelic.id)}
+                aria-label={`Carry the ${activeRelic.title}`}
+              >
+                Carry this object
+              </button>
+              <Link 
+                to={`/archive/inventory/${getObjectSlug(activeRelic.id)}`}
+                className="btn btn-ghost-sm"
+                aria-label={`Examine the ${activeRelic.title} in Inventory`}
+              >
+                Examine in Inventory
+              </Link>
+            </div>
           </div>
         </div>
       </div>

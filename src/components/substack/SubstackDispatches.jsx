@@ -1,145 +1,117 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './SubstackDispatches.css';
 
-const FALLBACK_POSTS = [
-  {
-    title: "The Cartographer’s Inventory",
-    url: "https://otherpeoplesweather.substack.com/p/the-cartographers-inventory?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches",
-    pubDate: "Jul 20, 2026",
-    excerpt: "Six objects recovered from the country surrounding How to Explain Yourself to Wolves, examine what they protected and carry them forward.",
-    coverImage: "https://substackcdn.com/image/fetch/$s_!gLAw!,w_256,c_limit,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fc0b7f666-4d61-47cb-97d6-78c788660a14_859x859.jpeg"
-  },
-  {
-    title: "The Forest of Other People’s Weather",
-    url: "https://otherpeoplesweather.substack.com/p/the-forest-of-other-peoples-weather-1e7?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches",
-    pubDate: "Jul 18, 2026",
-    excerpt: "A field report from The Impossible Atlas regarding the absorption of unfamiliar atmospheric shifts as personal guilt.",
-    coverImage: null
-  },
-  {
-    title: "Welcome to The Impossible Atlas",
-    url: "https://otherpeoplesweather.substack.com/p/welcome-to-the-impossible-atlas?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches",
-    pubDate: "Jul 18, 2026",
-    excerpt: "The country surrounding How to Explain Yourself to Wolves, inherited maps, and the dangerous hope that one explanation might finally make us safe.",
-    coverImage: null
-  }
-];
-
 export default function SubstackDispatches() {
-  const [posts, setPosts] = useState(FALLBACK_POSTS);
+  const [dispatches, setDispatches] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('/api/substack-feed')
-      .then(res => {
-        if (!res.ok) throw new Error('API unavailable');
-        return res.json();
-      })
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setPosts(data);
+    async function fetchFeed() {
+      try {
+        const res = await fetch('/api/substack-feed');
+        if (res.ok) {
+          const data = await res.json();
+          if (data.items && data.items.length > 0) {
+            setDispatches(data.items);
+          }
         }
-      })
-      .catch(() => {
-        // Fallback to static data if API proxy is not active in dev mode
-        setPosts(FALLBACK_POSTS);
-      })
-      .finally(() => setLoading(false));
+      } catch (err) {
+        console.warn('Substack feed proxy fallback:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchFeed();
   }, []);
 
-  const featured = posts[0] || FALLBACK_POSTS[0];
-  const supporting = posts.slice(1, 3);
+  const fallbackFeatured = {
+    title: "The Cartographer's Inventory",
+    link: "https://otherpeoplesweather.substack.com/p/the-cartographers-inventory?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches",
+    pubDate: "Latest Issue",
+    snippet: "A catalog of inherited emotional weather, non-verbal boundaries, and the objects we carry when leaving the room behind."
+  };
+
+  const fallbackLinks = [
+    {
+      title: "On Explaining Yourself to Storms",
+      link: "https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+    },
+    {
+      title: "Field Observation: Borrowed Atmosphere",
+      link: "https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+    }
+  ];
+
+  const featured = dispatches.length > 0 ? dispatches[0] : fallbackFeatured;
+  const secondaryLinks = dispatches.length > 1 ? dispatches.slice(1, 3) : fallbackLinks;
 
   return (
-    <section className="substack-dispatches-section" aria-label="Latest Substack Dispatches">
-      <div className="substack-dispatches-inner">
+    <section className="location-dispatches-bridge">
+      <div className="dispatches-container">
         
-        <header className="substack-dispatches-header">
+        {/* Masthead */}
+        <header className="dispatches-header">
           <span className="small-label" style={{ color: 'var(--color-brass)' }}>
             FROM OTHER PEOPLE’S WEATHER
           </span>
-          <h2 className="section-h2" style={{ color: 'var(--color-parchment)', marginTop: '0.5rem' }}>
-            Latest Dispatches
-          </h2>
-          <p className="section-intro-desc" style={{ color: 'var(--color-bone)', fontStyle: 'italic' }}>
+          <h2 className="dispatches-title">Latest Dispatches</h2>
+          <p className="dispatches-subtitle">
             Field notes, fragments, and essays sent from beyond the manuscript.
           </p>
         </header>
 
-        <div className="substack-dispatches-grid">
+        {/* Editorial Bridge Layout */}
+        <div className="dispatches-paper-folio">
           
-          {/* FEATURED DISPATCH (The Cartographer's Inventory or Latest) */}
-          {featured && (
+          {/* Featured Dispatch Entry */}
+          <article className="dispatches-featured-entry">
+            <span className="dispatches-date-tag">FEATURED DISPATCH</span>
+            <h3 className="featured-entry-title">
+              <a href={featured.link} target="_blank" rel="noopener noreferrer">
+                {featured.title}
+              </a>
+            </h3>
+            <p className="featured-entry-snippet">
+              "{featured.snippet || featured.contentSnippet}"
+            </p>
             <a 
-              href={featured.url}
+              href={featured.link} 
               target="_blank" 
-              rel="noopener noreferrer"
-              className="dispatch-card-featured"
-              aria-label={`Read featured dispatch: ${featured.title}`}
+              rel="noopener noreferrer" 
+              className="btn btn-primary btn-sm"
             >
-              <div>
-                <div className="dispatch-meta-strip">
-                  <span className="dispatch-tag">FEATURED DISPATCH</span>
-                  <span className="dispatch-date">{featured.pubDate}</span>
-                </div>
-
-                {featured.coverImage && (
-                  <img 
-                    src={featured.coverImage} 
-                    alt="" 
-                    className="dispatch-cover-image"
-                    loading="lazy" 
-                  />
-                )}
-
-                <h3 className="dispatch-featured-title">{featured.title}</h3>
-                <p className="dispatch-featured-excerpt">{featured.excerpt}</p>
-              </div>
-
-              <span className="dispatch-action-btn">
-                Read the dispatch &rarr;
-              </span>
+              Read dispatch &rarr;
             </a>
-          )}
+          </article>
 
-          {/* SUPPORTING DISPATCHES STACK */}
-          <div className="dispatch-secondary-stack">
-            {supporting.map((post, idx) => (
+          {/* Compact Links Column */}
+          <div className="dispatches-compact-column">
+            <span className="compact-column-tag">MORE DISPATCHES</span>
+            
+            <ul className="compact-links-list">
+              {secondaryLinks.map((item, idx) => (
+                <li key={idx} className="compact-link-item">
+                  <a href={item.link} target="_blank" rel="noopener noreferrer" className="compact-item-anchor">
+                    <span className="compact-item-title">{item.title}</span>
+                    <span className="compact-item-arrow">&rarr;</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+
+            <div style={{ marginTop: '1.5rem', paddingTop: '1rem', borderTop: '1px dashed #d4c8a8' }}>
               <a 
-                key={idx}
-                href={post.url}
+                href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="dispatch-card-secondary"
-                aria-label={`Read dispatch: ${post.title}`}
+                className="btn btn-ghost-sm"
+                style={{ color: '#8b0000', fontWeight: 700 }}
               >
-                <div>
-                  <div className="dispatch-meta-strip">
-                    <span className="dispatch-tag">DISPATCH #{idx + 2}</span>
-                    <span className="dispatch-date">{post.pubDate}</span>
-                  </div>
-                  <h4 className="dispatch-secondary-title">{post.title}</h4>
-                  <p className="dispatch-secondary-excerpt">{post.excerpt}</p>
-                </div>
-
-                <span className="dispatch-action-btn" style={{ fontSize: '11px' }}>
-                  Read dispatch &rarr;
-                </span>
+                Read all dispatches &rarr;
               </a>
-            ))}
+            </div>
           </div>
 
-        </div>
-
-        <div className="dispatches-footer-row">
-          <a 
-            href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
-            target="_blank" 
-            rel="noopener noreferrer"
-            className="btn btn-secondary-dark"
-          >
-            Read all dispatches &rarr;
-          </a>
         </div>
 
       </div>

@@ -1,11 +1,37 @@
-/* LOCALLY SCOPED HOMEPAGE RELIC SCENE STYLING */
+/* LOCALLY SCOPED HOMEPAGE WORKTABLE STYLING */
+.home-relic-container {
+  width: 100%;
+}
+
+.home-relic-header {
+  text-align: center;
+  max-width: 62ch;
+  margin: 0 auto 1.75rem;
+}
+
+.home-relic-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.8vw, 3rem);
+  color: var(--color-parchment);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.home-relic-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-reading-large);
+  color: var(--color-bone);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Wide Physical Worktable Scene Container */
 .home-relic-scene {
   position: relative;
   width: 100%;
-  border-radius: 6px;
+  border-radius: 4px;
   overflow: hidden;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(230, 220, 195, 0.15);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba(230, 220, 195, 0.18);
   background: #0d1210;
 }
 
@@ -13,12 +39,6 @@
   position: absolute;
   inset: 0;
   z-index: 1;
-}
-
-.home-relic-bg-layer picture {
-  display: block;
-  width: 100%;
-  height: 100%;
 }
 
 .home-relic-bg-img {
@@ -34,7 +54,7 @@
   position: relative;
   z-index: 5;
   width: 100%;
-  height: clamp(440px, 62vh, 580px);
+  height: clamp(520px, 75vh, 680px);
 }
 
 .home-relic-button {
@@ -53,69 +73,69 @@
   outline: none;
 }
 
-.home-relic-button picture {
-  display: block;
-  width: 100%;
-  height: 100%;
-}
-
-/* Positioning 6 symbolic relic overlays across worktable */
+/* Natural positioning for 6 symbolic relics resting on the worktable */
+/* Red Coat: left side, draped toward edge */
 .home-relic-red_coat {
   top: 22%;
-  left: 6%;
-  width: 22%;
+  left: 4%;
+  width: 24%;
 }
 
+/* Red Thread: small spool near desk lamp where existing thread begins */
 .home-relic-red_string {
-  top: 15%;
-  left: 45%;
-  width: 14%;
+  top: 16%;
+  left: 44%;
+  width: 13%;
 }
 
+/* Red Crane: center of map */
 .home-relic-red_crane {
   top: 36%;
   left: 32%;
-  width: 16%;
+  width: 15%;
 }
 
+/* Red Letter: lower-left */
 .home-relic-red_envelope {
-  top: 52%;
+  top: 50%;
   left: 18%;
-  width: 18%;
+  width: 17%;
 }
 
+/* Compass: lower-center */
 .home-relic-compass {
-  top: 56%;
-  left: 56%;
+  top: 54%;
+  left: 54%;
   width: 16%;
 }
 
+/* Lantern: back-right, visibly smaller than environmental desk lamp */
 .home-relic-lantern {
-  top: 26%;
-  left: 76%;
-  width: 18%;
+  top: 22%;
+  left: 78%;
+  width: 15%;
 }
 
 .home-relic-img {
   width: 100%;
   height: auto;
   object-fit: contain;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.65));
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.7));
 }
 
 /* Selected vs Unselected States */
 .home-relic-button.is-unselected {
-  opacity: 0.65;
+  opacity: 0.7;
 }
 
 .home-relic-button.is-selected {
   opacity: 1;
   z-index: 12;
-  transform: translateY(-6px) scale(1.06);
+  transform: translateY(-6px) scale(1.05);
 }
 
 .home-relic-button.is-selected .home-relic-img {
-  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.85)) brightness(1.08);
+  filter: drop-shadow(0 16px 28px rgba(0, 0, 0, 0.9)) brightness(1.08);
 }
 
 .home-relic-button:focus-visible {
@@ -127,18 +147,18 @@
 /* Live HTML Catalogue Record Panel */
 .home-relic-dossier-panel {
   position: absolute;
-  bottom: 1.5rem;
-  right: 1.5rem;
+  bottom: 1.75rem;
+  right: 1.75rem;
   z-index: 15;
-  width: min(100% - 3rem, 380px);
-  background: rgba(18, 24, 21, 0.92);
+  width: min(100% - 3.5rem, 360px);
+  background: rgba(18, 24, 21, 0.94);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(230, 220, 195, 0.25);
   border-left: 4px solid var(--color-crimson);
   padding: 1.5rem;
   border-radius: 4px;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
   color: var(--color-parchment);
 }
 
@@ -174,7 +194,7 @@
 
 @media (max-width: 768px) {
   .home-relic-stage {
-    height: 480px;
+    height: 540px;
   }
 
   .home-relic-dossier-panel {
@@ -182,6 +202,6 @@
     bottom: auto;
     right: auto;
     width: calc(100% - 2rem);
-    margin: 0 1rem 1rem;
+    margin: 0 1rem 1.25rem;
   }
 }

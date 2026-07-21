@@ -11,13 +11,9 @@ import './ContinuousMapWorld.css';
 
 export default function ContinuousMapWorld() {
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [hasJourney, setHasJourney] = useState(false);
   const containerRef = useRef(null);
-  const { getActiveJourney } = useJourneyState();
 
   useEffect(() => {
-    setHasJourney(!!getActiveJourney());
-
     const handleScroll = () => {
       if (!containerRef.current) return;
       const totalHeight = containerRef.current.scrollHeight - window.innerHeight;
@@ -34,7 +30,7 @@ export default function ContinuousMapWorld() {
 
   return (
     <div ref={containerRef} className="continuous-map-world">
-      {/* Visual Spine: Persistent Animated SVG Red Route */}
+      {/* Visual Spine: Persistent Animated SVG Red Route (2.5px Muted Crimson Behind Content) */}
       <SvgRoutePath scrollProgress={scrollProgress} />
 
       {/* Floating Ember Signal Lights */}
@@ -66,7 +62,7 @@ export default function ContinuousMapWorld() {
           
           <div className="hero-buttons-row">
             <Link to="/journey" className="btn btn-primary btn-large">
-              {hasJourney ? 'Resume the Road' : 'Begin the Journey'}
+              PREVIEW THE JOURNEY &rarr;
             </Link>
             <Link to="/archive" className="btn btn-secondary-dark btn-large">
               Enter the Archive
@@ -101,16 +97,16 @@ export default function ContinuousMapWorld() {
             <p className="post-body">
               Your answer changes what it shows you. There is no correct route.
             </p>
-            <div style={{ marginTop: '2rem' }}>
-              <Link to="/journey/carry" className="btn btn-primary">
-                Step onto the road &rarr;
+            <div style={{ marginTop: '1.75rem' }}>
+              <Link to="/journey" className="btn btn-primary">
+                THE ROAD IS STILL BEING DRAWN &rarr;
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 3. LOCATION III: THE VALLEY MOMENT (SCROLL SIGN TRANSFORMATION) */}
+      {/* 3. LOCATION III: THE VALLEY MOMENT (WELCOME SIGN & CHANGING SCROLL TEXT) */}
       <section className="map-location location-valley-moment">
         <div className="location-bg-layer">
           <img 
@@ -130,26 +126,44 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER */}
+      {/* ATMOSPHERIC CARNIVAL GLIMPSE */}
+      <section className="map-location location-carnival-glimpse">
+        <div className="location-content">
+          <div className="carnival-glimpse-box">
+            <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+              LOCATION — UNMARKED
+            </span>
+            <h2 className="carnival-glimpse-title">The Carnival</h2>
+            <p className="carnival-glimpse-body">
+              The Carnival is not marked on every map.
+            </p>
+            <p className="carnival-glimpse-sub">
+              Some roads only appear after dark.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER (WOMAN IN RED COAT IN RAIN) */}
       <section className="map-location location-archival-dossier">
         <div className="location-bg-layer">
           <img 
-            src="/images/artwork/archive-detail.jpg" 
-            alt="Archival document detail texture" 
-            width="2752" 
-            height="1536" 
+            src="/images/artwork/weather-rain.png" 
+            alt="A woman in a red coat walking through rain and lightning across an open misty landscape" 
+            width="1344" 
+            height="768" 
             loading="lazy" 
             decoding="async" 
             className="location-bg-img" 
           />
-          <div className="soft-fog-overlay"></div>
+          <div className="weather-readability-overlay"></div>
         </div>
 
-        <div className="location-content">
+        <div className="location-content weather-dossier-wrap">
           <div className="archival-dossier-paper">
             <div className="dossier-header-strip">
               <span className="dossier-wax-seal" title="Archival Wax Seal"></span>
-              <span className="small-label" style={{ color: 'var(--red)' }}>RECOVERED FIELD NOTE NO. 01</span>
+              <span className="small-label" style={{ color: '#8b0000' }}>RECOVERED FIELD NOTE NO. 01</span>
             </div>
             <h2 className="dossier-title">Other People's Weather</h2>
             <blockquote className="dossier-excerpt">
@@ -158,7 +172,7 @@ export default function ContinuousMapWorld() {
             <p className="dossier-desc">
               Field observation regarding the absorption of unfamiliar atmospheric shifts as personal guilt.
             </p>
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ marginTop: '1.75rem' }}>
               <Link to="/archive/field-guide/other-peoples-weather" className="btn btn-primary">
                 Unseal the field note &rarr;
               </Link>
@@ -167,7 +181,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 5. LOCATION V: CABINET OF RELICS (WORKTABLE) */}
+      {/* 5. LOCATION V: THE WORKTABLE (THE LEGEND) */}
       <section className="map-location location-relics-worktable">
         <div className="location-content">
           <CabinetOfRelics />
@@ -200,12 +214,13 @@ export default function ContinuousMapWorld() {
         </div>
 
         <div className="location-content final-content-box">
+          {/* Open Sky Statement */}
           <div className="final-declaration">
             <h2 className="final-heading">THE WOLVES MAY STILL MISUNDERSTAND YOU.</h2>
             <h3 className="final-subheading">THE ROAD DOES NOT REQUIRE THEIR PERMISSION.</h3>
           </div>
 
-          {/* OFFICIAL SUBSTACK SIGNUP EMBED PANEL */}
+          {/* Localized Dark Signup Panel */}
           <div id="join" className="final-signup-panel">
             <span className="small-label">DISPATCHES FROM THE ROAD</span>
             <h4 className="signup-title">Receive dispatches from the road</h4>
@@ -226,7 +241,7 @@ export default function ContinuousMapWorld() {
               ></iframe>
             </div>
 
-            {/* Prominent Fallback Subscription Link */}
+            {/* Fallback Subscription Link */}
             <div style={{ marginTop: '1.25rem' }}>
               <a 
                 href="https://otherpeoplesweather.substack.com/subscribe?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
