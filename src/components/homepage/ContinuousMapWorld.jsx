@@ -5,8 +5,7 @@ import FireflyCanvas from './FireflyCanvas';
 import ValleySignScroll from './ValleySignScroll';
 import CabinetOfRelics from './CabinetOfRelics';
 import CorridorDoors from './CorridorDoors';
-import SignupForm from '../SignupForm';
-import { useJourneyState } from '../../hooks/useJourneyState';
+import SubstackDispatches from '../substack/SubstackDispatches';
 import './ContinuousMapWorld.css';
 
 export default function ContinuousMapWorld() {
@@ -183,7 +182,10 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 7. LOCATION VII: FINAL HORIZON & DISPATCHES */}
+      {/* NATIVE SUBSTACK DISPATCHES FEED COMPONENT */}
+      <SubstackDispatches />
+
+      {/* 7. LOCATION VII: FINAL HORIZON & OFFICIAL SUBSTACK SIGNUP */}
       <section className="map-location location-final-landscape">
         <div className="location-bg-layer">
           <picture>
@@ -208,10 +210,39 @@ export default function ContinuousMapWorld() {
             <h3 className="final-subheading">THE ROAD DOES NOT REQUIRE THEIR PERMISSION.</h3>
           </div>
 
+          {/* OFFICIAL SUBSTACK SIGNUP EMBED PANEL */}
           <div id="join" className="final-signup-panel">
             <span className="small-label">DISPATCHES FROM THE ROAD</span>
             <h4 className="signup-title">Receive dispatches from the road</h4>
-            <SignupForm />
+            <p className="signup-subnote" style={{ fontStyle: 'italic', color: 'var(--color-bone)', marginBottom: '1.5rem', fontSize: '14px' }}>
+              Be told when the wolves are ready.
+            </p>
+
+            {/* Official Substack Embed Iframe */}
+            <div className="substack-iframe-wrap" style={{ width: '100%', maxWidth: '480px', margin: '0 auto', minHeight: '180px' }}>
+              <iframe 
+                src="https://otherpeoplesweather.substack.com/embed" 
+                width="100%" 
+                height="180" 
+                style={{ background: 'transparent', border: 'none', borderRadius: '4px' }}
+                frameBorder="0" 
+                scrolling="no"
+                title="Substack Signup Form"
+              ></iframe>
+            </div>
+
+            {/* Prominent Fallback Subscription Link */}
+            <div style={{ marginTop: '1.25rem' }}>
+              <a 
+                href="https://otherpeoplesweather.substack.com/subscribe?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost-sm"
+                style={{ color: 'var(--color-brass)' }}
+              >
+                Subscribe through Substack &rarr;
+              </a>
+            </div>
           </div>
         </div>
 
@@ -224,6 +255,13 @@ export default function ContinuousMapWorld() {
               <Link to="/journey">Journey</Link>
               <Link to="/dear-red">Dear Red</Link>
               <Link to="/things-i-should-have-said">Unsaid Wall</Link>
+              <a 
+                href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Dispatches
+              </a>
               <Link to="/book">The Book</Link>
               <Link to="/about">About</Link>
             </div>

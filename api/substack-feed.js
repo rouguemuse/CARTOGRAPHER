@@ -1,103 +1,44 @@
-import Parser from 'rss-parser';
-import striptags from 'striptags';
+import https from 'https';
 
-export default async function handler(req, res) {
-  // 1. Cache-Control: s-maxage=900, stale-while-revalidate=86400
-  res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=86400');
-  
-  // Set CORS headers if needed for local testing, though Vercel handles this mostly
+export default function handler(req, res) {
+  // Enable CORS & Cache Control (30 min cache)
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Cache-Control', 's-maxage=1800, stale-while-revalidate=86400');
+  res.setHeader('Content-Type', 'application/json');
 
-  if (req.method === 'OPTIONS') {
-    return res.status(200).end();
-  }
-
-  const parser = new Parser({
-    customFields: {
-      item: [
-        ['content:encoded', 'contentEncoded'],
-        ['media:content', 'mediaContent', { keepArray: true }]
-      ]
-    }
-  });
-
-  const feedUrl = process.env.SUBSTACK_RSS_URL || 'https://otherpeoplesweather.substack.com/feed';
-
-  try {
-    const feed = await parser.parseURL(feedUrl);
-    
-    // Parse no more than six posts
-    const latestItems = feed.items.slice(0, 6);
-    
-    const normalizedPosts = latestItems.map(item => {
-      // 1. Validate article URLs
-      let url = item.link || '';
+  https.get('https://otherpeoplesweather.substack.com/feed', (feedRes) => {
+    let data = '';
+    feedRes.on('data', chunk => data += chunk);
+    feedRes.on('end', () => {
       try {
-        new URL(url); // Will throw if invalid
-      } catch {
-        url = '';
-      }
+        const items = [];
+        const itemMatches = data.match(/<item>[\s\S]*?<\/item>/g) || [];
+        for (const itemXml of itemMatches) {
+          const titleMatch = itemXml.match(/<title><!\[CDATA\[([\s\S]*?)\]\]><\/title>/) || itemXml.match(/<title>([\s\S]*?)<\/title>/);
+          const linkMatch = itemXml.match(/<link>([\s\S]*?)<\/link>/);
+          const pubDateMatch = itemXml.match(/<pubDate>([\s\S]*?)<\/pubDate>/);
+          const descMatch = itemXml.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/) || itemXml.match(/<description>([\s\S]*?)<\/description>/);
+          const enclosureMatch = itemXml.match(/enclosure url="([^"]+)"/);
 
-      // 2. Normalize dates
-      let publishedAt = item.pubDate;
-      if (publishedAt) {
-        publishedAt = new Date(publishedAt).toISOString();
-      }
+          const rawLink = linkMatch ? linkMatch[1].trim() : 'https://otherpeoplesweather.substack.com';
+          const trackingUrl = rawLink.includes('?') 
+            ? `${rawLink}&utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches` 
+            : `${rawLink}?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches`;
 
-      // 3. Extract image (enclosure, media content, or first post image)
-      let image = null;
-      if (item.enclosure && item.enclosure.url && item.enclosure.type && item.enclosure.type.startsWith('image/')) {
-        image = item.enclosure.url;
-      } else if (item.mediaContent && item.mediaContent.length > 0 && item.mediaContent[0].$) {
-        image = item.mediaContent[0].$.url;
-      } else if (item.contentEncoded) {
-        // Fallback: extract first img src from HTML content
-        const match = item.contentEncoded.match(/<img[^>]+src="([^">]+)"/);
-        if (match && match[1]) {
-          image = match[1];
+          items.push({
+            title: titleMatch ? titleMatch[1].trim() : '',
+            url: trackingUrl,
+            pubDate: pubDateMatch ? new Date(pubDateMatch[1].trim()).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '',
+            excerpt: descMatch ? descMatch[1].replace(/<[^>]+>/g, '').substring(0, 160).trim() + '...' : '',
+            coverImage: enclosureMatch ? enclosureMatch[1] : null
+          });
         }
+        res.status(200).json(items.slice(0, 3));
+      } catch (err) {
+        res.status(500).json({ error: 'Failed to parse RSS feed' });
       }
-
-      // 4. Strip HTML from excerpts server-side
-      let excerpt = '';
-      if (item.contentSnippet) {
-        excerpt = striptags(item.contentSnippet);
-      } else if (item.contentEncoded) {
-        excerpt = striptags(item.contentEncoded);
-      }
-      // Truncate excerpt if too long
-      if (excerpt.length > 200) {
-        excerpt = excerpt.substring(0, 197) + '...';
-      }
-      // Clean up whitespace
-      excerpt = excerpt.replace(/\s+/g, ' ').trim();
-
-      // Extract category (fallback to 'Field Note')
-      let category = 'Field Note';
-      if (item.categories && item.categories.length > 0) {
-        category = item.categories[0];
-      }
-
-      return {
-        id: item.guid || url || String(Math.random()),
-        title: item.title ? striptags(item.title).trim() : 'Untitled',
-        url,
-        publishedAt,
-        excerpt,
-        image,
-        author: item.creator || 'Jayme Volstad',
-        category
-      };
     });
-
-    return res.status(200).json(normalizedPosts);
-  } catch (error) {
-    console.error('Substack RSS fetch error:', error);
-    // Return a controlled JSON error with status 502 when retrieval fails
-    return res.status(502).json({
-      error: 'Bad Gateway',
-      message: 'Failed to retrieve or parse the Substack RSS feed.'
-    });
-  }
+  }).on('error', () => {
+    res.status(500).json({ error: 'Failed to fetch RSS feed' });
+  });
 }
