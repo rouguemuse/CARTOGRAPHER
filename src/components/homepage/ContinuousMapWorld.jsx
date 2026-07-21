@@ -30,13 +30,13 @@ export default function ContinuousMapWorld() {
 
   return (
     <div ref={containerRef} className="continuous-map-world">
-      {/* Visual Spine: Persistent Animated SVG Red Route (2.5px Muted Crimson Behind Content) */}
+      {/* Visual Spine: Persistent Animated SVG Red Route */}
       <SvgRoutePath scrollProgress={scrollProgress} />
 
       {/* Floating Ember Signal Lights */}
       <FireflyCanvas />
 
-      {/* 1. LOCATION I: FULL-VIEWPORT HERO */}
+      {/* 1. LOCATION I: HERO */}
       <section className="map-location location-hero">
         <div className="location-bg-layer">
           <img 
@@ -75,7 +75,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 2. LOCATION II: THE ROAD OPENS (ROADSIDE SIGN) */}
+      {/* 2. LOCATION II: THE ROAD OPENS */}
       <section className="map-location location-road-opens">
         <div className="location-bg-layer">
           <img 
@@ -106,7 +106,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 3. LOCATION III: THE VALLEY MOMENT (WELCOME SIGN & CHANGING SCROLL TEXT) */}
+      {/* 3. LOCATION III: THE VALLEY MOMENT */}
       <section className="map-location location-valley-moment">
         <div className="location-bg-layer">
           <img 
@@ -157,7 +157,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER (WOMAN IN RED COAT IN RAIN) */}
+      {/* 4. LOCATION IV: OTHER PEOPLE'S WEATHER (DISTINCT FULL-VIEWPORT ARRIVAL POINT) */}
       <section className="map-location location-archival-dossier">
         <div className="location-bg-layer">
           <img 
@@ -176,7 +176,9 @@ export default function ContinuousMapWorld() {
           <div className="archival-dossier-paper">
             <div className="dossier-header-strip">
               <span className="dossier-wax-seal" title="Archival Wax Seal"></span>
-              <span className="small-label" style={{ color: '#8b0000' }}>RECOVERED FIELD NOTE NO. 01</span>
+              <span className="small-label" style={{ color: '#8b0000', margin: 0 }}>
+                LOCATION IV — OTHER PEOPLE’S WEATHER
+              </span>
             </div>
             <h2 className="dossier-title">Other People's Weather</h2>
             <blockquote className="dossier-excerpt">
@@ -233,7 +235,7 @@ export default function ContinuousMapWorld() {
             <h3 className="final-subheading">THE ROAD DOES NOT REQUIRE THEIR PERMISSION.</h3>
           </div>
 
-          {/* Restrained Live CTA Panel (No Large White Iframe) */}
+          {/* Restrained Live CTA Panel */}
           <div id="join" className="final-signup-panel">
             <span className="small-label">DISPATCHES FROM THE ROAD</span>
             <h4 className="signup-title">STAY NEAR THE ROAD</h4>
