@@ -243,12 +243,7 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
-        {/* 7. LOCATION VII: DISPATCHES */}
-        <section data-thread-anchor="dispatches">
-          <SubstackDispatches />
-        </section>
-
-        {/* 8. LOCATION VIII: FINAL HORIZON */}
+        {/* 7. LOCATION VII: FINAL HORIZON & STAY NEAR THE ROAD */}
         <section data-thread-anchor="final" className="map-location location-final-landscape">
           <div className="location-bg-layer">
             <img 
@@ -299,30 +294,35 @@ export default function ContinuousMapWorld() {
               </div>
             </div>
           </div>
-
-          {/* Simple Non-Overlapping Footer */}
-          <footer className="continuous-footer">
-            <div className="footer-inner">
-              <span className="footer-brand">How to Explain Yourself to Wolves</span>
-              <div className="footer-links-row">
-                <Link to="/archive">Archive</Link>
-                <Link to="/journey">Journey</Link>
-                <Link to="/dear-red">Dear Red</Link>
-                <Link to="/things-i-should-have-said">Unsaid Wall</Link>
-                <a 
-                  href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  Dispatches
-                </a>
-                <Link to="/book">The Book</Link>
-                <Link to="/about">About</Link>
-              </div>
-              <span className="footer-copy">© {new Date().getFullYear()} Jayme Volstad. All rights reserved.</span>
-            </div>
-          </footer>
         </section>
+
+        {/* 8. LATEST DISPATCHES (PLACED DIRECTLY UNDERNEATH STAY NEAR THE ROAD SECTION) */}
+        <section data-thread-anchor="dispatches">
+          <SubstackDispatches />
+        </section>
+
+        {/* Footer */}
+        <footer className="continuous-footer">
+          <div className="footer-inner">
+            <span className="footer-brand">How to Explain Yourself to Wolves</span>
+            <div className="footer-links-row">
+              <Link to="/archive">Archive</Link>
+              <Link to="/journey">Journey</Link>
+              <Link to="/dear-red">Dear Red</Link>
+              <Link to="/things-i-should-have-said">Unsaid Wall</Link>
+              <a 
+                href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                Dispatches
+              </a>
+              <Link to="/book">The Book</Link>
+              <Link to="/about">About</Link>
+            </div>
+            <span className="footer-copy">© {new Date().getFullYear()} Jayme Volstad. All rights reserved.</span>
+          </div>
+        </footer>
 
       </main>
     </div>
