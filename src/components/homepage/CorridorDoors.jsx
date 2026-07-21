@@ -36,17 +36,15 @@ export default function CorridorDoors() {
           className="home-corridor-door-link door-left"
           aria-label="Enter Dear Red private room"
         >
-          {/* Live Replacement Plaque Covering Fake Image Lettering */}
+          {/* Live Replacement Plaque Positioned Directly Over Artwork Header */}
           <div className="home-door-plaque">
             <span className="home-door-plaque-tag">PRIVATE ROOM</span>
             <h3 className="home-door-plaque-title">DEAR RED</h3>
           </div>
 
-          <div className="home-door-text-panel">
+          {/* Small Localized Text Treatment Near Base */}
+          <div className="home-door-label-subtle">
             <p className="home-door-sub">"A private room for the version of you who kept explaining."</p>
-            <p className="home-door-body">
-              Letters for the selves we abandoned while trying to be understood. Submitted letters remain strictly private by default.
-            </p>
             <span className="home-door-action">Enter Dear Red &rarr;</span>
           </div>
         </Link>
@@ -57,17 +55,15 @@ export default function CorridorDoors() {
           className="home-corridor-door-link door-right"
           aria-label="Step to Things I Should Have Said public wall"
         >
-          {/* Live Replacement Plaque Covering Fake Image Lettering */}
+          {/* Live Replacement Plaque Positioned Directly Over Artwork Header */}
           <div className="home-door-plaque">
             <span className="home-door-plaque-tag">PUBLIC WALL</span>
             <h3 className="home-door-plaque-title">THINGS I SHOULD HAVE SAID</h3>
           </div>
 
-          <div className="home-door-text-panel">
+          {/* Small Localized Text Treatment Near Base */}
+          <div className="home-door-label-subtle">
             <p className="home-door-sub">"A public wall for words that arrived after the room was gone."</p>
-            <p className="home-door-body">
-              An anonymous wall of tactile paper fragments (max 300 chars) left behind after the conversation ended.
-            </p>
             <span className="home-door-action">Step to the wall &rarr;</span>
           </div>
         </Link>

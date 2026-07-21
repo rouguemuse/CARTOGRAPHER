@@ -29,29 +29,40 @@
   z-index: 5;
   width: 100%;
   height: clamp(650px, 75vh, 800px);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
 }
 
 @media (max-width: 768px) {
-  .home-corridor-stage {
-    grid-template-columns: 1fr;
-    height: auto;
-    min-height: 700px;
+  .home-corridor-scene, .home-corridor-stage {
+    min-height: 600px;
+    height: 600px;
   }
 }
 
 /* Doorway Portal Hotspot Buttons */
 .home-corridor-door-link {
-  position: relative;
+  position: absolute;
+  top: 0;
+  height: 100%;
+  text-decoration: none;
+  color: var(--color-parchment);
+  outline: none;
+  z-index: 6;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 3rem 2.5rem;
-  text-decoration: none;
-  color: var(--color-parchment);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  outline: none;
+  box-sizing: border-box;
+}
+
+.home-corridor-door-link.door-left {
+  left: 0;
+  width: 50%;
+  padding: 2.5rem 3rem 2.5rem 6%;
+}
+
+.home-corridor-door-link.door-right {
+  left: 50%;
+  width: 50%;
+  padding: 2.5rem 6% 2.5rem 3rem;
 }
 
 .home-corridor-door-link:focus-visible {
@@ -59,33 +70,42 @@
   outline-offset: -4px;
 }
 
-/* Live Replacement Plaque Covering Fake Image Lettering */
+/* Precise Live Replacement Plaque Sitting Directly Over Artwork Plaque Header */
 .home-door-plaque {
-  align-self: center;
-  background: #1c1611;
+  position: absolute;
+  top: 14%;
+  background: #1a140f;
   border: 2px solid #5a4632;
   border-bottom: 2px solid #b5985a;
-  padding: 0.65rem 1.5rem;
+  padding: 0.5rem 1.25rem;
   border-radius: 3px;
   text-align: center;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.8);
-  margin-top: 1rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.9);
   transition: transform 0.3s ease, border-color 0.3s ease;
+  min-width: 180px;
+}
+
+.door-left .home-door-plaque {
+  left: 22%;
+}
+
+.door-right .home-door-plaque {
+  right: 22%;
 }
 
 .home-door-plaque-tag {
   font-family: var(--font-ui);
-  font-size: 11px;
+  font-size: 10px;
   letter-spacing: 0.18em;
   color: var(--color-brass);
   display: block;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.15rem;
   font-weight: 700;
 }
 
 .home-door-plaque-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: 1.25rem;
   color: var(--color-parchment);
   margin: 0;
 }
@@ -95,19 +115,27 @@
   border-color: #b3211d;
 }
 
-/* Door Description Text Field */
-.home-door-text-panel {
+/* Small Restrained Local Doorway Label Near Base */
+.home-door-label-subtle {
+  position: absolute;
+  bottom: 8%;
   background: rgba(14, 18, 16, 0.88);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(230, 220, 195, 0.2);
-  padding: 1.75rem;
-  border-radius: 4px;
-  margin-top: auto;
+  border: 1px solid rgba(230, 220, 195, 0.25);
+  padding: 0.75rem 1.25rem;
+  border-radius: 3px;
   transition: transform 0.3s ease, border-color 0.3s ease;
+  max-width: 280px;
 }
 
-.home-corridor-door-link:hover .home-door-text-panel {
+.door-left .home-door-label-subtle {
+  left: 12%;
+}
+
+.door-right .home-door-label-subtle {
+  right: 12%;
+}
+
+.home-corridor-door-link:hover .home-door-label-subtle {
   transform: translateY(-3px);
   border-color: var(--color-brass);
 }
@@ -115,24 +143,41 @@
 .home-door-sub {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: 1.1rem;
+  font-size: 0.95rem;
   color: var(--color-brass);
-  margin-bottom: 0.5rem;
-}
-
-.home-door-body {
-  font-family: var(--font-body);
-  font-size: var(--text-sm);
-  color: var(--color-bone);
-  line-height: 1.55;
-  margin-bottom: 1rem;
+  margin: 0 0 0.35rem 0;
 }
 
 .home-door-action {
   font-family: var(--font-ui);
-  font-size: 13px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.12em;
   color: #b3211d;
   text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .home-door-plaque {
+    top: 10%;
+    min-width: 140px;
+    padding: 0.35rem 0.75rem;
+  }
+
+  .door-left .home-door-plaque {
+    left: 8%;
+  }
+
+  .door-right .home-door-plaque {
+    right: 8%;
+  }
+
+  .home-door-plaque-title {
+    font-size: 1.05rem;
+  }
+
+  .home-door-label-subtle {
+    bottom: 5%;
+    padding: 0.5rem 0.85rem;
+  }
 }
