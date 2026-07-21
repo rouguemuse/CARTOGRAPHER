@@ -1,10 +1,19 @@
-// UNIFIED SUBMISSIONS STORE & LOCAL BACKEND FOR CARTOGRAPHER
-// Manages Dear Red letters, Wall of Things Unsaid, and General Submissions
+// UNIFIED SUBMISSIONS STORE WITH FIREBASE FIRESTORE SYNC & LOCAL FALLBACK
+import { db } from '../firebase';
+import { 
+  collection, 
+  addDoc, 
+  getDocs, 
+  doc, 
+  updateDoc, 
+  query, 
+  where, 
+  orderBy 
+} from 'firebase/firestore';
 
 const STORAGE_KEY = 'wolves_unified_submissions_v1';
 
 const INITIAL_SEED_SUBMISSIONS = [
-  // 1. Dear Red Letters
   {
     id: 'dr-001',
     submission_type: 'dear_red',
@@ -53,8 +62,6 @@ const INITIAL_SEED_SUBMISSIONS = [
     public_slug: 'borrowed-weather',
     reactions: { feltThis: 31, survivedThis: 18, wishISaidThis: 27 }
   },
-
-  // 2. Wall of Things Unsaid
   {
     id: 'tu-101',
     submission_type: 'things_unsaid',
@@ -102,30 +109,6 @@ const INITIAL_SEED_SUBMISSIONS = [
     published_at: '2026-07-20T15:10:00Z',
     public_slug: 'learned-their-dialect',
     reactions: { feltThis: 62, survivedThis: 54, wishISaidThis: 41 }
-  },
-  {
-    id: 'tu-103',
-    submission_type: 'things_unsaid',
-    title: '',
-    body: 'I forgave you on a Tuesday when the sun hit the cedar floorboards, but I never told you because you preferred the argument.',
-    published_body: 'I forgave you on a Tuesday when the sun hit the cedar floorboards, but I never told you because you preferred the argument.',
-    alias: 'Anonymous',
-    legal_name: '',
-    email: '',
-    recipient: '',
-    category: 'Forgiveness',
-    consent_publication: 'true',
-    consent_editing: true,
-    publication_identity: 'anonymous',
-    status: 'published',
-    moderator_notes: 'Approved.',
-    editor_note: '',
-    content_warning: '',
-    created_at: '2026-07-21T07:12:00Z',
-    reviewed_at: '2026-07-21T08:00:00Z',
-    published_at: '2026-07-21T08:05:00Z',
-    public_slug: 'preferred-the-argument',
-    reactions: { feltThis: 29, survivedThis: 16, wishISaidThis: 38 }
   }
 ];
 
@@ -136,7 +119,7 @@ export function getSubmissionsStore() {
       return JSON.parse(raw);
     }
   } catch (e) {
-    console.warn('LocalStorage error in getSubmissionsStore:', e);
+    console.warn('LocalStorage error:', e);
   }
   localStorage.setItem(STORAGE_KEY, JSON.stringify(INITIAL_SEED_SUBMISSIONS));
   return INITIAL_SEED_SUBMISSIONS;
@@ -150,7 +133,7 @@ export function saveSubmissionsStore(submissions) {
   }
 }
 
-export function addSubmission(submissionData) {
+export async function addSubmission(submissionData) {
   const store = getSubmissionsStore();
   const slug = (submissionData.title || submissionData.alias || 'submission')
     .toLowerCase()
@@ -171,7 +154,7 @@ export function addSubmission(submissionData) {
     consent_publication: submissionData.consent_publication || 'private',
     consent_editing: submissionData.consent_editing ?? true,
     publication_identity: submissionData.publication_identity || 'anonymous',
-    status: 'new', // ALL NEW SUBMISSIONS START IN NEW QUEUE
+    status: 'new', // ALWAYS STARTS IN NEW MODERATION QUEUE
     moderator_notes: '',
     editor_note: '',
     content_warning: submissionData.content_warning || '',
@@ -182,12 +165,24 @@ export function addSubmission(submissionData) {
     reactions: { feltThis: 0, survivedThis: 0, wishISaidThis: 0 }
   };
 
+  // 1. Update LocalStorage immediately
   store.unshift(newRecord);
   saveSubmissionsStore(store);
+
+  // 2. Sync to Firebase Firestore asynchronously
+  try {
+    if (db) {
+      const docRef = await addDoc(collection(db, 'submissions'), newRecord);
+      console.log('Firebase Firestore submission synced:', docRef.id);
+    }
+  } catch (err) {
+    console.warn('Firestore sync skipped or offline:', err);
+  }
+
   return newRecord;
 }
 
-export function updateSubmissionStatus(id, newStatus, moderatorNotes = '', publishedBody = null, editorNote = null) {
+export async function updateSubmissionStatus(id, newStatus, moderatorNotes = '', publishedBody = null, editorNote = null) {
   const store = getSubmissionsStore();
   const index = store.findIndex(item => item.id === id);
   if (index !== -1) {
@@ -200,6 +195,28 @@ export function updateSubmissionStatus(id, newStatus, moderatorNotes = '', publi
       store[index].published_at = new Date().toISOString();
     }
     saveSubmissionsStore(store);
+
+    // Sync status update to Firestore
+    try {
+      if (db) {
+        const q = query(collection(db, 'submissions'), where('id', '==', id));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          const docId = snap.docs[0].id;
+          await updateDoc(doc(db, 'submissions', docId), {
+            status: newStatus,
+            moderator_notes: moderatorNotes,
+            published_body: publishedBody,
+            editor_note: editorNote,
+            reviewed_at: store[index].reviewed_at,
+            published_at: store[index].published_at
+          });
+        }
+      }
+    } catch (err) {
+      console.warn('Firestore status update error:', err);
+    }
+
     return store[index];
   }
   return null;
