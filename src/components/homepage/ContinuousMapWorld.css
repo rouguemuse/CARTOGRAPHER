@@ -1,7 +1,8 @@
-/* CONTINUOUS MAP WORLD — ENVIRONMENTAL TRANSITION SYSTEM */
+/* CONTINUOUS MAP WORLD — TRANSPARENT MASK TRANSITION SYSTEM */
 .continuous-map-world {
   position: relative;
   width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
   background-color: #040908;
   color: var(--color-parchment);
@@ -18,6 +19,7 @@
 .map-location {
   position: relative;
   width: 100%;
+  max-width: 100%;
   min-height: clamp(550px, 85vh, 900px);
   display: flex;
   flex-direction: column;
@@ -26,6 +28,7 @@
   padding: 5rem 1rem;
   box-sizing: border-box;
   isolation: isolate;
+  overflow-x: hidden;
 }
 
 .location-bg-layer {
@@ -61,7 +64,7 @@
 
 
 /* ==================================================
-   1. HERO MAP → ROAD OPENS (Ink & Shadow Overlap)
+   1. HERO MAP → ROAD OPENS (Image Mask Fade)
    ================================================== */
 .location-hero {
   min-height: 100vh;
@@ -74,17 +77,18 @@
 .hero-vignette-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom, 
-    rgba(6, 14, 12, 0.2) 0%, 
-    rgba(6, 14, 12, 0.45) 60%, 
-    rgba(6, 14, 12, 0.92) 100%
+  background: radial-gradient(
+    circle at center, 
+    transparent 35%, 
+    rgba(6, 14, 12, 0.45) 70%,
+    rgba(6, 14, 12, 0.85) 100%
   );
+  pointer-events: none;
 }
 
 .location-hero .location-bg-img {
-  mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 65%, transparent 100%);
 }
 
 .hero-content-box {
@@ -163,35 +167,35 @@
 
 
 /* ==================================================
-   2. ROAD OPENS → VALLEY (Rolling Mist Overlap)
+   2. ROAD OPENS → VALLEY (Seamless Image Mask & Negative Overlap)
    ================================================== */
 .location-road-opens {
   min-height: clamp(520px, 72vh, 720px);
   width: 100%;
-  margin-top: -100px;
+  margin-top: -120px;
   z-index: 11;
 }
 
 @media (max-width: 768px) {
   .location-road-opens {
-    margin-top: -50px;
+    margin-top: -60px;
   }
 }
 
 .location-road-opens .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
 }
 
 .location-road-opens .soft-fog-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    180deg, 
-    rgba(14, 24, 22, 0.45) 0%, 
-    rgba(18, 28, 25, 0.2) 40%, 
-    rgba(28, 42, 36, 0.85) 100%
+  background: radial-gradient(
+    circle at center, 
+    transparent 35%, 
+    rgba(14, 24, 22, 0.4) 100%
   );
+  pointer-events: none;
 }
 
 .roadside-wooden-post {
@@ -225,24 +229,24 @@
 
 
 /* ==================================================
-   3. VALLEY → CARNIVAL (Daylight to Dusk/Night Overlap)
+   3. VALLEY → CARNIVAL (Daylight to Dusk Image Mask Fade)
    ================================================== */
 .location-valley-moment {
   min-height: clamp(650px, 85vh, 880px);
   width: 100%;
-  margin-top: -110px;
+  margin-top: -120px;
   z-index: 12;
 }
 
 @media (max-width: 768px) {
   .location-valley-moment {
-    margin-top: -55px;
+    margin-top: -60px;
   }
 }
 
 .location-valley-moment .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
 }
 
 .location-valley-moment .soft-fog-overlay {
@@ -250,10 +254,10 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    rgba(28, 42, 36, 0.15) 0%, 
-    rgba(10, 18, 15, 0.4) 60%, 
-    rgba(35, 20, 28, 0.85) 100%
+    transparent 40%, 
+    rgba(10, 18, 15, 0.5) 100%
   );
+  pointer-events: none;
 }
 
 
@@ -261,19 +265,19 @@
 .location-carnival-scene {
   min-height: clamp(520px, 72vh, 760px);
   width: 100%;
-  margin-top: -100px;
+  margin-top: -120px;
   z-index: 13;
 }
 
 @media (max-width: 768px) {
   .location-carnival-scene {
-    margin-top: -50px;
+    margin-top: -60px;
   }
 }
 
 .location-carnival-scene .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
 }
 
 .carnival-fog-overlay {
@@ -281,10 +285,10 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    rgba(35, 20, 28, 0.25) 0%, 
-    rgba(20, 14, 22, 0.6) 60%, 
-    rgba(6, 14, 12, 0.92) 100%
+    transparent 40%, 
+    rgba(20, 14, 22, 0.5) 100%
   );
+  pointer-events: none;
 }
 
 .carnival-glimpse-box {
@@ -324,25 +328,25 @@
 
 
 /* ==================================================
-   4. CARNIVAL → OTHER PEOPLE’S WEATHER (Lights to Storm Overlap)
+   4. CARNIVAL → OTHER PEOPLE’S WEATHER (Lights to Storm Fade)
    ================================================== */
 .location-archival-dossier {
   min-height: clamp(620px, 82vh, 860px);
   width: 100%;
-  margin-top: -100px;
+  margin-top: -120px;
   z-index: 14;
   position: relative;
 }
 
 @media (max-width: 768px) {
   .location-archival-dossier {
-    margin-top: -50px;
+    margin-top: -60px;
   }
 }
 
 .location-archival-dossier .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
 }
 
 .weather-readability-overlay {
@@ -350,11 +354,12 @@
   inset: 0;
   background: linear-gradient(
     90deg, 
-    rgba(6, 14, 12, 0.15) 0%, 
-    rgba(6, 14, 12, 0.45) 45%, 
-    rgba(6, 14, 12, 0.92) 100%
+    transparent 0%, 
+    rgba(6, 14, 12, 0.35) 45%, 
+    rgba(6, 14, 12, 0.88) 100%
   );
   z-index: 2;
+  pointer-events: none;
 }
 
 .weather-dossier-wrap {
@@ -366,7 +371,7 @@
 
 @media (max-width: 768px) {
   .weather-readability-overlay {
-    background: linear-gradient(180deg, rgba(6, 14, 12, 0.2) 0%, rgba(6, 14, 12, 0.88) 100%);
+    background: linear-gradient(180deg, transparent 0%, rgba(6, 14, 12, 0.85) 100%);
   }
   .weather-dossier-wrap {
     justify-content: center;
@@ -429,82 +434,70 @@
 
 
 /* ==================================================
-   5. WEATHER → THE LEGEND (Storm to Paper & Lamp Light Overlap)
+   5. WEATHER → THE LEGEND (Storm to Paper Overlap)
    ================================================== */
 .location-relics-worktable {
   min-height: clamp(680px, 85vh, 920px);
   width: 100%;
-  margin-top: -110px;
+  margin-top: -120px;
   z-index: 15;
-  background: radial-gradient(
-    circle at center, 
-    rgba(38, 28, 18, 0.4) 0%, 
-    rgba(8, 12, 10, 0.95) 100%
-  );
+  background: transparent;
 }
 
 @media (max-width: 768px) {
   .location-relics-worktable {
-    margin-top: -55px;
+    margin-top: -60px;
   }
 }
 
 
 /* ==================================================
-   6. THE LEGEND → CORRIDOR (Warm Desk Light to Shadow Overlap)
+   6. THE LEGEND → CORRIDOR (Worktable to Corridor Architecture)
    ================================================== */
 .location-corridor {
   min-height: clamp(720px, 90vh, 960px);
   width: 100%;
-  margin-top: -100px;
+  margin-top: -120px;
   z-index: 16;
-  background: linear-gradient(
-    180deg, 
-    rgba(18, 22, 20, 0.85) 0%, 
-    rgba(10, 12, 11, 0.95) 100%
-  );
+  background: transparent;
 }
 
 @media (max-width: 768px) {
   .location-corridor {
-    margin-top: -50px;
+    margin-top: -60px;
   }
 }
 
 
 /* ==================================================
-   7. CORRIDOR → LATEST DISPATCHES (Archival Folio Nesting)
+   7. CORRIDOR → LATEST DISPATCHES (Editorial Folio Nesting)
    ================================================== */
-/* Handled inside SubstackDispatches.css with seamless dark backdrop */
+/* Handled cleanly in SubstackDispatches.css */
 
 
 /* ==================================================
-   8. LATEST DISPATCHES → FINAL HORIZON (Paper to Dawn Fog Overlap)
+   8. LATEST DISPATCHES → FINAL HORIZON (Paper to Dawn Fog Fade)
    ================================================== */
 .location-final-landscape {
   min-height: 92vh;
   width: 100%;
-  margin-top: -90px;
+  margin-top: -100px;
   z-index: 18;
   position: relative;
   justify-content: space-between;
   padding-bottom: 0;
-  background: radial-gradient(
-    circle at center, 
-    rgba(30, 45, 55, 0.25) 0%, 
-    rgba(4, 9, 8, 0.98) 85%
-  );
+  background: transparent;
 }
 
 @media (max-width: 768px) {
   .location-final-landscape {
-    margin-top: -45px;
+    margin-top: -50px;
   }
 }
 
 .location-final-landscape .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
 }
 
 .final-lantern-glow {
@@ -512,8 +505,8 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    rgba(212, 175, 55, 0.14) 0%, 
-    rgba(6, 14, 12, 0.85) 80%
+    rgba(212, 175, 55, 0.12) 0%, 
+    transparent 80%
   );
   pointer-events: none;
 }
