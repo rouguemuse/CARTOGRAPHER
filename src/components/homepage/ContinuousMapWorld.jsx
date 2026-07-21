@@ -10,7 +10,11 @@ import './ContinuousMapWorld.css';
 
 export default function ContinuousMapWorld() {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [carnivalDarkOpacity, setCarnivalDarkOpacity] = useState(0);
+  const [carnivalTextOpacity, setCarnivalTextOpacity] = useState(1);
+  
   const containerRef = useRef(null);
+  const carnivalRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,6 +24,20 @@ export default function ContinuousMapWorld() {
       const current = window.scrollY;
       const progress = Math.max(0, Math.min(1, current / totalHeight));
       setScrollProgress(progress);
+
+      // Carnival Scroll-Linked Crossfade Calculation
+      if (carnivalRef.current) {
+        const rect = carnivalRef.current.getBoundingClientRect();
+        const sectionHeight = rect.height - window.innerHeight;
+        if (sectionHeight > 0) {
+          const scrolledInto = -rect.top;
+          const localProgress = Math.max(0, Math.min(1, scrolledInto / sectionHeight));
+          setCarnivalDarkOpacity(localProgress);
+          // Text card fades out gracefully as scene darkens completely
+          const textOpacity = localProgress > 0.75 ? Math.max(0, 1 - (localProgress - 0.75) / 0.25) : 1;
+          setCarnivalTextOpacity(textOpacity);
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -108,85 +126,51 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
-        {/* 3. THREE-STAGE CARNIVAL SEQUENCE */}
-
-        {/* STAGE 1: CARNIVAL GATE */}
-        <section className="map-location carnival-stage-gate">
-          <div className="location-bg-layer">
+        {/* 3. LOCATION III: THE CARNIVAL (ONE SINGLE SCROLL-LINKED CROSSFADE SECTION) */}
+        <section ref={carnivalRef} data-thread-anchor="carnival" className="carnival-single-section">
+          <div className="carnival-sticky-frame">
+            
+            {/* Lit Layer (Bottom) */}
             <img 
-              src="/images/artwork/carnival-aerial.png" 
-              alt="The illuminated entrance gate of the Carnival territory" 
+              src="/images/artwork/carnival-lit.jpg" 
+              alt="Illuminated aerial view of the Carnival territory" 
               width="1344" 
               height="768" 
               loading="lazy" 
               decoding="async" 
-              className="location-bg-img" 
+              className="carnival-layer carnival-layer-lit" 
             />
-            <div className="gate-vignette-overlay"></div>
-          </div>
 
-          <div className="location-content text-center">
-            <div className="carnival-gate-sign">
-              <span className="small-label" style={{ color: 'var(--color-brass)' }}>
-                LOCATION III — THE CARNIVAL GATE
-              </span>
-              <h2 className="gate-sign-heading">COME SEE WHO YOU REALLY ARE</h2>
-            </div>
-          </div>
-        </section>
-
-        {/* STAGE 2: LIT CARNIVAL */}
-        <section data-thread-anchor="carnival" className="map-location carnival-stage-lit">
-          <div className="location-bg-layer">
+            {/* Dark Layer (Top with scroll-linked opacity crossfade) */}
             <img 
-              src="/images/artwork/carnival-aerial.png" 
-              alt="Wide illuminated aerial view of the Carnival" 
+              src="/images/artwork/carnival-dark.jpg" 
+              alt="Dark abandoned aerial view of the Carnival territory" 
               width="1344" 
               height="768" 
               loading="lazy" 
               decoding="async" 
-              className="location-bg-img" 
+              className="carnival-layer carnival-layer-dark" 
+              style={{ opacity: carnivalDarkOpacity }}
             />
-            <div className="lit-carnival-overlay"></div>
-          </div>
 
-          <div className="location-content">
-            <div className="carnival-glimpse-box">
-              <span className="small-label" style={{ color: 'var(--color-brass)' }}>
-                LOCATION III — THE CARNIVAL
-              </span>
-              <h2 className="carnival-glimpse-title">THE CARNIVAL</h2>
-              <p className="carnival-glimpse-body">
-                The Carnival is not marked on every map.
-              </p>
-              <p className="carnival-glimpse-sub">
-                Some roads only appear after dark.
-              </p>
+            <div className="carnival-vignette-overlay"></div>
+
+            {/* Single Centered Text Card */}
+            <div className="carnival-centered-content" style={{ opacity: carnivalTextOpacity }}>
+              <div className="carnival-single-card">
+                <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+                  LOCATION III — THE CARNIVAL
+                </span>
+                <h2 className="carnival-single-title">THE CARNIVAL</h2>
+                <blockquote className="carnival-single-quote">
+                  "It did not look dangerous while the lights were on."
+                </blockquote>
+                <p className="carnival-single-sub">
+                  Some roads only appear after dark.
+                </p>
+              </div>
             </div>
-          </div>
-        </section>
 
-        {/* STAGE 3: ABANDONED CARNIVAL */}
-        <section className="map-location carnival-stage-abandoned">
-          <div className="location-bg-layer">
-            <img 
-              src="/images/hero_map.png" 
-              alt="Cold dark aftermath of the abandoned Carnival territory" 
-              width="1344" 
-              height="768" 
-              loading="lazy" 
-              decoding="async" 
-              className="location-bg-img" 
-            />
-            <div className="abandoned-carnival-overlay"></div>
-          </div>
-
-          <div className="location-content text-center">
-            <div className="abandoned-note-box">
-              <p className="abandoned-note-text">
-                The lights dim behind you. The red thread leads into the weather ahead.
-              </p>
-            </div>
           </div>
         </section>
 
@@ -296,7 +280,7 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
-        {/* 8. LATEST DISPATCHES (PLACED DIRECTLY UNDERNEATH STAY NEAR THE ROAD SECTION) */}
+        {/* 8. LATEST DISPATCHES */}
         <section data-thread-anchor="dispatches">
           <SubstackDispatches />
         </section>
