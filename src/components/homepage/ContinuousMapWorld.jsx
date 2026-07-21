@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SvgRoutePath from './SvgRoutePath';
 import FireflyCanvas from './FireflyCanvas';
-import ValleySignScroll from './ValleySignScroll';
 import CabinetOfRelics from './CabinetOfRelics';
 import CorridorDoors from './CorridorDoors';
 import SubstackDispatches from '../substack/SubstackDispatches';
@@ -30,13 +29,13 @@ export default function ContinuousMapWorld() {
 
   return (
     <div ref={containerRef} className="continuous-map-world">
-      {/* Visual Spine: Persistent Animated SVG Red Route */}
+      {/* Visual Spine: Persistent Animated SVG Red Thread */}
       <SvgRoutePath scrollProgress={scrollProgress} />
 
       {/* Floating Ember Signal Lights */}
       <FireflyCanvas />
 
-      {/* 1. LOCATION I: HERO */}
+      {/* 1. LOCATION I: HERO MAP */}
       <section className="map-location location-hero">
         <div className="location-bg-layer">
           <img 
@@ -75,7 +74,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 2. LOCATION II: THE ROAD OPENS */}
+      {/* 2. LOCATION II: THE ROAD OPENS (Shorter Atmospheric Transition) */}
       <section className="map-location location-road-opens">
         <div className="location-bg-layer">
           <img 
@@ -87,7 +86,7 @@ export default function ContinuousMapWorld() {
             decoding="async" 
             className="location-bg-img" 
           />
-          <div className="soft-fog-overlay"></div>
+          <div className="road-contrast-overlay"></div>
         </div>
 
         <div className="location-content">
@@ -106,45 +105,52 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 3. LOCATION III: THE VALLEY MOMENT */}
-      <section className="map-location location-valley-moment">
-        <div className="location-bg-layer">
-          <img 
-            src="/images/artwork/journey-explanation.jpg" 
-            alt="The Valley path terrain" 
-            width="2560" 
-            height="1440" 
-            loading="lazy" 
-            decoding="async" 
-            className="location-bg-img" 
-          />
-          <div className="soft-fog-overlay"></div>
-        </div>
+      {/* 3. THREE-STAGE CARNIVAL SEQUENCE */}
 
-        <div className="location-content">
-          <ValleySignScroll />
-        </div>
-      </section>
-
-      {/* APPROVED WIDE AERIAL CARNIVAL SCENE */}
-      <section className="map-location location-carnival-scene">
+      {/* STAGE 1: CARNIVAL GATE (Arrival Frame) */}
+      <section className="map-location carnival-stage-gate">
         <div className="location-bg-layer">
           <img 
             src="/images/artwork/carnival-aerial.png" 
-            alt="Wide aerial map view of the Carnival territory" 
+            alt="The illuminated entrance gate of the Carnival territory" 
             width="1344" 
             height="768" 
             loading="lazy" 
             decoding="async" 
             className="location-bg-img" 
           />
-          <div className="carnival-fog-overlay"></div>
+          <div className="gate-vignette-overlay"></div>
+        </div>
+
+        <div className="location-content text-center">
+          <div className="carnival-gate-sign">
+            <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+              LOCATION III — THE CARNIVAL GATE
+            </span>
+            <h2 className="gate-sign-heading">COME SEE WHO YOU REALLY ARE</h2>
+          </div>
+        </div>
+      </section>
+
+      {/* STAGE 2: LIT CARNIVAL (Active Illuminated Territory) */}
+      <section className="map-location carnival-stage-lit">
+        <div className="location-bg-layer">
+          <img 
+            src="/images/artwork/carnival-aerial.png" 
+            alt="Wide illuminated aerial view of the Carnival" 
+            width="1344" 
+            height="768" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
+          <div className="lit-carnival-overlay"></div>
         </div>
 
         <div className="location-content">
           <div className="carnival-glimpse-box">
             <span className="small-label" style={{ color: 'var(--color-brass)' }}>
-              LOCATION — UNMARKED
+              LOCATION III — THE CARNIVAL
             </span>
             <h2 className="carnival-glimpse-title">THE CARNIVAL</h2>
             <p className="carnival-glimpse-body">
@@ -157,12 +163,36 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 4. LOCATION IV: OTHER PEOPLE'S WEATHER (DISTINCT FULL-VIEWPORT ARRIVAL POINT) */}
+      {/* STAGE 3: ABANDONED CARNIVAL (Aftermath & Exit into Cold Shadows) */}
+      <section className="map-location carnival-stage-abandoned">
+        <div className="location-bg-layer">
+          <img 
+            src="/images/hero_map.png" 
+            alt="Cold dark aftermath of the abandoned Carnival territory" 
+            width="1344" 
+            height="768" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
+          <div className="abandoned-carnival-overlay"></div>
+        </div>
+
+        <div className="location-content text-center">
+          <div className="abandoned-note-box">
+            <p className="abandoned-note-text">
+              The lights dim behind you. The red thread leads into the weather ahead.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* 4. LOCATION IV: OTHER PEOPLE'S WEATHER (Dominant Weather Metaphor) */}
       <section className="map-location location-archival-dossier">
         <div className="location-bg-layer">
           <img 
             src="/images/artwork/weather-rain.png" 
-            alt="A woman in a red coat walking through rain and lightning across an open misty landscape" 
+            alt="A woman in a red coat walking through rain, moving fog, wind-bent branches, and distant storm light" 
             width="1344" 
             height="768" 
             loading="lazy" 
@@ -196,7 +226,7 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 5. LOCATION V: THE WORKTABLE (THE LEGEND) */}
+      {/* 5. LOCATION V: THE LEGEND (SYMBOLIC INVENTORY IN ATMOSPHERIC VOID) */}
       <section className="map-location location-relics-worktable">
         <div className="location-content location-worktable-content">
           <CabinetOfRelics />

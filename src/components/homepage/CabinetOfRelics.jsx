@@ -32,47 +32,29 @@ export default function CabinetOfRelics() {
 
   return (
     <div className="home-relic-container">
-      {/* Location Masthead */}
+      {/* Masthead */}
       <header className="home-relic-header">
-        <span className="small-label" style={{ color: 'var(--color-brass)' }}>
-          LOCATION V — THE WORKTABLE
-        </span>
         <h2 className="home-relic-main-title">THE LEGEND</h2>
         <p className="home-relic-subtitle">
-          Every map needs a legend. This one tells you what the objects mean—and asks which one you will carry.
+          Every map needs a legend. This one tells you what the objects mean—and asks which one you still carry.
         </p>
       </header>
 
-      {/* Physical Worktable Visual Scene */}
-      <div className="home-relic-scene">
-        <div className="home-relic-bg-layer">
-          <img 
-            src="/images/homepage/relic-worktable.jpg" 
-            alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
-            width="1344"
-            height="768"
-            loading="lazy"
-            decoding="async"
-            className="home-relic-bg-img"
-          />
-        </div>
+      {/* Atmospheric Void Stage (Transparent Cutouts & Vector Red Thread) */}
+      <div className="home-relic-void-stage">
+        
+        {/* Continuous Red Thread Vector Path (Placed Beneath Relics) */}
+        <svg
+          className="relic-thread"
+          viewBox="0 0 1200 700"
+          preserveAspectRatio="none"
+          aria-hidden="true"
+        >
+          <path d="M170 135 C255 175 225 300 365 322 C505 344 505 205 665 305 C805 393 830 510 1040 330" />
+        </svg>
 
-        {/* Interactive Relic Overlays Stage */}
-        <div className="home-relic-stage" role="radiogroup" aria-label="Cabinet of Relics Worktable">
-          
-          {/* Loose Crimson Thread Winding Across Table Edge */}
-          <svg className="table-thread-winding-svg" viewBox="0 0 1000 600" fill="none" aria-hidden="true">
-            <path
-              d="M 460,140 C 520,180 600,160 620,240 C 640,320 540,380 480,360 C 420,340 320,400 280,480 C 260,520 300,580 340,600"
-              stroke="#8c1c18"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              strokeDasharray="4, 1"
-              opacity="0.85"
-              filter="drop-shadow(0 3px 6px rgba(0,0,0,0.8))"
-            />
-          </svg>
-
+        {/* Floating Isolated Relic Cutout Buttons */}
+        <div className="void-relics-cluster" role="radiogroup" aria-label="Symbolic Inventory Relics">
           {relics.map((obj) => {
             const isSelected = obj.id === selectedId;
             return (
@@ -81,47 +63,49 @@ export default function CabinetOfRelics() {
                 role="radio"
                 aria-checked={isSelected}
                 aria-label={`Select ${obj.title}`}
-                className={`home-relic-button home-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
+                className={`void-relic-button void-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
                 onClick={() => setSelectedId(obj.id)}
                 onFocus={() => setSelectedId(obj.id)}
               >
                 <img 
                   src={obj.image} 
                   alt={obj.alt}
-                  width="800"
-                  height="800"
+                  width="400"
+                  height="400"
                   loading="lazy"
                   decoding="async"
-                  className="home-relic-img"
+                  className="void-relic-img"
                 />
+                <span className="void-relic-label">{obj.title}</span>
               </button>
             );
           })}
+        </div>
 
-          {/* Selected Relic HTML Catalogue Record Panel */}
-          <div className="home-relic-dossier-panel">
-            <span className="home-relic-cat-tag">{activeRelic.catNum}</span>
-            <h3 className="home-relic-title">{activeRelic.title}</h3>
-            <p className="home-relic-desc">{activeRelic.description}</p>
-            
-            <div className="home-relic-actions">
-              <button 
-                className="btn btn-primary btn-sm"
-                onClick={() => handleCarry(activeRelic.id)}
-                aria-label={`Carry the ${activeRelic.title}`}
-              >
-                Carry this object
-              </button>
-              <Link 
-                to={`/archive/inventory/${getObjectSlug(activeRelic.id)}`}
-                className="btn btn-ghost-sm"
-                aria-label={`Examine the ${activeRelic.title} in Inventory`}
-              >
-                Examine in Inventory
-              </Link>
-            </div>
+        {/* Selected Relic Meaning Panel */}
+        <div className="void-relic-dossier-panel">
+          <span className="void-relic-cat-tag">{activeRelic.catNum}</span>
+          <h3 className="void-relic-title">{activeRelic.title}</h3>
+          <p className="void-relic-desc">{activeRelic.description}</p>
+          
+          <div className="void-relic-actions">
+            <button 
+              className="btn btn-primary btn-sm"
+              onClick={() => handleCarry(activeRelic.id)}
+              aria-label={`Carry the ${activeRelic.title}`}
+            >
+              Carry this object
+            </button>
+            <Link 
+              to={`/archive/inventory/${getObjectSlug(activeRelic.id)}`}
+              className="btn btn-ghost-sm"
+              aria-label={`Examine the ${activeRelic.title} in Inventory`}
+            >
+              Examine in Inventory &rarr;
+            </Link>
           </div>
         </div>
+
       </div>
     </div>
   );
