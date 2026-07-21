@@ -20,15 +20,16 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Hand-tuned continuous paths from Hero Map through Road, Carnival, Weather, Legend, Corridor, Dispatches to Final Road
+  // Continuous Full-Page Paths spanning from Y=0 to Y=10,000 (100% of full document height)
+  // Hero (0-1000) -> Road Opens (1000-2000) -> Carnival (2000-3500) -> Weather (3500-5000) -> Legend (5000-6500) -> Corridor (6500-8000) -> Dispatches & Horizon (8000-10000)
   const desktopThreadPath = 
-    "M 490,40 C 530,180 470,320 500,450 C 530,580 460,700 520,840 C 580,980 430,1120 490,1260 C 550,1400 460,1540 510,1680 C 560,1820 440,1960 520,2100 C 600,2240 480,2380 500,2520 C 510,2600 495,2680 500,2740";
+    "M 490,50 C 540,400 460,800 500,1200 C 550,1600 440,2000 520,2500 C 580,3000 430,3500 490,4000 C 550,4500 460,5000 510,5500 C 560,6000 440,6500 520,7000 C 580,7500 460,8000 510,8500 C 550,9000 490,9500 500,9950";
 
   const tabletThreadPath = 
-    "M 500,40 C 530,180 470,320 500,450 C 530,580 470,700 510,840 C 550,980 450,1120 500,1260 C 540,1400 470,1540 500,1680 C 530,1820 460,1960 510,2100 C 550,2240 480,2380 500,2520 C 505,2600 498,2680 500,2740";
+    "M 500,50 C 530,400 470,800 500,1200 C 530,1600 470,2000 510,2500 C 550,3000 450,3500 500,4000 C 540,4500 470,5000 500,5500 C 530,6000 460,6500 510,7000 C 550,7500 470,8000 500,8500 C 530,9000 495,9500 500,9950";
 
   const mobileThreadPath = 
-    "M 500,40 C 515,180 485,320 500,450 C 515,580 485,700 500,840 C 515,980 485,1120 500,1260 C 515,1400 485,1540 500,1680 C 515,1820 485,1960 500,2100 C 515,2240 485,2380 500,2520 C 500,2600 500,2680 500,2740";
+    "M 500,50 C 515,400 485,800 500,1200 C 515,1600 485,2000 500,2500 C 515,3000 485,3500 500,4000 C 515,4500 485,5000 500,5500 C 515,6000 485,6500 500,7000 C 515,7500 485,8000 500,8500 C 515,9000 495,9500 500,9950";
 
   const selectedPath = 
     viewport === 'mobile'
@@ -37,37 +38,37 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
         ? tabletThreadPath
         : desktopThreadPath;
 
-  const pathLength = 2850;
+  const pathLength = 10100;
   const activeDashOffset = pathLength * (1 - scrollProgress);
 
   return (
     <div className="narrative-thread-container" aria-hidden="true">
       <svg 
         className="narrative-thread-svg" 
-        viewBox="0 0 1000 2800" 
+        viewBox="0 0 1000 10000" 
         preserveAspectRatio="none"
         fill="none"
       >
         <defs>
-          <filter id="thread-ember-glow" x="-20%" y="-20%" width="140%" height="140%">
-            <feDropShadow dx="0" dy="0" stdDeviation="2" floodColor="#ab1d20" floodOpacity="0.85" />
-            <feDropShadow dx="0" dy="0" stdDeviation="6" floodColor="#ab1d20" floodOpacity="0.4" />
+          <filter id="thread-ember-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#ab1d20" floodOpacity="0.9" />
+            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#ab1d20" floodOpacity="0.45" />
           </filter>
         </defs>
 
-        {/* 1. Base Thread: Dark Oxblood, Low Opacity, Always Visible */}
+        {/* 1. Base Thread: Dark Oxblood, Low Opacity, Always Visible Through Entire Page */}
         <path
           d={selectedPath}
           fill="none"
           stroke="#541417"
           strokeWidth="3.5"
-          opacity="0.55"
+          opacity="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
           className="thread-base"
         />
 
-        {/* 2. Active Illuminated Thread: Bright Crimson, Revealed with Scroll, Ember Glow Filter */}
+        {/* 2. Active Illuminated Thread: Bright Crimson, Revealed with Scroll across Entire Page */}
         <path
           d={selectedPath}
           fill="none"

@@ -38,17 +38,15 @@ export default function JourneyController() {
           <div className="journey-holding-fog-overlay"></div>
         </div>
 
-        {/* Integrated Centered Holding Panel */}
+        {/* Clean Open Radial Content (No Giant Dark Rectangle Card) */}
         <div className="journey-holding-container">
-          <div className="journey-holding-panel">
-            <span className="holding-eyebrow">THIS ROAD IS NOT OPEN YET</span>
+          <div className="journey-holding-direct-content">
             <h1 className="holding-main-title">THE ROAD IS STILL BEING DRAWN</h1>
-            
             <p className="holding-body-text">
-              The interactive Journey is being built one territory at a time.
+              The interactive journey is being built one territory at a time.
             </p>
             <p className="holding-body-subtext">
-              Until the road opens, you can enter the Archive or receive a dispatch.
+              Until it opens, enter the Archive or receive occasional dispatches.
             </p>
 
             <div className="holding-actions-group">
@@ -61,13 +59,9 @@ export default function JourneyController() {
                 rel="noopener noreferrer"
                 className="btn btn-secondary-dark btn-large"
               >
-                STAY NEAR THE ROAD &rarr;
+                RECEIVE A DISPATCH &rarr;
               </a>
             </div>
-
-            <p className="holding-final-note">
-              "The Valley can be seen from here. It cannot be entered yet."
-            </p>
           </div>
         </div>
       </div>
