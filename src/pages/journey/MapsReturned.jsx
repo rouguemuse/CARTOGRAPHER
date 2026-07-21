@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useJourneyState } from '../../hooks/useJourneyState';
+import { getRelicById } from '../../data/relics';
+import './MapsReturned.css';
 
 export default function MapsReturned() {
   const { state } = useJourneyState();
@@ -12,63 +14,92 @@ export default function MapsReturned() {
   const hasCompleted = completedJourneys.length > 0;
 
   return (
-    <div className="container journey-page" style={{ padding: '3rem 0 6rem' }}>
-      <header className="journey-masthead" style={{ borderBottom: '1px solid var(--surface-border)', paddingBottom: '1.5rem', marginBottom: '3rem' }}>
-        <span className="section-label">Completed Routes & Maps</span>
-        <h1 className="page-title" style={{ color: 'var(--color-parchment)' }}>Maps Returned</h1>
-        <p className="page-introduction" style={{ color: 'var(--color-bone)', margin: 0 }}>
-          Your completed journeys, personalized map snapshots, and unlocked alternate endings gathered from the valley.
-        </p>
-      </header>
-
-      {!hasCompleted ? (
-        <div style={{ padding: '3.5rem 2rem', textAlign: 'center', background: 'var(--surface-panel)', border: '1px solid var(--surface-border)', borderRadius: '4px', maxWidth: '56ch', margin: '0 auto' }}>
-          <span className="section-label">Unmapped Territory</span>
-          <h2 style={{ fontSize: '1.5rem', color: 'var(--color-parchment)', marginBottom: '1rem' }}>
-            No map has returned yet.
-          </h2>
-          <p style={{ color: 'var(--color-bone)', marginBottom: '2rem', fontSize: 'var(--text-reading)' }}>
-            Complete a Journey to see where the road led.
+    <div className="maps-returned-environment">
+      <div className="maps-returned-container">
+        
+        {/* Page Header */}
+        <header className="maps-returned-header">
+          <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+            COMPLETED ROUTES & MAPS
+          </span>
+          <h1 className="maps-returned-title">Maps Returned</h1>
+          <p className="maps-returned-subtitle">
+            Your completed journeys, personalized map snapshots, and unlocked alternate endings gathered from the valley.
           </p>
-          <Link to="/journey/carry" className="btn btn-primary">
-            Begin the Journey
-          </Link>
-        </div>
-      ) : (
-        <div style={{ maxWidth: '72ch', margin: '0 auto', display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
-          <span className="section-label">Completed Journey Records ({completedJourneys.length})</span>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.75rem' }}>
-            {completedJourneys.map((j) => (
-              <div key={j.id} style={{ padding: '1.75rem', backgroundColor: 'var(--surface-card)', border: '1px solid var(--surface-border)', borderRadius: '4px' }}>
-                <span className="section-label" style={{ color: 'var(--color-brass)' }}>Object: {j.carriedObject}</span>
-                <h3 style={{ fontSize: '1.4rem', color: 'var(--color-parchment)', marginBottom: '0.75rem' }}>
-                  {j.resultSnapshot?.endingTitle || 'Completed Route'}
-                </h3>
-                <p style={{ color: 'var(--color-bone)', fontSize: 'var(--text-sm)', marginBottom: '1.25rem' }}>
-                  {j.resultSnapshot?.summary || 'Route completed through all five encounters.'}
-                </p>
-                <Link to={`/journey/result/${j.id}`} className="btn btn-primary" style={{ width: '100%', textAlign: 'center' }}>
-                  View Map Record
-                </Link>
-              </div>
-            ))}
-          </div>
+        </header>
 
-          {Object.keys(unlockedEndings).length > 0 && (
-            <div style={{ marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px solid var(--surface-border)' }}>
-              <span className="section-label">Unlocked Alternate Endings</span>
-              <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.75rem' }}>
-                {Object.keys(unlockedEndings).map((endingKey) => (
-                  <div key={endingKey} style={{ padding: '0.5rem 1rem', backgroundColor: 'var(--surface-panel)', border: '1px solid var(--color-brass)', borderRadius: '4px', fontSize: 'var(--text-xs)', color: 'var(--color-parchment)' }}>
-                    {endingKey.replace(/-/g, ' ')}
-                  </div>
-                ))}
-              </div>
+        {!hasCompleted ? (
+          /* Physical Returned Map Folio (Empty State) */
+          <div className="maps-returned-empty-folio">
+            <span className="folio-stamp">UNMAPPED TERRITORY</span>
+            <h2 className="folio-title">No map has returned yet.</h2>
+            <p className="folio-desc">
+              Complete a Journey to see where the road led.
+            </p>
+            <Link to="/journey/carry" className="btn btn-primary">
+              BEGIN THE JOURNEY &rarr;
+            </Link>
+          </div>
+        ) : (
+          /* Completed Map Entries Stack */
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+            <div className="maps-returned-grid">
+              {completedJourneys.map((j) => {
+                const relic = getRelicById(j.carriedObject);
+                return (
+                  <article key={j.id} className="returned-map-card">
+                    <div>
+                      <span className="returned-map-meta">
+                        CARRIED: {relic ? relic.title : j.carriedObject}
+                      </span>
+                      <h3 className="returned-map-title">
+                        {j.resultSnapshot?.endingTitle || 'Completed Route'}
+                      </h3>
+                      <p className="returned-map-summary">
+                        {j.resultSnapshot?.summary || 'Route completed through all five encounters.'}
+                      </p>
+                    </div>
+
+                    <Link 
+                      to={`/journey/result/${j.id}`} 
+                      className="btn btn-primary"
+                      style={{ width: '100%', textAlign: 'center' }}
+                    >
+                      View Map Record &rarr;
+                    </Link>
+                  </article>
+                );
+              })}
             </div>
-          )}
-        </div>
-      )}
+
+            {Object.keys(unlockedEndings).length > 0 && (
+              <div style={{ marginTop: '2.5rem', paddingTop: '2rem', borderTop: '1px dashed rgba(230, 220, 195, 0.2)' }}>
+                <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+                  UNLOCKED ALTERNATE ENDINGS
+                </span>
+                <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '1rem' }}>
+                  {Object.keys(unlockedEndings).map((endingKey) => (
+                    <div 
+                      key={endingKey} 
+                      style={{ 
+                        padding: '0.5rem 1rem', 
+                        backgroundColor: 'rgba(20, 24, 22, 0.9)', 
+                        border: '1px solid var(--color-brass)', 
+                        borderRadius: '3px', 
+                        fontSize: '13px', 
+                        color: 'var(--color-parchment)' 
+                      }}
+                    >
+                      {endingKey.replace(/-/g, ' ')}
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+      </div>
     </div>
   );
 }

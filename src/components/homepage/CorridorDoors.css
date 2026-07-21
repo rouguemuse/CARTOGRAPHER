@@ -16,6 +16,12 @@
   z-index: 1;
 }
 
+.home-corridor-bg-layer picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .home-corridor-bg-img {
   width: 100%;
   height: 100%;
@@ -70,7 +76,7 @@
   outline-offset: -4px;
 }
 
-/* Precise Live Replacement Plaque Sitting Directly Over Artwork Plaque Header */
+/* Precise Live Replacement Plaque Sitting Directly Over Artwork Header */
 .home-door-plaque {
   position: absolute;
   top: 14%;

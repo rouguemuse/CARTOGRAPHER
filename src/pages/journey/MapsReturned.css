@@ -1,0 +1,118 @@
+/* LOCALLY SCOPED MAPS RETURNED PHYSICAL ARCHIVE STYLING */
+.maps-returned-environment {
+  min-height: 100vh;
+  background-color: #080f0d;
+  color: var(--color-parchment);
+  padding: 2.5rem 1rem 6rem;
+  box-sizing: border-box;
+}
+
+.maps-returned-container {
+  width: min(100% - 24px, 920px);
+  margin: 0 auto;
+}
+
+.maps-returned-header {
+  border-bottom: 2px dashed rgba(230, 220, 195, 0.2);
+  padding-bottom: 1.5rem;
+  margin-bottom: 3rem;
+  text-align: center;
+}
+
+.maps-returned-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 4vw, 3rem);
+  color: var(--color-parchment);
+  margin: 0.25rem 0 0.5rem;
+}
+
+.maps-returned-subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-reading-large);
+  color: var(--color-bone);
+  font-style: italic;
+  margin: 0;
+}
+
+/* Physical Returned Map Folio (Empty State) */
+.maps-returned-empty-folio {
+  background: #f4efe2;
+  color: #1a221e;
+  border: 1px solid #dcd4c0;
+  border-radius: 4px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.7);
+  padding: 3.5rem 2.5rem;
+  text-align: center;
+  max-width: 58ch;
+  margin: 0 auto;
+  position: relative;
+}
+
+.folio-stamp {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  color: #8b0000;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.75rem;
+}
+
+.folio-title {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  color: #1a221e;
+  margin: 0 0 0.75rem 0;
+}
+
+.folio-desc {
+  font-family: var(--font-body);
+  font-size: var(--text-reading);
+  color: #3d4a44;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+/* Completed Map Entries Stack */
+.maps-returned-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.returned-map-card {
+  background: #fdfbf5;
+  color: #1a221e;
+  border: 1px solid #dfd7c4;
+  border-radius: 4px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.returned-map-meta {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #8b0000;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.returned-map-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: #1a221e;
+  margin: 0 0 0.75rem 0;
+}
+
+.returned-map-summary {
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: #3a4540;
+  line-height: 1.55;
+  margin-bottom: 1.5rem;
+}

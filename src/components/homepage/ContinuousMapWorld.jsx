@@ -6,6 +6,7 @@ import ValleySignScroll from './ValleySignScroll';
 import CabinetOfRelics from './CabinetOfRelics';
 import CorridorDoors from './CorridorDoors';
 import SubstackDispatches from '../substack/SubstackDispatches';
+import { useJourneyState } from '../../hooks/useJourneyState';
 import './ContinuousMapWorld.css';
 
 export default function ContinuousMapWorld() {
@@ -42,22 +43,15 @@ export default function ContinuousMapWorld() {
       {/* 1. LOCATION I: FULL-VIEWPORT HERO */}
       <section className="map-location location-hero">
         <div className="location-bg-layer">
-          <picture>
-            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.avif" type="image/avif" />
-            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.webp" type="image/webp" />
-            <source media="(min-width: 600px)" srcSet="/images/artwork/hero-desktop.jpg" type="image/jpeg" />
-            <source media="(max-width: 599px)" srcSet="/images/artwork/hero-mobile.avif" type="image/avif" />
-            <source media="(max-width: 599px)" srcSet="/images/artwork/hero-mobile.webp" type="image/webp" />
-            <img 
-              src="/images/artwork/hero-mobile.jpg" 
-              alt="How to Explain Yourself to Wolves territory map" 
-              width="1344" 
-              height="768" 
-              loading="eager" 
-              fetchPriority="high" 
-              className="location-bg-img" 
-            />
-          </picture>
+          <img 
+            src="/images/artwork/hero-desktop.jpg" 
+            alt="How to Explain Yourself to Wolves territory map" 
+            width="1344" 
+            height="768" 
+            loading="eager" 
+            fetchPriority="high" 
+            className="location-bg-img" 
+          />
           <div className="hero-vignette-overlay"></div>
         </div>
 
@@ -88,19 +82,15 @@ export default function ContinuousMapWorld() {
       {/* 2. LOCATION II: THE ROAD OPENS (ROADSIDE SIGN) */}
       <section className="map-location location-road-opens">
         <div className="location-bg-layer">
-          <picture>
-            <source srcSet="/images/artwork/archive-premise.avif" type="image/avif" />
-            <source srcSet="/images/artwork/archive-premise.webp" type="image/webp" />
-            <img 
-              src="/images/artwork/archive-premise.jpg" 
-              alt="Roadside terrain horizon" 
-              width="2752" 
-              height="1536" 
-              loading="lazy" 
-              decoding="async" 
-              className="location-bg-img" 
-            />
-          </picture>
+          <img 
+            src="/images/artwork/archive-premise.jpg" 
+            alt="Roadside terrain horizon" 
+            width="2752" 
+            height="1536" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
           <div className="soft-fog-overlay"></div>
         </div>
 
@@ -123,19 +113,15 @@ export default function ContinuousMapWorld() {
       {/* 3. LOCATION III: THE VALLEY MOMENT (SCROLL SIGN TRANSFORMATION) */}
       <section className="map-location location-valley-moment">
         <div className="location-bg-layer">
-          <picture>
-            <source srcSet="/images/artwork/journey-explanation.avif" type="image/avif" />
-            <source srcSet="/images/artwork/journey-explanation.webp" type="image/webp" />
-            <img 
-              src="/images/artwork/journey-explanation.jpg" 
-              alt="The Valley path terrain" 
-              width="2560" 
-              height="1440" 
-              loading="lazy" 
-              decoding="async" 
-              className="location-bg-img" 
-            />
-          </picture>
+          <img 
+            src="/images/artwork/journey-explanation.jpg" 
+            alt="The Valley path terrain" 
+            width="2560" 
+            height="1440" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
           <div className="soft-fog-overlay"></div>
         </div>
 
@@ -146,6 +132,19 @@ export default function ContinuousMapWorld() {
 
       {/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER */}
       <section className="map-location location-archival-dossier">
+        <div className="location-bg-layer">
+          <img 
+            src="/images/artwork/archive-detail.jpg" 
+            alt="Archival document detail texture" 
+            width="2752" 
+            height="1536" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
+          <div className="soft-fog-overlay"></div>
+        </div>
+
         <div className="location-content">
           <div className="archival-dossier-paper">
             <div className="dossier-header-strip">
@@ -188,19 +187,15 @@ export default function ContinuousMapWorld() {
       {/* 7. LOCATION VII: FINAL HORIZON & OFFICIAL SUBSTACK SIGNUP */}
       <section className="map-location location-final-landscape">
         <div className="location-bg-layer">
-          <picture>
-            <source srcSet="/images/homepage/quiet-lantern-horizon.avif" type="image/avif" />
-            <source srcSet="/images/homepage/quiet-lantern-horizon.webp" type="image/webp" />
-            <img 
-              src="/images/homepage/quiet-lantern-horizon.jpg" 
-              alt="A foggy road curving past a small glowing lantern at dawn." 
-              width="1344" 
-              height="768" 
-              loading="lazy" 
-              decoding="async" 
-              className="location-bg-img" 
-            />
-          </picture>
+          <img 
+            src="/images/homepage/quiet-lantern-horizon.jpg" 
+            alt="A foggy road curving past a small glowing lantern at dawn." 
+            width="1344" 
+            height="768" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
           <div className="final-lantern-glow"></div>
         </div>
 

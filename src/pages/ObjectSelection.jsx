@@ -1,13 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { objects } from '../data/storyData';
+import { relics } from '../data/relics';
 import { useJourneyState } from '../hooks/useJourneyState';
 import { journeyConfig } from '../data/journeyConfig';
 import './ObjectSelection.css';
 
 export default function ObjectSelection() {
   const [selectedId, setSelectedId] = useState(null);
-  const [showConsequence, setShowConsequence] = useState(false);
   const dialogRef = useRef(null);
   const confirmButtonRef = useRef(null);
   const triggerButtonRef = useRef(null);
@@ -19,16 +18,16 @@ export default function ObjectSelection() {
   const hasAnswers = activeJourney && Object.keys(activeJourney.answers || {}).length > 0;
 
   useEffect(() => {
-    if (activeJourney && activeJourney.carriedObject && !selectedId && !showConsequence) {
+    if (activeJourney && activeJourney.carriedObject && !selectedId) {
       setSelectedId(activeJourney.carriedObject);
-      setShowConsequence(true);
     }
-  }, [activeJourney, selectedId, showConsequence]);
+  }, [activeJourney, selectedId]);
 
   const handleSelect = (id, event) => {
     setSelectedId(id);
-    setShowConsequence(true);
-    triggerButtonRef.current = event.currentTarget;
+    if (event) {
+      triggerButtonRef.current = event.currentTarget;
+    }
   };
 
   const handleContinue = () => {
@@ -48,7 +47,7 @@ export default function ObjectSelection() {
     if (dialogRef.current) {
       dialogRef.current.close();
     }
-    const newJourneyId = startNewJourney(selectedId);
+    startNewJourney(selectedId);
     navigate(`/journey/stage/${journeyConfig.firstStageId}`);
   };
 
@@ -56,7 +55,6 @@ export default function ObjectSelection() {
     if (dialogRef.current) {
       dialogRef.current.close();
     }
-    // Revert selection
     if (activeJourney?.carriedObject) {
       setSelectedId(activeJourney.carriedObject);
     }
@@ -65,52 +63,95 @@ export default function ObjectSelection() {
     }
   };
 
-  const selectedObject = objects.find(o => o.id === selectedId);
+  const selectedRelic = relics.find(r => r.id === selectedId) || relics[0];
 
   return (
-    <div className="object-page">
-      <main className="object-main container">
-        <div className="object-header">
-          <h2>What will you carry?</h2>
-          <p>The journey requires an object. You cannot take them all.</p>
-        </div>
+    <div className="carry-page-environment">
+      <div className="carry-page-container">
+        
+        {/* Page Introduction */}
+        <header className="carry-page-header">
+          <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+            THE PATH REQUIRES AN OBJECT
+          </span>
+          <h1 className="carry-page-title">WHAT WILL YOU CARRY?</h1>
+          <p className="carry-page-subtitle">
+            The journey requires an object. You cannot take them all.
+          </p>
+        </header>
 
-        <div className="object-grid">
-          {objects.map((obj) => (
-            <button 
-              key={obj.id} 
-              className={`tactile-card ${selectedId === obj.id ? 'selected' : ''}`}
-              onClick={(e) => handleSelect(obj.id, e)}
-              aria-pressed={selectedId === obj.id}
-            >
-              <picture className="object-image-area">
-                <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
-                <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
-                <img 
-                  src={obj.image} 
-                  alt={obj.name}
-                  width="800"
-                  height="800"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </picture>
-              <h3>{obj.name}</h3>
-              <p>{obj.description}</p>
-            </button>
-          ))}
-        </div>
-
-        {showConsequence && selectedObject && (
-          <div className="consequence-panel reveal-anim">
-            <p className="handwritten">{selectedObject.consequence}</p>
-            <button onClick={handleContinue} className="btn btn-primary">
-              {hasAnswers && selectedId === activeJourney.carriedObject ? 'Continue the Journey' : 'Begin the Journey'}
-            </button>
+        {/* Physical Worktable Selection Interface */}
+        <div className="carry-worktable-scene">
+          
+          <div className="carry-worktable-bg-layer">
+            <picture>
+              <source srcSet="/images/homepage/relic-worktable.avif" type="image/avif" />
+              <source srcSet="/images/homepage/relic-worktable.webp" type="image/webp" />
+              <img 
+                src="/images/homepage/relic-worktable.jpg" 
+                alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
+                width="1344"
+                height="768"
+                loading="eager"
+                fetchPriority="high"
+                className="carry-worktable-bg-img"
+              />
+            </picture>
           </div>
-        )}
 
-        {/* Native accessible dialog */}
+          <div className="carry-worktable-stage" role="radiogroup" aria-label="Physical Relic Selection Worktable">
+            {relics.map((obj) => {
+              const isSelected = selectedId === obj.id;
+              return (
+                <button
+                  key={obj.id}
+                  role="radio"
+                  aria-checked={isSelected}
+                  aria-label={`Select ${obj.title}`}
+                  className={`carry-relic-button carry-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
+                  onClick={(e) => handleSelect(obj.id, e)}
+                  onFocus={(e) => handleSelect(obj.id, e)}
+                >
+                  <picture style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
+                    <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
+                    <img 
+                      src={obj.image} 
+                      alt={obj.alt}
+                      width="800"
+                      height="800"
+                      loading="lazy"
+                      className="carry-relic-img"
+                    />
+                  </picture>
+                </button>
+              );
+            })}
+
+            {/* Selected Relic Dossier & Continuation Action Panel */}
+            {selectedRelic && (
+              <div className="carry-dossier-panel">
+                <span className="carry-cat-tag">{selectedRelic.catNum}</span>
+                <h3 className="carry-relic-title">{selectedRelic.title}</h3>
+                <p className="carry-relic-desc">{selectedRelic.description}</p>
+                <p className="carry-relic-consequence">"{selectedRelic.consequence}"</p>
+                
+                <button 
+                  onClick={handleContinue} 
+                  className="btn btn-primary"
+                  style={{ width: '100%' }}
+                >
+                  {hasAnswers && selectedId === activeJourney?.carriedObject 
+                    ? 'CONTINUE THE JOURNEY →' 
+                    : 'CARRY THIS OBJECT & BEGIN →'}
+                </button>
+              </div>
+            )}
+          </div>
+
+        </div>
+
+        {/* Accessible Confirmation Dialog */}
         <dialog 
           ref={dialogRef} 
           className="confirmation-dialog" 
@@ -133,7 +174,8 @@ export default function ObjectSelection() {
             </div>
           </div>
         </dialog>
-      </main>
+
+      </div>
     </div>
   );
 }

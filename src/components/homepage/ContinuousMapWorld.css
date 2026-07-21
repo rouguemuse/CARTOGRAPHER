@@ -7,6 +7,16 @@
   color: var(--color-parchment);
 }
 
+/* Ensure all picture tags fill their parent container dimensions */
+.location-bg-layer picture,
+.home-relic-bg-layer picture,
+.home-corridor-bg-layer picture,
+.carry-worktable-bg-layer picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .map-location {
   position: relative;
   min-height: 100vh;
@@ -29,9 +39,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
-  mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .location-content {
@@ -113,7 +124,7 @@
 .location-road-opens .soft-fog-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(14, 24, 22, 0.55) 0%, rgba(18, 28, 25, 0.85) 100%);
+  background: linear-gradient(180deg, rgba(14, 24, 22, 0.4) 0%, rgba(18, 28, 25, 0.75) 100%);
 }
 
 .roadside-wooden-post {
@@ -148,7 +159,7 @@
 .location-valley-moment .soft-fog-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(28, 42, 36, 0.35) 0%, rgba(10, 18, 15, 0.88) 100%);
+  background: radial-gradient(circle at center, rgba(28, 42, 36, 0.25) 0%, rgba(10, 18, 15, 0.78) 100%);
 }
 
 .valley-sign-container {
@@ -253,214 +264,17 @@
   margin: 0;
 }
 
-/* 5. LOCATION V: CABINET OF RELICS WORKTABLE (Aged Wood, Brass, Cloth, Ember Light) */
+/* 5. LOCATION V: CABINET OF RELICS WORKTABLE */
 .location-relics-worktable {
   background: radial-gradient(circle at center, rgba(38, 28, 18, 0.45) 0%, rgba(8, 12, 10, 0.95) 100%);
 }
 
-.cabinet-of-relics-container {
-  width: 100%;
-}
-
-.cabinet-header {
-  text-align: center;
-  max-width: 62ch;
-  margin: 0 auto 3rem;
-}
-
-.relics-worktable-scene {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
-  align-items: center;
-}
-
-@media (min-width: 900px) {
-  .relics-worktable-scene {
-    grid-template-columns: 1.2fr 1fr;
-  }
-}
-
-.relics-physical-layout {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-  background: #181410;
-  border: 3px solid #2e261f;
-  padding: 2rem;
-  border-radius: 6px;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
-}
-
-.relic-hotspot {
-  background: transparent;
-  border: 1px solid rgba(212, 175, 55, 0.15);
-  border-radius: 4px;
-  padding: 1rem 0.5rem;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: all 0.25s ease;
-}
-
-.relic-hotspot.is-selected {
-  border-color: #b3211d;
-  background: rgba(179, 33, 29, 0.15);
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(179, 33, 29, 0.3);
-}
-
-.relic-hotspot.is-dimmed {
-  opacity: 0.6;
-}
-
-.relic-hotspot:hover {
-  opacity: 1;
-  border-color: var(--color-brass);
-}
-
-.relic-hotspot-img {
-  width: 100%;
-  height: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 0.5rem;
-}
-
-.relic-hotspot-img img {
-  max-width: 80%;
-  max-height: 80px;
-  object-fit: contain;
-}
-
-.relic-hotspot-label {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  color: var(--color-parchment);
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-
-.selected-relic-dossier {
-  background: #e6dcc3;
-  color: #121615;
-  border: 1px solid #d4c8a8;
-  padding: 2.5rem;
-  border-radius: 4px;
-  box-shadow: 6px 10px 24px rgba(0,0,0,0.5);
-}
-
-.relic-cat-tag {
-  font-family: var(--font-ui);
-  font-size: 11px;
-  letter-spacing: 0.15em;
-  color: #8b0000;
-  display: block;
-  margin-bottom: 0.5rem;
-}
-
-.relic-title {
-  font-family: var(--font-display);
-  font-size: 1.8rem;
-  color: #121615;
-  margin-bottom: 0.75rem;
-}
-
-.relic-desc {
-  font-family: var(--font-body);
-  font-size: var(--text-reading);
-  color: #2a3330;
-  line-height: 1.6;
-  margin-bottom: 1.75rem;
-}
-
-.relic-actions-row {
-  display: flex;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-
-/* 6. LOCATION VI: CORRIDOR DOORS (Charcoal, Shadow, Restrained Crimson) */
+/* 6. LOCATION VI: CORRIDOR DOORS */
 .location-corridor {
   background: linear-gradient(180deg, rgba(18, 22, 20, 0.85) 0%, rgba(10, 12, 11, 0.95) 100%);
 }
 
-.corridor-header {
-  text-align: center;
-  max-width: 62ch;
-  margin: 0 auto 3rem;
-}
-
-.corridor-doors-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
-}
-
-@media (min-width: 800px) {
-  .corridor-doors-grid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-
-.corridor-door-card {
-  background: #141816;
-  border: 2px solid #28302c;
-  border-radius: 6px;
-  padding: 2.5rem;
-  text-decoration: none;
-  color: var(--color-parchment);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  transition: all 0.3s ease;
-}
-
-.corridor-door-card:hover {
-  border-color: #b3211d;
-  transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.6);
-}
-
-.door-title {
-  font-family: var(--font-display);
-  font-size: 1.9rem;
-  color: var(--color-parchment);
-  margin: 0.5rem 0;
-}
-
-.door-subtitle {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: var(--text-reading);
-  color: var(--color-brass);
-  margin-bottom: 1rem;
-}
-
-.door-desc {
-  font-size: var(--text-sm);
-  color: var(--color-bone);
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
-}
-
-.door-action-text {
-  font-family: var(--font-ui);
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: #b3211d;
-  text-transform: uppercase;
-}
-
-.relic-corridor-trace {
-  text-align: center;
-  margin-top: 2rem;
-}
-
-/* 7. LOCATION VII: FINAL LANDSCAPE (Blue-Gray Dawn & Warm Lantern Glow) */
+/* 7. LOCATION VII: FINAL LANDSCAPE */
 .location-final-landscape {
   min-height: 100vh;
   position: relative;
@@ -472,7 +286,8 @@
 .final-lantern-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.18) 0%, rgba(6, 14, 12, 0.92) 80%);
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.15) 0%, rgba(6, 14, 12, 0.85) 80%);
+  pointer-events: none;
 }
 
 .final-content-box {
@@ -498,7 +313,9 @@
 }
 
 .final-signup-panel {
-  background: #141816;
+  background: rgba(20, 24, 22, 0.9);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid #28302c;
   padding: 2.5rem;
   border-radius: 4px;

@@ -12,19 +12,15 @@ export default function CorridorDoors() {
     <div className="home-corridor-scene">
       {/* Approved Corridor Visual Background Environment */}
       <div className="home-corridor-bg-layer">
-        <picture>
-          <source srcSet="/images/homepage/two-letter-corridor.avif" type="image/avif" />
-          <source srcSet="/images/homepage/two-letter-corridor.webp" type="image/webp" />
-          <img 
-            src="/images/homepage/two-letter-corridor.jpg" 
-            alt="A dark corridor with a warm private doorway on the left and a paper-covered public doorway on the right." 
-            width="1344"
-            height="768"
-            loading="lazy"
-            decoding="async"
-            className="home-corridor-bg-img"
-          />
-        </picture>
+        <img 
+          src="/images/homepage/two-letter-corridor.jpg" 
+          alt="A dark corridor with a warm private doorway on the left and a paper-covered public doorway on the right." 
+          width="1344"
+          height="768"
+          loading="lazy"
+          decoding="async"
+          className="home-corridor-bg-img"
+        />
       </div>
 
       {/* Interactive Doorway Portals Stage */}
