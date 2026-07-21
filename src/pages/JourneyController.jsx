@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { useJourneyState } from '../hooks/useJourneyState';
 import './JourneyController.css';
 
-// Feature Flag: Set to true when public journey stages are ready
+// Feature Flag: Set to true when public journey stages are ready for general access
 const PUBLIC_JOURNEY_OPEN = false;
 
 export default function JourneyController() {
@@ -24,60 +24,34 @@ export default function JourneyController() {
   // If public journey is closed, render atmospheric holding page
   if (!PUBLIC_JOURNEY_OPEN) {
     return (
-      <div className="journey-holding-page">
-        {/* Approved Blueprint Visual Background */}
+      <div className="journey-holding-environment">
+        {/* Full-Page Atmospheric Background */}
         <div className="journey-holding-bg-layer">
           <img 
             src="/images/journey-under-construction.png" 
-            alt="Valley and Carnival territory map under construction" 
+            alt="Valley and Carnival atmosphere at dawn" 
             width="1344"
             height="768"
             loading="eager"
             className="journey-holding-bg-img"
           />
-          <div className="journey-holding-vignette"></div>
+          <div className="journey-holding-fog-overlay"></div>
         </div>
 
-        <div className="journey-holding-content">
-          
-          {/* Two-Column Territory Blueprint Cards */}
-          <div className="holding-territories-grid">
+        {/* Integrated Centered Holding Panel */}
+        <div className="journey-holding-container">
+          <div className="journey-holding-panel">
+            <span className="holding-eyebrow">THIS ROAD IS NOT OPEN YET</span>
+            <h1 className="holding-main-title">THE ROAD IS STILL BEING DRAWN</h1>
             
-            {/* LEFT: THE VALLEY */}
-            <div className="holding-territory-card">
-              <span className="holding-card-tag">LOCATION III — THE VALLEY</span>
-              <h2 className="holding-card-title">The Valley of Please Understand Me</h2>
-              <p className="holding-card-body">
-                A beautiful place that promises clarity, belonging, and safety—if you can explain well enough.
-              </p>
-              <p className="holding-card-sub">
-                Some roads look like rescue. They can still lead you in circles.
-              </p>
-            </div>
-
-            {/* RIGHT: THE CARNIVAL */}
-            <div className="holding-territory-card">
-              <span className="holding-card-tag">LOCATION — UNMARKED</span>
-              <h2 className="holding-card-title">The Carnival</h2>
-              <p className="holding-card-body">
-                The Carnival is not marked on every map.
-              </p>
-              <p className="holding-card-sub">
-                Some roads only appear after dark.
-              </p>
-            </div>
-
-          </div>
-
-          {/* BOTTOM: UNDER-CONSTRUCTION PANEL */}
-          <div className="holding-construction-panel">
-            <span className="construction-tag">THIS ROAD IS NOT OPEN YET.</span>
-            <h1 className="construction-title">The Journey is Under Construction</h1>
-            <p className="construction-body">
-              The interactive Journey is being built one territory at a time. The Valley, the Forest, the Bridge, and the Carnival are not ready to receive travelers yet.
+            <p className="holding-body-text">
+              The interactive Journey is being built one territory at a time.
+            </p>
+            <p className="holding-body-subtext">
+              Until the road opens, you can enter the Archive or receive a dispatch.
             </p>
 
-            <div className="construction-actions">
+            <div className="holding-actions-group">
               <Link to="/archive" className="btn btn-primary btn-large">
                 ENTER THE ARCHIVE
               </Link>
@@ -87,21 +61,20 @@ export default function JourneyController() {
                 rel="noopener noreferrer"
                 className="btn btn-secondary-dark btn-large"
               >
-                RECEIVE A DISPATCH &rarr;
+                STAY NEAR THE ROAD &rarr;
               </a>
             </div>
 
-            <p className="construction-final-line">
-              "No map should pretend to be finished before it knows where it leads."
+            <p className="holding-final-note">
+              "The Valley can be seen from here. It cannot be entered yet."
             </p>
           </div>
-
         </div>
       </div>
     );
   }
 
-  // --- EXISTING JOURNEY LOGIC (WHEN PUBLIC_JOURNEY_OPEN IS TRUE) ---
+  // --- PRESERVED DEVELOPMENT JOURNEY CONTROLLER (WHEN PUBLIC_JOURNEY_OPEN IS TRUE) ---
   if (!activeJourney || activeJourney.status === 'completed') return null;
 
   const handleResume = () => {
