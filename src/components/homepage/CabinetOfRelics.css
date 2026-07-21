@@ -11,14 +11,14 @@
 
 .home-relic-main-title {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 3.8vw, 3rem);
+  font-size: clamp(1.8rem, 8vw, 3rem);
   color: var(--color-parchment);
   margin: 0.25rem 0 0.5rem;
 }
 
 .home-relic-subtitle {
   font-family: var(--font-body);
-  font-size: var(--text-reading-large);
+  font-size: clamp(15px, 4vw, 18px);
   color: var(--color-bone);
   font-style: italic;
   margin: 0;
@@ -33,6 +33,7 @@
   box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65);
   border: 1px solid rgba(230, 220, 195, 0.18);
   background: #0d1210;
+  box-sizing: border-box;
 }
 
 .home-relic-bg-layer {
@@ -65,55 +66,92 @@
   cursor: pointer;
   z-index: 6;
   transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, filter 0.3s ease;
-  min-width: 48px;
-  min-height: 48px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   outline: none;
 }
 
-/* Natural positioning for 6 symbolic relics resting on the worktable */
-/* Red Coat: left side, draped toward edge */
+/* DESKTOP POSITIONING FOR 6 SYMBOLIC RELICS */
 .home-relic-red_coat {
   top: 22%;
   left: 4%;
   width: 24%;
 }
 
-/* Red Thread: small spool near desk lamp where existing thread begins */
 .home-relic-red_string {
   top: 16%;
   left: 44%;
   width: 13%;
 }
 
-/* Red Crane: center of map */
 .home-relic-red_crane {
   top: 36%;
   left: 32%;
   width: 15%;
 }
 
-/* Red Letter: lower-left */
 .home-relic-red_envelope {
   top: 50%;
   left: 18%;
   width: 17%;
 }
 
-/* Compass: lower-center */
 .home-relic-compass {
   top: 54%;
   left: 54%;
   width: 16%;
 }
 
-/* Lantern: back-right, visibly smaller than environmental desk lamp */
 .home-relic-lantern {
   top: 22%;
   left: 78%;
   width: 15%;
+}
+
+/* MOBILE DEDICATED RELIC POSITIONING MAP */
+@media (max-width: 768px) {
+  .home-relic-stage {
+    height: 460px;
+  }
+
+  .home-relic-red_coat {
+    top: 18%;
+    left: 4%;
+    width: 30%;
+  }
+
+  .home-relic-red_string {
+    top: 12%;
+    left: 42%;
+    width: 18%;
+  }
+
+  .home-relic-red_crane {
+    top: 32%;
+    left: 30%;
+    width: 22%;
+  }
+
+  .home-relic-red_envelope {
+    top: 48%;
+    left: 12%;
+    width: 24%;
+  }
+
+  .home-relic-compass {
+    top: 52%;
+    left: 52%;
+    width: 22%;
+  }
+
+  .home-relic-lantern {
+    top: 18%;
+    left: 72%;
+    width: 22%;
+  }
 }
 
 .home-relic-img {
@@ -160,6 +198,7 @@
   border-radius: 4px;
   box-shadow: 0 14px 35px rgba(0, 0, 0, 0.75);
   color: var(--color-parchment);
+  box-sizing: border-box;
 }
 
 .home-relic-cat-tag {
@@ -173,14 +212,14 @@
 
 .home-relic-title {
   font-family: var(--font-display);
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 5vw, 1.4rem);
   color: var(--color-parchment);
   margin-bottom: 0.5rem;
 }
 
 .home-relic-desc {
   font-family: var(--font-body);
-  font-size: var(--text-sm);
+  font-size: clamp(13px, 3.8vw, 14px);
   color: var(--color-bone);
   line-height: 1.55;
   margin-bottom: 1.25rem;
@@ -193,15 +232,12 @@
 }
 
 @media (max-width: 768px) {
-  .home-relic-stage {
-    height: 540px;
-  }
-
   .home-relic-dossier-panel {
     position: relative;
     bottom: auto;
     right: auto;
-    width: calc(100% - 2rem);
-    margin: 0 1rem 1.25rem;
+    width: calc(100% - 1.5rem);
+    margin: 0 0.75rem 1rem;
+    padding: 1.25rem;
   }
 }

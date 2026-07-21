@@ -1,13 +1,252 @@
-/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER (WOMAN IN RED COAT IN RAIN) */
+/* CONTINUOUS MAP WORLD — RESPONSIVE RECOVERY DESIGN SYSTEM */
+.continuous-map-world {
+  position: relative;
+  width: 100%;
+  overflow-x: hidden;
+  background-color: #040908;
+  color: var(--color-parchment);
+}
+
+/* Temporarily disable route line on mobile during layout recovery */
+@media (max-width: 768px) {
+  .svg-route-spine-container {
+    display: none !important;
+  }
+}
+
+/* FULL-WIDTH SCENE RULE: Every primary location fills 100% viewport width */
+.map-location {
+  position: relative;
+  width: 100%;
+  min-height: clamp(550px, 85vh, 900px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 4rem 1rem;
+  box-sizing: border-box;
+}
+
+.location-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.location-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+.location-content {
+  position: relative;
+  z-index: 4;
+  width: min(100% - 24px, 1100px);
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+/* 1. LOCATION I: HERO (Full Viewport, Single Column Mobile) */
+.location-hero {
+  min-height: 100vh;
+  width: 100%;
+  text-align: center;
+  padding: 5rem 1rem 3rem;
+}
+
+.hero-vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(6, 14, 12, 0.35) 0%, rgba(6, 14, 12, 0.85) 100%);
+}
+
+.hero-content-box {
+  width: min(100% - 24px, 720px);
+  margin: 0 auto;
+  padding: 2.5rem 1.75rem;
+  background: rgba(6, 14, 12, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(230, 220, 195, 0.22);
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.location-eyebrow {
+  font-family: var(--font-ui);
+  font-size: clamp(11px, 3vw, 13px);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-brass);
+  display: block;
+  margin-bottom: 0.85rem;
+}
+
+.hero-main-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 11vw, 4.8rem);
+  line-height: 1.15;
+  color: var(--color-parchment);
+  margin-bottom: 1rem;
+}
+
+.title-crimson {
+  font-style: italic;
+  color: #b3211d;
+}
+
+.hero-subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 4.2vw, 18px);
+  line-height: 1.6;
+  color: var(--color-bone);
+  margin-bottom: 1.75rem;
+}
+
+.hero-buttons-row {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 600px) {
+  .hero-buttons-row {
+    flex-direction: row;
+  }
+}
+
+.hero-buttons-row .btn {
+  font-size: clamp(13px, 3.5vw, 15px);
+  padding: 0.85rem 1.75rem;
+  width: min(100%, 280px);
+  text-align: center;
+}
+
+.hero-subnote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(14px, 3.8vw, 17px);
+  color: var(--color-brass);
+  margin: 0;
+}
+
+/* 2. LOCATION II: THE ROAD OPENS (Full Width, Single Column Mobile) */
+.location-road-opens {
+  min-height: clamp(500px, 70vh, 700px);
+  width: 100%;
+}
+
+.location-road-opens .soft-fog-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(14, 24, 22, 0.35) 0%, rgba(18, 28, 25, 0.75) 100%);
+}
+
+.roadside-wooden-post {
+  width: min(100% - 24px, 600px);
+  margin: 0 auto;
+  background: #2a221b;
+  border: 2px solid #3d3226;
+  border-left: 6px solid #b5985a;
+  padding: 2.5rem 1.75rem;
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.post-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 2.8rem);
+  color: var(--color-parchment);
+  margin: 0.65rem 0 0.85rem;
+}
+
+.post-body {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 4.2vw, 18px);
+  color: var(--color-bone);
+  font-style: italic;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* 3. LOCATION III: THE VALLEY MOMENT */
+.location-valley-moment {
+  min-height: clamp(600px, 85vh, 850px);
+  width: 100%;
+}
+
+.location-valley-moment .soft-fog-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(28, 42, 36, 0.2) 0%, rgba(10, 18, 15, 0.75) 100%);
+}
+
+/* ATMOSPHERIC CARNIVAL GLIMPSE */
+.location-carnival-glimpse {
+  min-height: clamp(320px, 45vh, 450px);
+  width: 100%;
+  padding: 3rem 1rem;
+  background: radial-gradient(circle at center, rgba(35, 20, 28, 0.4) 0%, rgba(6, 14, 12, 0.95) 100%);
+}
+
+.carnival-glimpse-box {
+  width: min(100% - 24px, 560px);
+  margin: 0 auto;
+  text-align: center;
+  background: rgba(18, 22, 20, 0.85);
+  backdrop-filter: blur(6px);
+  border: 1px solid rgba(230, 220, 195, 0.18);
+  border-left: 4px solid var(--color-brass);
+  padding: 2rem 1.5rem;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.carnival-glimpse-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 2.5rem);
+  color: var(--color-parchment);
+  margin: 0.35rem 0 0.65rem;
+}
+
+.carnival-glimpse-body {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 4vw, 17px);
+  color: var(--color-bone);
+  margin-bottom: 0.5rem;
+}
+
+.carnival-glimpse-sub {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(14px, 3.8vw, 16px);
+  color: var(--color-brass);
+  margin: 0;
+}
+
+/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER */
 .location-archival-dossier {
-  min-height: clamp(650px, 80vh, 850px);
+  min-height: clamp(600px, 80vh, 850px);
+  width: 100%;
   position: relative;
 }
 
 .weather-readability-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(90deg, rgba(6, 14, 12, 0.2) 0%, rgba(6, 14, 12, 0.4) 40%, rgba(6, 14, 12, 0.88) 100%);
+  background: linear-gradient(90deg, rgba(6, 14, 12, 0.25) 0%, rgba(6, 14, 12, 0.5) 40%, rgba(6, 14, 12, 0.9) 100%);
   z-index: 2;
 }
 
@@ -19,7 +258,193 @@
 }
 
 @media (max-width: 768px) {
+  .weather-readability-overlay {
+    background: linear-gradient(180deg, rgba(6, 14, 12, 0.2) 0%, rgba(6, 14, 12, 0.85) 100%);
+  }
   .weather-dossier-wrap {
     justify-content: center;
   }
+}
+
+.archival-dossier-paper {
+  width: min(100% - 24px, 620px);
+  margin: 0 auto;
+  background: #e6dcc3;
+  color: #121615;
+  border: 1px solid #d4c8a8;
+  padding: 2.5rem 1.75rem;
+  border-radius: 3px;
+  box-shadow: 8px 12px 30px rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+}
+
+.dossier-header-strip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid #c8ba96;
+  padding-bottom: 0.75rem;
+  margin-bottom: 1.15rem;
+}
+
+.dossier-wax-seal {
+  width: 22px;
+  height: 22px;
+  background: #8b0000;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dossier-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 2.7rem);
+  color: #121615;
+  margin-bottom: 0.75rem;
+}
+
+.dossier-excerpt {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 4.2vw, 18px);
+  font-style: italic;
+  line-height: 1.6;
+  color: #2a3330;
+  border-left: 3px solid #b3211d;
+  padding-left: 1rem;
+  margin: 0 0 1.15rem 0;
+}
+
+.dossier-desc {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 3.5vw, 15px);
+  color: #4a5550;
+  margin: 0;
+}
+
+/* 5. LOCATION V: THE WORKTABLE */
+.location-relics-worktable {
+  min-height: clamp(650px, 85vh, 900px);
+  width: 100%;
+  background: radial-gradient(circle at center, rgba(38, 28, 18, 0.4) 0%, rgba(8, 12, 10, 0.95) 100%);
+}
+
+/* 6. LOCATION VI: CORRIDOR DOORS */
+.location-corridor {
+  min-height: clamp(700px, 90vh, 950px);
+  width: 100%;
+  background: linear-gradient(180deg, rgba(18, 22, 20, 0.85) 0%, rgba(10, 12, 11, 0.95) 100%);
+}
+
+/* 7. LOCATION VII: FINAL LANDSCAPE */
+.location-final-landscape {
+  min-height: 90vh;
+  width: 100%;
+  position: relative;
+  justify-content: space-between;
+  padding-bottom: 0;
+  background: radial-gradient(circle at center, rgba(30, 45, 55, 0.2) 0%, rgba(4, 9, 8, 0.98) 85%);
+}
+
+.final-lantern-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(212, 175, 55, 0.12) 0%, rgba(6, 14, 12, 0.85) 80%);
+  pointer-events: none;
+}
+
+.final-content-box {
+  text-align: center;
+  width: min(100% - 24px, 680px);
+  margin: 0 auto;
+  padding-top: 3rem;
+  box-sizing: border-box;
+}
+
+.final-heading {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 8vw, 3.2rem);
+  color: var(--color-parchment);
+  margin-bottom: 0.5rem;
+}
+
+.final-subheading {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.3rem, 6vw, 2rem);
+  color: #b3211d;
+  margin-bottom: 2.5rem;
+}
+
+.final-signup-panel {
+  background: rgba(20, 24, 22, 0.92);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid #28302c;
+  padding: 2rem 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 3rem;
+  box-sizing: border-box;
+}
+
+.signup-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  color: var(--color-parchment);
+  margin: 0.5rem 0 1rem;
+}
+
+/* Restrained Footer */
+.continuous-footer {
+  width: 100%;
+  background: #040908;
+  border-top: 1px solid #1a221f;
+  padding: 2rem 1rem;
+  margin-top: auto;
+  box-sizing: border-box;
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .footer-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+}
+
+.footer-brand {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--color-parchment);
+}
+
+.footer-links-row {
+  display: flex;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer-links-row a {
+  color: var(--color-bone);
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.2s ease;
+}
+
+.footer-links-row a:hover {
+  color: #b3211d;
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.4);
 }
