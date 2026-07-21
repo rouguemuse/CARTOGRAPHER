@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { useJourneyState } from '../../hooks/useJourneyState';
 import './CorridorDoors.css';
@@ -42,6 +42,18 @@ export default function CorridorDoors() {
           className="home-corridor-bg-img"
         />
       </div>
+
+      {/* Tactile Crimson Thread Trace Continuing into the Hallway */}
+      <svg className="corridor-thread-trace-svg" viewBox="0 0 1000 600" fill="none" aria-hidden="true">
+        <path
+          d="M 340,0 C 380,80 440,160 520,220 C 600,280 660,350 720,440 C 750,495 730,560 700,600"
+          stroke="#8c1c18"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          opacity="0.8"
+          filter="drop-shadow(0 2px 4px rgba(0,0,0,0.85))"
+        />
+      </svg>
 
       {/* Restrained Mouse Cursor Spotlight Glow */}
       {lightPos.active && (

@@ -1,4 +1,4 @@
-/* CONTINUOUS MAP WORLD — TRANSPARENT MASK TRANSITION SYSTEM */
+/* CONTINUOUS MAP WORLD — SEAM CONTINUITY & RED THREAD SYSTEM */
 .continuous-map-world {
   position: relative;
   width: 100%;
@@ -64,7 +64,7 @@
 
 
 /* ==================================================
-   1. HERO MAP → ROAD OPENS (Image Mask Fade)
+   1. HERO MAP → ROAD OPENS (Ink to Physical Terrain)
    ================================================== */
 .location-hero {
   min-height: 100vh;
@@ -167,24 +167,24 @@
 
 
 /* ==================================================
-   2. ROAD OPENS → VALLEY (Seamless Image Mask & Negative Overlap)
+   2. ROAD OPENS → VALLEY (Pale Rolling Mist Overlap)
    ================================================== */
 .location-road-opens {
   min-height: clamp(520px, 72vh, 720px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -130px;
   z-index: 11;
 }
 
 @media (max-width: 768px) {
   .location-road-opens {
-    margin-top: -60px;
+    margin-top: -65px;
   }
 }
 
 .location-road-opens .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
 }
 
 .location-road-opens .soft-fog-overlay {
@@ -192,8 +192,9 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    transparent 35%, 
-    rgba(14, 24, 22, 0.4) 100%
+    transparent 30%, 
+    rgba(14, 24, 22, 0.35) 75%,
+    rgba(28, 42, 36, 0.65) 100%
   );
   pointer-events: none;
 }
@@ -229,24 +230,24 @@
 
 
 /* ==================================================
-   3. VALLEY → CARNIVAL (Daylight to Dusk Image Mask Fade)
+   3. VALLEY → AERIAL MAP / CARNIVAL (Torn Parchment Ink & Night)
    ================================================== */
 .location-valley-moment {
   min-height: clamp(650px, 85vh, 880px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -140px;
   z-index: 12;
 }
 
 @media (max-width: 768px) {
   .location-valley-moment {
-    margin-top: -60px;
+    margin-top: -70px;
   }
 }
 
 .location-valley-moment .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
 }
 
 .location-valley-moment .soft-fog-overlay {
@@ -254,8 +255,9 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    transparent 40%, 
-    rgba(10, 18, 15, 0.5) 100%
+    transparent 35%, 
+    rgba(10, 18, 15, 0.4) 65%,
+    rgba(35, 20, 28, 0.75) 100%
   );
   pointer-events: none;
 }
@@ -265,19 +267,19 @@
 .location-carnival-scene {
   min-height: clamp(520px, 72vh, 760px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -140px;
   z-index: 13;
 }
 
 @media (max-width: 768px) {
   .location-carnival-scene {
-    margin-top: -60px;
+    margin-top: -70px;
   }
 }
 
 .location-carnival-scene .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 72%, transparent 100%);
 }
 
 .carnival-fog-overlay {
@@ -285,8 +287,9 @@
   inset: 0;
   background: radial-gradient(
     circle at center, 
-    transparent 40%, 
-    rgba(20, 14, 22, 0.5) 100%
+    transparent 35%, 
+    rgba(20, 14, 22, 0.45) 70%,
+    rgba(15, 22, 28, 0.82) 100%
   );
   pointer-events: none;
 }
@@ -328,25 +331,25 @@
 
 
 /* ==================================================
-   4. CARNIVAL → OTHER PEOPLE’S WEATHER (Lights to Storm Fade)
+   4. CARNIVAL → OTHER PEOPLE’S WEATHER (Tree Roots & Blue Forest Fog)
    ================================================== */
 .location-archival-dossier {
   min-height: clamp(620px, 82vh, 860px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -140px;
   z-index: 14;
   position: relative;
 }
 
 @media (max-width: 768px) {
   .location-archival-dossier {
-    margin-top: -60px;
+    margin-top: -70px;
   }
 }
 
 .location-archival-dossier .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 78%, transparent 100%);
 }
 
 .weather-readability-overlay {
@@ -434,54 +437,54 @@
 
 
 /* ==================================================
-   5. WEATHER → THE LEGEND (Storm to Paper Overlap)
+   5. WEATHER → THE LEGEND (Forest Shadow into Archive Table)
    ================================================== */
 .location-relics-worktable {
   min-height: clamp(680px, 85vh, 920px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -140px;
   z-index: 15;
   background: transparent;
 }
 
 @media (max-width: 768px) {
   .location-relics-worktable {
-    margin-top: -60px;
+    margin-top: -70px;
   }
 }
 
 
 /* ==================================================
-   6. THE LEGEND → CORRIDOR (Worktable to Corridor Architecture)
+   6. THE LEGEND → CORRIDOR (Archive Table Shadow into Hallway Floor)
    ================================================== */
 .location-corridor {
   min-height: clamp(720px, 90vh, 960px);
   width: 100%;
-  margin-top: -120px;
+  margin-top: -140px;
   z-index: 16;
   background: transparent;
 }
 
 @media (max-width: 768px) {
   .location-corridor {
-    margin-top: -60px;
+    margin-top: -70px;
   }
 }
 
 
 /* ==================================================
-   7. CORRIDOR → LATEST DISPATCHES (Editorial Folio Nesting)
+   7. CORRIDOR → LATEST DISPATCHES (Floorboards to Archival Folio)
    ================================================== */
-/* Handled cleanly in SubstackDispatches.css */
+/* Handled inside SubstackDispatches.css */
 
 
 /* ==================================================
-   8. LATEST DISPATCHES → FINAL HORIZON (Paper to Dawn Fog Fade)
+   8. LATEST DISPATCHES → FINAL HORIZON (Parchment Fibers to Dawn Fog)
    ================================================== */
 .location-final-landscape {
-  min-height: 92vh;
+  min-height: 94vh;
   width: 100%;
-  margin-top: -100px;
+  margin-top: -120px;
   z-index: 18;
   position: relative;
   justify-content: space-between;
@@ -491,13 +494,13 @@
 
 @media (max-width: 768px) {
   .location-final-landscape {
-    margin-top: -50px;
+    margin-top: -60px;
   }
 }
 
 .location-final-landscape .location-bg-img {
-  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
 }
 
 .final-lantern-glow {
@@ -515,7 +518,7 @@
   text-align: center;
   width: min(100% - 24px, 680px);
   margin: 0 auto;
-  padding-top: 3.5rem;
+  padding-top: 4.5rem;
   box-sizing: border-box;
 }
 

@@ -59,6 +59,20 @@ export default function CabinetOfRelics() {
 
         {/* Interactive Relic Overlays Stage */}
         <div className="home-relic-stage" role="radiogroup" aria-label="Cabinet of Relics Worktable">
+          
+          {/* Loose Crimson Thread Winding Across Table Edge */}
+          <svg className="table-thread-winding-svg" viewBox="0 0 1000 600" fill="none" aria-hidden="true">
+            <path
+              d="M 460,140 C 520,180 600,160 620,240 C 640,320 540,380 480,360 C 420,340 320,400 280,480 C 260,520 300,580 340,600"
+              stroke="#8c1c18"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeDasharray="4, 1"
+              opacity="0.85"
+              filter="drop-shadow(0 3px 6px rgba(0,0,0,0.8))"
+            />
+          </svg>
+
           {relics.map((obj) => {
             const isSelected = obj.id === selectedId;
             return (

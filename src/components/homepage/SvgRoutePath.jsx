@@ -2,9 +2,9 @@ import React from 'react';
 import './SvgRoutePath.css';
 
 export default function SvgRoutePath({ scrollProgress = 0 }) {
-  // Calculate SVG stroke-dashoffset based on scroll progress
-  // Route terminates at y=2750 (the lantern before final signup area)
-  const pathLength = 2750;
+  // Physical Dark Crimson Thread winding continuously through the environments
+  // Path terminates at y=2750 near the physical lantern
+  const pathLength = 2850;
   const dashOffset = pathLength * (1 - scrollProgress);
 
   return (
@@ -15,24 +15,27 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
         preserveAspectRatio="none"
         fill="none"
       >
-        {/* Underlay Guide Line (Faint Muted Crimson) */}
+        {/* Underlay Organic Red Thread Path (Faint Deep Crimson Shadow) */}
         <path
-          d="M 500,0 Q 580,350 480,700 T 520,1400 T 460,2100 T 500,2750"
-          stroke="rgba(179, 33, 29, 0.15)"
-          strokeWidth="2.5"
+          d="M 500,0 C 560,250 430,450 490,750 C 550,1050 440,1320 510,1580 C 580,1850 460,2120 515,2400 C 530,2550 495,2680 500,2750"
+          stroke="rgba(80, 10, 10, 0.25)"
+          strokeWidth="3"
+          strokeLinecap="round"
           fill="none"
         />
 
-        {/* Animated Active Crimson Route Spine */}
+        {/* Physical Dark Crimson Thread (Tactile, Frayed Organic Fiber Appearance) */}
         <path
-          d="M 500,0 Q 580,350 480,700 T 520,1400 T 460,2100 T 500,2750"
-          stroke="#b3211d"
-          strokeWidth="2.5"
+          d="M 500,0 C 560,250 430,450 490,750 C 550,1050 440,1320 510,1580 C 580,1850 460,2120 515,2400 C 530,2550 495,2680 500,2750"
+          stroke="#8c1c18"
+          strokeWidth="2.2"
           strokeDasharray={pathLength}
           strokeDashoffset={dashOffset}
           strokeLinecap="round"
-          opacity="0.65"
+          strokeLinejoin="round"
+          opacity="0.82"
           fill="none"
+          className="physical-red-thread-path"
         />
       </svg>
     </div>

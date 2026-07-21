@@ -15,6 +15,11 @@
   display: block;
 }
 
+.physical-red-thread-path {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.6));
+  transition: stroke-dashoffset 0.1s ease-out;
+}
+
 @media (max-width: 768px) {
   .svg-route-spine-container path {
     stroke-width: 1.75;

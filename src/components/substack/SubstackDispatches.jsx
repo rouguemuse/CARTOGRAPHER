@@ -3,7 +3,6 @@ import './SubstackDispatches.css';
 
 export default function SubstackDispatches() {
   const [dispatches, setDispatches] = useState([]);
-  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchFeed() {
@@ -17,8 +16,6 @@ export default function SubstackDispatches() {
         }
       } catch (err) {
         console.warn('Substack feed proxy fallback:', err);
-      } finally {
-        setLoading(false);
       }
     }
     fetchFeed();
@@ -47,6 +44,19 @@ export default function SubstackDispatches() {
 
   return (
     <section className="location-dispatches-bridge">
+      
+      {/* Tactile Crimson Thread Reappearing Beside Dispatches Card */}
+      <svg className="dispatches-thread-trace-svg" viewBox="0 0 1000 500" fill="none" aria-hidden="true">
+        <path
+          d="M 280,0 C 240,120 180,240 220,350 C 260,440 340,480 500,500"
+          stroke="#8c1c18"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          opacity="0.8"
+          filter="drop-shadow(0 2px 4px rgba(0,0,0,0.85))"
+        />
+      </svg>
+
       <div className="dispatches-container">
         
         {/* Masthead */}
