@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useJourneyState } from '../../hooks/useJourneyState';
+import './CorridorDoors.css';
 
 export default function CorridorDoors() {
   const { getActiveJourney } = useJourneyState();
@@ -8,60 +9,74 @@ export default function CorridorDoors() {
   const carriedObject = activeJourney?.carriedObject;
 
   return (
-    <div className="corridor-doors-container">
-      <header className="corridor-header">
-        <span className="small-label">LOCATION VI — THE CORRIDOR</span>
-        <h2 className="section-h2">The Two Letter Rooms</h2>
-        <p className="section-intro-desc">
-          Two physical entryways at the end of the hall. One leads into private correspondence; the other to an open wall of unsaid sentences.
-        </p>
-      </header>
+    <div className="home-corridor-scene">
+      {/* Approved Corridor Visual Background Environment */}
+      <div className="home-corridor-bg-layer">
+        <picture>
+          <source srcSet="/images/homepage/two-letter-corridor.avif" type="image/avif" />
+          <source srcSet="/images/homepage/two-letter-corridor.webp" type="image/webp" />
+          <img 
+            src="/images/homepage/two-letter-corridor.jpg" 
+            alt="A dark corridor with a warm private doorway on the left and a paper-covered public doorway on the right." 
+            width="1344"
+            height="768"
+            loading="lazy"
+            decoding="async"
+            className="home-corridor-bg-img"
+          />
+        </picture>
+      </div>
 
-      <div className="corridor-doors-grid">
+      {/* Interactive Doorway Portals Stage */}
+      <div className="home-corridor-stage">
         
-        {/* DOOR 1: DEAR RED */}
-        <Link to="/dear-red" className="corridor-door-card door-dear-red">
-          <div className="door-frame">
-            <div className="door-wood">
-              <div className="door-handle"></div>
-              <div className="slipped-red-letter" title="Red envelope slipped beneath door"></div>
-            </div>
+        {/* LEFT DOORWAY: DEAR RED */}
+        <Link 
+          to="/dear-red" 
+          className="home-corridor-door-link door-left"
+          aria-label="Enter Dear Red private room"
+        >
+          {/* Live Replacement Plaque Covering Fake Image Lettering */}
+          <div className="home-door-plaque">
+            <span className="home-door-plaque-tag">PRIVATE ROOM</span>
+            <h3 className="home-door-plaque-title">DEAR RED</h3>
           </div>
-          <div className="door-info">
-            <span className="small-label">PRIVATE ROOM</span>
-            <h3 className="door-title">Dear Red</h3>
-            <p className="door-subtitle">"A private room for the version of you who kept explaining."</p>
-            <p className="door-desc">
+
+          <div className="home-door-text-panel">
+            <p className="home-door-sub">"A private room for the version of you who kept explaining."</p>
+            <p className="home-door-body">
               Letters for the selves we abandoned while trying to be understood. Submitted letters remain strictly private by default.
             </p>
-            <span className="door-action-text">Enter Room &rarr;</span>
+            <span className="home-door-action">Enter Dear Red &rarr;</span>
           </div>
         </Link>
 
-        {/* DOOR 2: THINGS I SHOULD HAVE SAID */}
-        <Link to="/things-i-should-have-said" className="corridor-door-card door-unsaid-wall">
-          <div className="door-frame">
-            <div className="door-wood">
-              <div className="door-handle"></div>
-              <div className="pinned-paper-scraps" title="Pinned paper fragments around doorway"></div>
-            </div>
+        {/* RIGHT DOORWAY: THINGS I SHOULD HAVE SAID */}
+        <Link 
+          to="/things-i-should-have-said" 
+          className="home-corridor-door-link door-right"
+          aria-label="Step to Things I Should Have Said public wall"
+        >
+          {/* Live Replacement Plaque Covering Fake Image Lettering */}
+          <div className="home-door-plaque">
+            <span className="home-door-plaque-tag">PUBLIC WALL</span>
+            <h3 className="home-door-plaque-title">THINGS I SHOULD HAVE SAID</h3>
           </div>
-          <div className="door-info">
-            <span className="small-label">PUBLIC WALL</span>
-            <h3 className="door-title">Things I Should Have Said</h3>
-            <p className="door-subtitle">"A public wall for words that arrived after the room was gone."</p>
-            <p className="door-desc">
+
+          <div className="home-door-text-panel">
+            <p className="home-door-sub">"A public wall for words that arrived after the room was gone."</p>
+            <p className="home-door-body">
               An anonymous wall of tactile paper fragments (max 300 chars) left behind after the conversation ended.
             </p>
-            <span className="door-action-text">Step to the Wall &rarr;</span>
+            <span className="home-door-action">Step to the wall &rarr;</span>
           </div>
         </Link>
 
       </div>
 
       {carriedObject && (
-        <div className="relic-corridor-trace">
-          <span className="small-label" style={{ fontSize: '11px', color: 'var(--color-brass)' }}>
+        <div style={{ position: 'absolute', bottom: '0.75rem', width: '100%', textAlign: 'center', zIndex: 10 }}>
+          <span className="small-label" style={{ fontSize: '11px', color: 'var(--color-brass)', background: 'rgba(10, 13, 12, 0.85)', padding: '0.2rem 0.6rem', borderRadius: '3px' }}>
             TRACE IN THE HALL: Carrying {carriedObject.replace('_', ' ')}
           </span>
         </div>

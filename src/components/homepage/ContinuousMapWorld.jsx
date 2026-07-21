@@ -183,17 +183,17 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* 7. LOCATION VII: FINAL LANDSCAPE & DISPATCHES */}
+      {/* 7. LOCATION VII: FINAL HORIZON & DISPATCHES */}
       <section className="map-location location-final-landscape">
         <div className="location-bg-layer">
           <picture>
-            <source srcSet="/images/artwork/maps-returned-hero.avif" type="image/avif" />
-            <source srcSet="/images/artwork/maps-returned-hero.webp" type="image/webp" />
+            <source srcSet="/images/homepage/quiet-lantern-horizon.avif" type="image/avif" />
+            <source srcSet="/images/homepage/quiet-lantern-horizon.webp" type="image/webp" />
             <img 
-              src="/images/artwork/maps-returned-hero.jpg" 
-              alt="Final open quiet horizon" 
-              width="2752" 
-              height="1536" 
+              src="/images/homepage/quiet-lantern-horizon.jpg" 
+              alt="A foggy road curving past a small glowing lantern at dawn." 
+              width="1344" 
+              height="768" 
               loading="lazy" 
               decoding="async" 
               className="location-bg-img" 

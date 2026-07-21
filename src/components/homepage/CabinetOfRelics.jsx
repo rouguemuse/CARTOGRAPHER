@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { objects } from '../../data/storyData';
 import { useJourneyState } from '../../hooks/useJourneyState';
+import './CabinetOfRelics.css';
 
 export default function CabinetOfRelics() {
   const { selectObject, getActiveJourney } = useJourneyState();
@@ -42,64 +43,73 @@ export default function CabinetOfRelics() {
   };
 
   return (
-    <div className="cabinet-of-relics-container">
-      <header className="cabinet-header">
-        <span className="small-label">LOCATION V — THE WORKTABLE</span>
-        <h2 className="section-h2">Cabinet of Relics</h2>
-        <p className="section-intro-desc">
-          An atmospheric worktable of six symbolic items recovered from the valley. Select an object to examine what it protected and carry it forward.
-        </p>
-      </header>
+    <div className="home-relic-scene">
+      {/* Approved Worktable Visual Background Environment */}
+      <div className="home-relic-bg-layer">
+        <picture>
+          <source srcSet="/images/homepage/relic-worktable.avif" type="image/avif" />
+          <source srcSet="/images/homepage/relic-worktable.webp" type="image/webp" />
+          <img 
+            src="/images/homepage/relic-worktable.jpg" 
+            alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
+            width="1344"
+            height="768"
+            loading="lazy"
+            decoding="async"
+            className="home-relic-bg-img"
+          />
+        </picture>
+      </div>
 
-      <div className="relics-worktable-scene">
-        {/* Physical Relic Arrangement Hotspots */}
-        <div className="relics-physical-layout" role="radiogroup" aria-label="Cabinet of Relics Worktable">
-          {objects.map((obj) => {
-            const isSelected = obj.id === selectedId;
-            return (
-              <button
-                key={obj.id}
-                role="radio"
-                aria-checked={isSelected}
-                aria-label={`Select ${obj.name}`}
-                className={`relic-hotspot relic-spot-${obj.id} ${isSelected ? 'is-selected' : 'is-dimmed'}`}
-                onClick={() => setSelectedId(obj.id)}
-                onFocus={() => setSelectedId(obj.id)}
-              >
-                <picture className="relic-hotspot-img">
-                  <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
-                  <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
-                  <img 
-                    src={obj.image} 
-                    alt={obj.name}
-                    width="800"
-                    height="800"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </picture>
-                <span className="relic-hotspot-label">{obj.name}</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Selected Relic Parchment Dossier Drawer */}
-        <div className="selected-relic-dossier">
-          <span className="relic-cat-tag">{getCatNum(activeRelic.id)}</span>
-          <h3 className="relic-title">{activeRelic.name}</h3>
-          <p className="relic-desc">{activeRelic.description}</p>
-          
-          <div className="relic-actions-row">
-            <button 
-              className="btn btn-primary"
-              onClick={() => handleCarry(activeRelic.id)}
+      {/* Interactive Relic Overlays Stage */}
+      <div className="home-relic-stage" role="radiogroup" aria-label="Cabinet of Relics Worktable">
+        {objects.map((obj) => {
+          const isSelected = obj.id === selectedId;
+          return (
+            <button
+              key={obj.id}
+              role="radio"
+              aria-checked={isSelected}
+              aria-label={`Select ${obj.name}`}
+              className={`home-relic-button home-relic-${obj.id} ${isSelected ? 'is-selected' : 'is-unselected'}`}
+              onClick={() => setSelectedId(obj.id)}
+              onFocus={() => setSelectedId(obj.id)}
             >
-              Carry it with you &rarr;
+              <picture style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
+                <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
+                <img 
+                  src={obj.image} 
+                  alt={obj.name}
+                  width="800"
+                  height="800"
+                  loading="lazy"
+                  decoding="async"
+                  className="home-relic-img"
+                />
+              </picture>
+            </button>
+          );
+        })}
+
+        {/* Selected Relic HTML Catalogue Record Panel */}
+        <div className="home-relic-dossier-panel">
+          <span className="home-relic-cat-tag">{getCatNum(activeRelic.id)}</span>
+          <h3 className="home-relic-title">{activeRelic.name}</h3>
+          <p className="home-relic-desc">{activeRelic.description}</p>
+          
+          <div className="home-relic-actions">
+            <button 
+              className="btn btn-primary btn-sm"
+              onClick={() => handleCarry(activeRelic.id)}
+              aria-label={`Carry the ${activeRelic.name} into the Journey`}
+            >
+              Carry it with you
             </button>
             <Link 
               to={`/archive/inventory/${getObjectSlug(activeRelic.id)}`}
               className="btn btn-ghost-sm"
+              aria-label={`Examine the ${activeRelic.name} in the Inventory`}
             >
               Examine in Inventory
             </Link>
