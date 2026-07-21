@@ -1,0 +1,224 @@
+/* FIELD GUIDE DETAIL HIGH-CONTRAST PARCHMENT DOSSIER STYLING */
+.fg-detail-container {
+  width: min(100% - 24px, 860px);
+  margin: 0 auto;
+  padding-top: 3.5rem;
+  padding-bottom: 5rem;
+}
+
+/* High-Contrast Breadcrumbs on Dark Background */
+.fg-detail-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  margin-bottom: 1.75rem;
+}
+
+.fg-detail-breadcrumbs a {
+  color: var(--color-brass);
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.fg-detail-breadcrumbs a:hover {
+  color: var(--color-parchment);
+  text-decoration: underline;
+}
+
+.crumb-sep {
+  color: var(--color-bone);
+  opacity: 0.5;
+}
+
+.crumb-current {
+  color: var(--color-parchment);
+}
+
+/* Archival Parchment Dossier Paper */
+.fg-dossier-paper {
+  background: #e6dcc3;
+  color: #121615;
+  border: 1px solid #d4c8a8;
+  padding: 3rem 2.25rem;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.65);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.fg-dossier-header {
+  border-bottom: 2px solid #c8ba96;
+  padding-bottom: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.fg-kicker {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.15em;
+  color: #8b0000;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+.fg-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 8vw, 3.4rem);
+  color: #121615;
+  margin: 0 0 0.85rem 0;
+  line-height: 1.15;
+}
+
+.fg-intro-quote {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 4vw, 19px);
+  font-style: italic;
+  color: #2b3330;
+  line-height: 1.6;
+  margin: 0 0 1rem 0;
+}
+
+.fg-meta-strip {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: #4a5550;
+  display: flex;
+  gap: 0.65rem;
+  align-items: center;
+}
+
+/* Structured Observation Cards Stack */
+.fg-observation-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.fg-obs-card {
+  background: #fdfbf7;
+  border: 1px solid #dcd0b3;
+  border-radius: 4px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.fg-obs-pattern {
+  border-left: 5px solid #8b0000;
+}
+
+.fg-obs-inside {
+  border-left: 5px solid #b5985a;
+}
+
+.fg-obs-mistaken {
+  border-left: 5px solid #4a5550;
+}
+
+.fg-card-tag {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #8b0000;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.fg-card-text {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 4vw, 17px);
+  color: #121615;
+  line-height: 1.6;
+  margin: 0;
+  font-weight: 500;
+}
+
+/* Chapter Excerpt */
+.fg-chapter-excerpt {
+  background: #ded4bb;
+  border-left: 4px solid #8b0000;
+  padding: 1.75rem 2rem;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(16px, 4vw, 18px);
+  color: #1a221f;
+  line-height: 1.6;
+  margin: 2.5rem 0;
+  border-radius: 2px;
+}
+
+.fg-excerpt-author {
+  margin-top: 0.75rem;
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-size: 13px;
+  color: #4a5550;
+}
+
+/* Cartographer's Note (High Contrast Fix) */
+.fg-cartographer-note {
+  background: #fdfbf7;
+  border: 1px solid #dcd0b3;
+  border-left: 5px solid #8b0000;
+  padding: 1.75rem;
+  border-radius: 4px;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.fg-cart-text {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: clamp(16px, 4vw, 18px);
+  color: #121615;
+  line-height: 1.65;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Connected Vocabulary */
+.fg-vocabulary-section {
+  border-top: 1px solid #c8ba96;
+  padding-top: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.fg-vocab-links-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 0.75rem;
+}
+
+.fg-vocab-btn {
+  background: #1c2420;
+  color: #e6dcc3;
+  padding: 0.45rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.fg-vocab-btn:hover {
+  background: #8b0000;
+  color: #fff;
+}
+
+/* Dossier Footer */
+.fg-dossier-footer {
+  border-top: 2px solid #c8ba96;
+  padding-top: 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
