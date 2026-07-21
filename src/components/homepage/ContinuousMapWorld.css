@@ -23,7 +23,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem 1rem;
+  padding: 3.5rem 1rem;
   box-sizing: border-box;
 }
 
@@ -52,7 +52,13 @@
   box-sizing: border-box;
 }
 
-/* 1. LOCATION I: HERO (Full Viewport, Single Column Mobile) */
+/* Enlarged 85-90vw max-width for Worktable and Corridor to eliminate surrounding dark void */
+.location-worktable-content,
+.location-corridor-content {
+  width: min(100% - 24px, 1344px);
+}
+
+/* 1. LOCATION I: HERO (Full Viewport) */
 .location-hero {
   min-height: 100vh;
   width: 100%;
@@ -140,7 +146,7 @@
   margin: 0;
 }
 
-/* 2. LOCATION II: THE ROAD OPENS (Full Width, Single Column Mobile) */
+/* 2. LOCATION II: THE ROAD OPENS */
 .location-road-opens {
   min-height: clamp(500px, 70vh, 700px);
   width: 100%;
@@ -193,12 +199,16 @@
   background: radial-gradient(circle at center, rgba(28, 42, 36, 0.2) 0%, rgba(10, 18, 15, 0.75) 100%);
 }
 
-/* ATMOSPHERIC CARNIVAL GLIMPSE */
-.location-carnival-glimpse {
-  min-height: clamp(320px, 45vh, 450px);
+/* APPROVED WIDE AERIAL CARNIVAL SCENE */
+.location-carnival-scene {
+  min-height: clamp(500px, 70vh, 750px);
   width: 100%;
-  padding: 3rem 1rem;
-  background: radial-gradient(circle at center, rgba(35, 20, 28, 0.4) 0%, rgba(6, 14, 12, 0.95) 100%);
+}
+
+.carnival-fog-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(35, 20, 28, 0.35) 0%, rgba(6, 14, 12, 0.82) 100%);
 }
 
 .carnival-glimpse-box {
@@ -236,7 +246,7 @@
   margin: 0;
 }
 
-/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER */
+/* 4. LOCATION IV: FEATURED ARCHIVE DOSSIER (WOMAN IN RED COAT IN RAIN) */
 .location-archival-dossier {
   min-height: clamp(600px, 80vh, 850px);
   width: 100%;
@@ -390,6 +400,20 @@
   font-size: clamp(1.3rem, 5vw, 1.6rem);
   color: var(--color-parchment);
   margin: 0.5rem 0 1rem;
+}
+
+.final-actions-row {
+  display: flex;
+  gap: 1.25rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+@media (min-width: 500px) {
+  .final-actions-row {
+    flex-direction: row;
+  }
 }
 
 /* Restrained Footer */

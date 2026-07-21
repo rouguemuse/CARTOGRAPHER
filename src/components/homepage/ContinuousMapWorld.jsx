@@ -126,14 +126,27 @@ export default function ContinuousMapWorld() {
         </div>
       </section>
 
-      {/* ATMOSPHERIC CARNIVAL GLIMPSE */}
-      <section className="map-location location-carnival-glimpse">
+      {/* APPROVED WIDE AERIAL CARNIVAL SCENE */}
+      <section className="map-location location-carnival-scene">
+        <div className="location-bg-layer">
+          <img 
+            src="/images/artwork/carnival-aerial.png" 
+            alt="Wide aerial map view of the Carnival territory" 
+            width="1344" 
+            height="768" 
+            loading="lazy" 
+            decoding="async" 
+            className="location-bg-img" 
+          />
+          <div className="carnival-fog-overlay"></div>
+        </div>
+
         <div className="location-content">
           <div className="carnival-glimpse-box">
             <span className="small-label" style={{ color: 'var(--color-brass)' }}>
               LOCATION — UNMARKED
             </span>
-            <h2 className="carnival-glimpse-title">The Carnival</h2>
+            <h2 className="carnival-glimpse-title">THE CARNIVAL</h2>
             <p className="carnival-glimpse-body">
               The Carnival is not marked on every map.
             </p>
@@ -183,14 +196,14 @@ export default function ContinuousMapWorld() {
 
       {/* 5. LOCATION V: THE WORKTABLE (THE LEGEND) */}
       <section className="map-location location-relics-worktable">
-        <div className="location-content">
+        <div className="location-content location-worktable-content">
           <CabinetOfRelics />
         </div>
       </section>
 
       {/* 6. LOCATION VI: THE TWO LETTER ROOMS */}
       <section className="map-location location-corridor">
-        <div className="location-content">
+        <div className="location-content location-corridor-content">
           <CorridorDoors />
         </div>
       </section>
@@ -198,7 +211,7 @@ export default function ContinuousMapWorld() {
       {/* NATIVE SUBSTACK DISPATCHES FEED COMPONENT */}
       <SubstackDispatches />
 
-      {/* 7. LOCATION VII: FINAL HORIZON & OFFICIAL SUBSTACK SIGNUP */}
+      {/* 7. LOCATION VII: FINAL HORIZON & RESTRAINED LIVE CTA */}
       <section className="map-location location-final-landscape">
         <div className="location-bg-layer">
           <img 
@@ -220,37 +233,31 @@ export default function ContinuousMapWorld() {
             <h3 className="final-subheading">THE ROAD DOES NOT REQUIRE THEIR PERMISSION.</h3>
           </div>
 
-          {/* Localized Dark Signup Panel */}
+          {/* Restrained Live CTA Panel (No Large White Iframe) */}
           <div id="join" className="final-signup-panel">
             <span className="small-label">DISPATCHES FROM THE ROAD</span>
-            <h4 className="signup-title">Receive dispatches from the road</h4>
-            <p className="signup-subnote" style={{ fontStyle: 'italic', color: 'var(--color-bone)', marginBottom: '1.5rem', fontSize: '14px' }}>
+            <h4 className="signup-title">STAY NEAR THE ROAD</h4>
+            <p className="signup-subnote" style={{ fontStyle: 'italic', color: 'var(--color-bone)', marginBottom: '1.75rem', fontSize: '15px' }}>
               Be told when the wolves are ready.
             </p>
 
-            {/* Official Substack Embed Iframe */}
-            <div className="substack-iframe-wrap" style={{ width: '100%', maxWidth: '480px', margin: '0 auto', minHeight: '180px' }}>
-              <iframe 
-                src="https://otherpeoplesweather.substack.com/embed" 
-                width="100%" 
-                height="180" 
-                style={{ background: 'transparent', border: 'none', borderRadius: '4px' }}
-                frameBorder="0" 
-                scrolling="no"
-                title="Substack Signup Form"
-              ></iframe>
-            </div>
-
-            {/* Fallback Subscription Link */}
-            <div style={{ marginTop: '1.25rem' }}>
+            <div className="final-actions-row">
               <a 
                 href="https://otherpeoplesweather.substack.com/subscribe?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary btn-large"
+              >
+                RECEIVE DISPATCHES
+              </a>
+              <a 
+                href="https://otherpeoplesweather.substack.com?utm_source=wolves_website&utm_medium=referral&utm_campaign=dispatches"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-ghost-sm"
                 style={{ color: 'var(--color-brass)' }}
               >
-                Subscribe through Substack &rarr;
+                READ ON SUBSTACK &rarr;
               </a>
             </div>
           </div>
