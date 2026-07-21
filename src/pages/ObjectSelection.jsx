@@ -84,19 +84,15 @@ export default function ObjectSelection() {
         <div className="carry-worktable-scene">
           
           <div className="carry-worktable-bg-layer">
-            <picture>
-              <source srcSet="/images/homepage/relic-worktable.avif" type="image/avif" />
-              <source srcSet="/images/homepage/relic-worktable.webp" type="image/webp" />
-              <img 
-                src="/images/homepage/relic-worktable.jpg" 
-                alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
-                width="1344"
-                height="768"
-                loading="eager"
-                fetchPriority="high"
-                className="carry-worktable-bg-img"
-              />
-            </picture>
+            <img 
+              src="/images/homepage/relic-worktable.jpg" 
+              alt="An antique archive worktable with a weathered map and red thread beneath six symbolic relics." 
+              width="1344"
+              height="768"
+              loading="eager"
+              fetchPriority="high"
+              className="carry-worktable-bg-img"
+            />
           </div>
 
           <div className="carry-worktable-stage" role="radiogroup" aria-label="Physical Relic Selection Worktable">
@@ -112,18 +108,15 @@ export default function ObjectSelection() {
                   onClick={(e) => handleSelect(obj.id, e)}
                   onFocus={(e) => handleSelect(obj.id, e)}
                 >
-                  <picture style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <source srcSet={obj.image.replace('.png', '.avif')} type="image/avif" />
-                    <source srcSet={obj.image.replace('.png', '.webp')} type="image/webp" />
-                    <img 
-                      src={obj.image} 
-                      alt={obj.alt}
-                      width="800"
-                      height="800"
-                      loading="lazy"
-                      className="carry-relic-img"
-                    />
-                  </picture>
+                  <span className="sr-only">{obj.title}</span>
+                  <img 
+                    src={obj.image} 
+                    alt={obj.alt}
+                    width="800"
+                    height="800"
+                    loading="lazy"
+                    className="carry-relic-img"
+                  />
                 </button>
               );
             })}
@@ -142,8 +135,8 @@ export default function ObjectSelection() {
                   style={{ width: '100%' }}
                 >
                   {hasAnswers && selectedId === activeJourney?.carriedObject 
-                    ? 'CONTINUE THE JOURNEY →' 
-                    : 'CARRY THIS OBJECT & BEGIN →'}
+                    ? 'Continue the Journey' 
+                    : 'Begin the Journey'}
                 </button>
               </div>
             )}
