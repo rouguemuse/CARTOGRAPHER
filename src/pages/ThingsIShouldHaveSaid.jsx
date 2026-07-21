@@ -1,155 +1,126 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { collection, query, where, getDocs, orderBy } from 'firebase/firestore';
-import { db } from '../firebase';
-import ExplanationForm from '../components/ExplanationForm';
-import TactilePaperFragment from '../components/TactilePaperFragment';
+import { getPublishedWallStatements, toggleSubmissionReaction } from '../data/submissionsStore';
+import './DearRed.css';
 
 export default function ThingsIShouldHaveSaid() {
-  const [approvedStatements, setApprovedStatements] = useState([]);
-  const [selectedTag, setSelectedTag] = useState('all');
-  const [loading, setLoading] = useState(true);
-
-  const tags = [
-    { value: 'all', label: 'All Fragments' },
-    { value: 'to-the-wolf', label: 'To the wolf' },
-    { value: 'to-my-mother', label: 'To my mother' },
-    { value: 'to-my-younger-self', label: 'To my younger self' },
-    { value: 'to-the-person-i-left', label: 'To the person I left' },
-    { value: 'to-the-person-who-left', label: 'To the person who left' },
-    { value: 'to-myself', label: 'To myself' },
-    { value: 'other', label: 'Other' }
-  ];
+  const [statements, setStatements] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   useEffect(() => {
-    const fetchApproved = async () => {
-      try {
-        const q = query(
-          collection(db, 'wall_submissions'),
-          where('status', '==', 'approved')
-        );
-        const snap = await getDocs(q);
-        if (!snap.empty) {
-          const docs = snap.docs.map(doc => ({
-            id: doc.id,
-            ...doc.data(),
-            submittedAt: doc.data().submittedAt?.toDate ? doc.data().submittedAt.toDate() : null
-          }));
-          setApprovedStatements(docs);
-        } else {
-          // Fallback initial tactile fragments if wall queue is newly initialized
-          setApprovedStatements([
-            {
-              id: 'seed-1',
-              statement: 'I realized being understood by you required me to apologize for things I never did.',
-              alias: 'A traveler on the bridge',
-              destinationTag: 'to-the-wolf',
-              submittedAt: new Date('2026-07-01')
-            },
-            {
-              id: 'seed-2',
-              statement: 'I kept quiet because I thought my silence would keep the house safe.',
-              alias: 'Younger self',
-              destinationTag: 'to-my-mother',
-              submittedAt: new Date('2026-07-05')
-            },
-            {
-              id: 'seed-3',
-              statement: 'You did not storm; you simply frosted every surface until I stopped asking.',
-              alias: 'Anonymous',
-              destinationTag: 'to-the-person-i-left',
-              submittedAt: new Date('2026-07-10')
-            }
-          ]);
-        }
-      } catch (err) {
-        console.warn("Could not query approved wall statements:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchApproved();
+    setStatements(getPublishedWallStatements());
   }, []);
 
-  const filteredStatements = approvedStatements.filter(item => 
-    selectedTag === 'all' || item.destinationTag === selectedTag
-  );
+  const categories = ['All', 'Love', 'Grief', 'Anger', 'Family', 'Leaving', 'Apology', 'Survival', 'Other'];
+
+  const filteredStatements = selectedCategory === 'All'
+    ? statements
+    : statements.filter(s => (s.category || 'Other').toLowerCase() === selectedCategory.toLowerCase());
+
+  const handleReaction = (id, reactionType) => {
+    const updatedReactions = toggleSubmissionReaction(id, reactionType);
+    if (updatedReactions) {
+      setStatements(prev => prev.map(s => {
+        if (s.id === id) {
+          return { ...s, reactions: { ...updatedReactions } };
+        }
+        return s;
+      }));
+    }
+  };
 
   return (
-    <div className="container archive-page" style={{ padding: '2rem 0 6rem' }}>
-      {/* Breadcrumbs */}
-      <nav className="entry-meta" aria-label="Breadcrumb" style={{ marginBottom: '1.75rem' }}>
-        <Link to="/archive">The Archive</Link>
-        <span style={{ margin: '0 0.5rem', opacity: 0.5 }}>/</span>
-        <span style={{ color: 'var(--ink)' }}>Unsaid Wall</span>
-      </nav>
+    <div className="dear-red-container page-padding">
+      <header className="dear-red-header text-center">
+        <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+          PUBLIC MODERATED WALL
+        </span>
+        <h1 className="dear-red-title">The Wall of Things Unsaid</h1>
+        <p className="dear-red-intro">
+          Single sentences released into public air. Every statement is moderated before appearing.
+        </p>
 
-      {/* Header */}
-      <header className="archive-masthead" style={{ textAlign: 'left', borderBottom: '2px solid var(--paper-line)', paddingBottom: '1.5rem', marginBottom: '2.5rem' }}>
-        <span className="page-kicker">Public Tactile Wall</span>
-        <h1 className="page-title">Things I Should Have Said</h1>
-        <p className="page-introduction" style={{ fontSize: 'var(--text-reading-large)', fontWeight: 500, color: 'var(--ink)', marginBottom: '0.5rem' }}>
-          What did you need to say when it was no longer safe, useful, or possible to say it?
-        </p>
-        <p className="entry-meta" style={{ fontStyle: 'italic', color: 'var(--muted)', margin: 0 }}>
-          An anonymous wall of sentences left behind after the conversation ended.
-        </p>
+        <div className="dear-red-actions-top" style={{ marginTop: '2rem' }}>
+          <Link to="/things-unsaid/submit" className="btn btn-primary btn-large">
+            Submit a statement to the wall &rarr;
+          </Link>
+        </div>
       </header>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '3.5rem', alignItems: 'start' }}>
-        
-        {/* Left Column: Form */}
-        <div>
-          <h2 className="card-title" style={{ marginBottom: '1rem' }}>Leave a Sentence on the Wall</h2>
-          <ExplanationForm />
-        </div>
+      {/* Category Filter Pills */}
+      <nav className="wall-category-nav" style={{ display: 'flex', gap: '0.65rem', flexWrap: 'wrap', justifyContent: 'center', marginBottom: '2.5rem' }}>
+        {categories.map(cat => (
+          <button
+            key={cat}
+            onClick={() => setSelectedCategory(cat)}
+            className={`btn ${selectedCategory === cat ? 'btn-primary' : 'btn-secondary-dark'}`}
+            style={{ fontSize: '13px', padding: '0.45rem 1rem' }}
+          >
+            {cat}
+          </button>
+        ))}
+      </nav>
 
-        {/* Right Column: Tactile Wall Feed & Filter */}
-        <div>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <h2 className="card-title" style={{ margin: 0 }}>The Unsaid Wall</h2>
+      {/* Public Wall Grid of Fragment Cards */}
+      <section className="dear-red-grid">
+        {filteredStatements.length === 0 ? (
+          <div className="dear-red-empty-box text-center" style={{ gridColumn: '1 / -1' }}>
+            <p>No statements found in this category.</p>
           </div>
+        ) : (
+          filteredStatements.map((item) => {
+            const rx = item.reactions || { feltThis: 0, survivedThis: 0, wishISaidThis: 0 };
+            return (
+              <article key={item.id} className="dear-red-card" style={{ borderLeft: '4px solid var(--color-brass)' }}>
+                <div>
+                  <span className="small-label" style={{ color: 'var(--color-brass)' }}>
+                    CATEGORY: {item.category || 'Unsaid'}
+                  </span>
+                  <p className="card-letter-excerpt" style={{ fontSize: '17px', color: 'var(--color-parchment)', marginTop: '0.75rem' }}>
+                    "{item.published_body || item.body}"
+                  </p>
+                </div>
 
-          {/* Tag Filter Buttons */}
-          <div style={{ display: 'flex', gap: '0.4rem', flexWrap: 'wrap', marginBottom: '2rem' }}>
-            {tags.map((tag) => (
-              <button
-                key={tag.value}
-                onClick={() => setSelectedTag(tag.value)}
-                className={`btn ${selectedTag === tag.value ? 'btn-primary' : ''}`}
-                style={{ fontSize: '0.75rem', padding: '0.3rem 0.65rem' }}
-              >
-                {tag.label}
-              </button>
-            ))}
-          </div>
+                <div className="card-letter-footer" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.85rem' }}>
+                  <span className="card-author">
+                    — {item.publication_identity === 'alias' ? (item.alias || 'Anonymous') : 'Anonymous'}
+                  </span>
 
-          {loading ? (
-            <p className="entry-meta">Gathering paper fragments...</p>
-          ) : filteredStatements.length === 0 ? (
-            <div className="archive-card" style={{ padding: '2rem', textAlign: 'center' }}>
-              <p className="card-description" style={{ margin: 0 }}>
-                No fragments found for this tag yet. Use the form on the left to leave the first sentence.
-              </p>
-            </div>
-          ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '1.75rem' }}>
-              {filteredStatements.map((item, idx) => (
-                <TactilePaperFragment
-                  key={item.id}
-                  statement={item.statement}
-                  alias={item.alias}
-                  destinationTag={item.destinationTag}
-                  submittedAt={item.submittedAt}
-                  variant={idx}
-                />
-              ))}
-            </div>
-          )}
-        </div>
+                  {/* Anonymous Reactions */}
+                  <div className="reaction-buttons-row" style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', width: '100%' }}>
+                    <button 
+                      className="btn btn-ghost-sm" 
+                      onClick={() => handleReaction(item.id, 'feltThis')}
+                      style={{ fontSize: '12px', padding: '0.25rem 0.6rem' }}
+                      title="I felt this"
+                    >
+                      I felt this ({rx.feltThis || 0})
+                    </button>
 
-      </div>
+                    <button 
+                      className="btn btn-ghost-sm" 
+                      onClick={() => handleReaction(item.id, 'survivedThis')}
+                      style={{ fontSize: '12px', padding: '0.25rem 0.6rem' }}
+                      title="I survived this"
+                    >
+                      I survived this ({rx.survivedThis || 0})
+                    </button>
+
+                    <button 
+                      className="btn btn-ghost-sm" 
+                      onClick={() => handleReaction(item.id, 'wishISaidThis')}
+                      style={{ fontSize: '12px', padding: '0.25rem 0.6rem' }}
+                      title="I wish I had said this too"
+                    >
+                      I wish I said this too ({rx.wishISaidThis || 0})
+                    </button>
+                  </div>
+                </div>
+              </article>
+            );
+          })
+        )}
+      </section>
     </div>
   );
 }

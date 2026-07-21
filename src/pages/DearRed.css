@@ -1,0 +1,291 @@
+/* DEAR RED STYLING SYSTEM */
+.dear-red-container {
+  width: min(100% - 24px, 1000px);
+  margin: 0 auto;
+  padding-top: 4rem;
+  padding-bottom: 5rem;
+}
+
+.dear-red-header {
+  max-width: 68ch;
+  margin: 0 auto 3.5rem;
+}
+
+.dear-red-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 9vw, 3.8rem);
+  color: var(--color-parchment);
+  margin: 0.5rem 0 0.85rem;
+}
+
+.dear-red-intro {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 4vw, 19px);
+  color: var(--color-bone);
+  line-height: 1.6;
+}
+
+.dear-red-paper-box,
+.dear-red-form-box {
+  background: #181f1c;
+  border: 1px solid rgba(230, 220, 195, 0.18);
+  border-left: 4px solid var(--color-crimson);
+  padding: 2.75rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.7);
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+.dear-red-error-banner {
+  background: rgba(179, 33, 29, 0.2);
+  border: 1px solid var(--color-crimson);
+  color: #ff9999;
+  padding: 0.85rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  font-family: var(--font-ui);
+  font-size: 14px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  color: var(--color-parchment);
+}
+
+.required-star {
+  color: var(--color-crimson);
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  background: rgba(8, 12, 10, 0.85);
+  border: 1px solid rgba(230, 220, 195, 0.2);
+  color: var(--color-parchment);
+  padding: 0.75rem 1rem;
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--color-brass);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+.form-row-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .form-row-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-fieldset {
+  border: 1px solid rgba(230, 220, 195, 0.14);
+  padding: 1.25rem 1.5rem;
+  border-radius: 4px;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.fieldset-legend {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  color: var(--color-brass);
+  padding: 0 0.5rem;
+}
+
+.radio-option,
+.checkbox-option {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-bone);
+  margin-bottom: 0.75rem;
+  cursor: pointer;
+}
+
+.radio-option input,
+.checkbox-option input {
+  margin-top: 0.25rem;
+  accent-color: var(--color-crimson);
+}
+
+.checkbox-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.75rem;
+}
+
+.safety-disclaimer-box {
+  background: rgba(8, 12, 10, 0.9);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  padding: 1.25rem 1.5rem;
+  border-radius: 4px;
+  margin-top: 1.5rem;
+  text-align: left;
+}
+
+.safety-option span {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-parchment);
+}
+
+/* Dear Red Published Archive Grid & Cards */
+.dear-red-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.75rem;
+}
+
+@media (min-width: 768px) {
+  .dear-red-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.dear-red-card {
+  background: #141a17;
+  border: 1px solid rgba(230, 220, 195, 0.16);
+  padding: 1.75rem;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+}
+
+.card-letter-title {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--color-parchment);
+  margin: 0.4rem 0 0.75rem;
+}
+
+.card-letter-title a {
+  color: var(--color-parchment);
+  text-decoration: none;
+}
+
+.card-letter-title a:hover {
+  color: var(--color-brass);
+}
+
+.card-letter-excerpt {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 15px;
+  color: var(--color-bone);
+  line-height: 1.55;
+  margin-bottom: 1.25rem;
+}
+
+.card-letter-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid rgba(230, 220, 195, 0.1);
+  padding-top: 0.85rem;
+  font-size: 13px;
+}
+
+.card-author {
+  color: var(--color-brass);
+}
+
+.read-letter-link {
+  color: var(--color-crimson);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.read-letter-link:hover {
+  text-decoration: underline;
+}
+
+/* Detail View Paper */
+.dear-red-detail-paper {
+  background: #e6dcc3;
+  color: #121615;
+  border: 1px solid #d4c8a8;
+  padding: 3rem 2.25rem;
+  border-radius: 4px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  text-align: left;
+}
+
+.detail-letter-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 3rem);
+  color: #121615;
+  margin: 0.35rem 0 0.5rem;
+}
+
+.detail-letter-meta {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  color: #4a5550;
+  border-bottom: 2px solid #c8ba96;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.detail-letter-body {
+  font-family: var(--font-body);
+  font-size: clamp(16px, 4vw, 18px);
+  line-height: 1.7;
+  color: #1e2623;
+  margin-bottom: 2.5rem;
+}
+
+.detail-editor-note {
+  background: #dcd0b3;
+  border-left: 4px solid #8b0000;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2.5rem;
+  border-radius: 2px;
+}
+
+.editor-note-tag {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #8b0000;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.detail-paper-footer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  border-top: 1px solid #c8ba96;
+  padding-top: 1.75rem;
+}

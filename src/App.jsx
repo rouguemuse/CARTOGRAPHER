@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route, Navigate, useParams } from 'react-router-dom';
 import Landing from './pages/Landing';
 import Stage from './pages/Stage';
@@ -56,19 +55,24 @@ import InventoryDetail from './pages/archive/InventoryDetail';
 import GlossaryIndex from './pages/archive/GlossaryIndex';
 import GlossaryDetail from './pages/archive/GlossaryDetail';
 
-// Participatory & Static Pages
+// Participatory 3-Tier Submission Systems & Pages
 import ThingsIShouldHaveSaid from './pages/ThingsIShouldHaveSaid';
+import ThingsUnsaidSubmit from './pages/ThingsUnsaidSubmit';
 import DearRed from './pages/DearRed';
+import DearRedWrite from './pages/DearRedWrite';
+import DearRedDetail from './pages/DearRedDetail';
+import SubmitHub from './pages/SubmitHub';
 import Workbook from './pages/Workbook';
 import Book from './pages/Book';
 import About from './pages/About';
 
-// Admin Pages
+// Admin Pages & Submissions Dashboard
 import AdminLogin from './pages/admin/AdminLogin';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import ArticleManager from './pages/admin/ArticleManager';
 import WallModeration from './pages/admin/WallModeration';
 import DearRedInbox from './pages/admin/DearRedInbox';
+import AdminSubmissions from './pages/admin/AdminSubmissions';
 import ProtectedRoute from './components/ProtectedRoute';
 
 // Shells & Managers
@@ -122,9 +126,19 @@ function App() {
           <Route path="/archive/glossary" element={<ArchiveShell><GlossaryIndex /></ArchiveShell>} />
           <Route path="/archive/glossary/:termSlug" element={<ArchiveShell><GlossaryDetail /></ArchiveShell>} />
           
-          {/* Participatory & Content Rooms */}
-          <Route path="/things-i-should-have-said" element={<ArchiveShell><ThingsIShouldHaveSaid /></ArchiveShell>} />
+          {/* Participatory 3-Tier Submission Systems */}
           <Route path="/dear-red" element={<ArchiveShell><DearRed /></ArchiveShell>} />
+          <Route path="/dear-red/write" element={<ArchiveShell><DearRedWrite /></ArchiveShell>} />
+          <Route path="/dear-red/:slug" element={<ArchiveShell><DearRedDetail /></ArchiveShell>} />
+
+          <Route path="/things-i-should-have-said" element={<ArchiveShell><ThingsIShouldHaveSaid /></ArchiveShell>} />
+          <Route path="/things-unsaid" element={<ArchiveShell><ThingsIShouldHaveSaid /></ArchiveShell>} />
+          <Route path="/things-unsaid/submit" element={<ArchiveShell><ThingsUnsaidSubmit /></ArchiveShell>} />
+
+          <Route path="/submit" element={<ArchiveShell><SubmitHub /></ArchiveShell>} />
+          <Route path="/submission-received" element={<Navigate to="/submit" replace />} />
+
+          {/* Static Pages */}
           <Route path="/workbook" element={<ArchiveShell><Workbook /></ArchiveShell>} />
           <Route path="/book" element={<ArchiveShell><Book /></ArchiveShell>} />
           <Route path="/about" element={<ArchiveShell><About /></ArchiveShell>} />
@@ -137,6 +151,26 @@ function App() {
               <ArchiveShell>
                 <ProtectedRoute>
                   <AdminDashboard />
+                </ProtectedRoute>
+              </ArchiveShell>
+            } 
+          />
+          <Route 
+            path="/admin/submissions" 
+            element={
+              <ArchiveShell>
+                <ProtectedRoute>
+                  <AdminSubmissions />
+                </ProtectedRoute>
+              </ArchiveShell>
+            } 
+          />
+          <Route 
+            path="/admin/submissions/:id" 
+            element={
+              <ArchiveShell>
+                <ProtectedRoute>
+                  <AdminSubmissions />
                 </ProtectedRoute>
               </ArchiveShell>
             } 
