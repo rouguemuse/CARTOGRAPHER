@@ -119,25 +119,63 @@
   text-align: center;
 }
 
-/* Masthead */
-.archive-masthead {
-  border-bottom: 3px solid var(--paper-line);
+/* Masthead & Page Header Contrast Fixes */
+.archive-masthead,
+.archive-portal-masthead,
+.entry-header,
+.term-header {
+  border-bottom: 1px solid rgba(222, 205, 169, 0.18);
   padding-bottom: 1.75rem;
   margin-bottom: 2.5rem;
-  text-align: center;
+  text-align: left;
 }
 
-.archive-masthead h1 {
+.archive-masthead h1,
+.archive-portal-masthead h1,
+.entry-header h1,
+.term-header h1,
+.page-title,
+.entry-title,
+.term-title {
+  font-family: var(--font-display);
   font-size: var(--heading-page);
-  color: var(--ink);
+  color: #F1E9D6 !important; /* Warm Ivory */
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  line-height: 1.05;
+}
+
+.archive-portal-masthead h2,
+.archive-masthead h2,
+.masthead-subtitle {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+  color: #EDE4CF !important; /* Warm Ivory Subtitle */
+  font-weight: 700;
   margin-bottom: 0.75rem;
 }
 
-.archive-masthead p {
+.page-kicker,
+.entry-eyebrow,
+.entry-catalog {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: #B99A55 !important; /* Muted Gold */
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.35rem;
+}
+
+.page-introduction,
+.archive-masthead p,
+.archive-portal-masthead p,
+.entry-meta {
+  font-family: var(--font-body);
   font-size: var(--text-reading);
-  color: var(--muted);
-  max-width: 60ch;
-  margin: 0 auto;
+  color: #C8BEA7 !important; /* Muted Parchment */
+  max-width: 75ch;
+  line-height: 1.6;
 }
 
 /* Form */
@@ -159,6 +197,7 @@
   font-weight: 600;
   margin-bottom: 0.4rem;
   font-size: var(--text-sm);
+  color: var(--ink);
 }
 
 .archive-form-group input[type="text"],
@@ -205,22 +244,53 @@
   color: var(--paper);
 }
 
-/* Headings Override for Light Theme */
+/* High Contrast Headings for Dark Page Background vs Light Cards */
 .theme-archive h1, 
 .theme-archive h2, 
 .theme-archive h3, 
-.theme-archive h4, 
-.theme-archive h5, 
-.theme-archive h6 {
-  color: var(--ink);
+.theme-archive h4 {
+  color: #EDE4CF;
+}
+
+/* Cards retain crisp dark headings against light card backgrounds */
+.archive-card h1,
+.archive-card h2,
+.archive-card h3,
+.archive-card h4,
+.portal-room h1,
+.portal-room h2,
+.portal-room h3,
+.portal-room h4 {
+  color: var(--ink) !important;
+}
+
+/* Light Box Container High-Contrast Overrides */
+.archive-light-box,
+[style*="background-color: #f4f6f8"],
+[style*="background-color: #f7f4ec"] {
+  color: #121615 !important;
+}
+
+.archive-light-box p,
+[style*="background-color: #f4f6f8"] p,
+[style*="background-color: #f7f4ec"] p {
+  color: #121615 !important;
+}
+
+/* Red cards retain crisp warm ivory headings */
+.archive-card--red h1,
+.archive-card--red h2,
+.archive-card--red h3,
+.archive-card--red h4 {
+  color: #F1E9D6 !important;
 }
 
 .theme-archive a {
-  color: var(--red);
+  color: var(--red-bright);
 }
 
 .theme-archive a:hover {
-  color: var(--red-deep);
+  color: var(--red);
   text-decoration: underline;
 }
 

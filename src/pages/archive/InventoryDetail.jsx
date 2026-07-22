@@ -111,13 +111,13 @@ export default function InventoryDetail() {
 
   return (
     <article className="container archive-page" style={{ padding: '2rem 0 6rem' }}>
-      {/* Breadcrumbs */}
+      {/* High Contrast Breadcrumbs */}
       <nav className="entry-meta" aria-label="Breadcrumb" style={{ marginBottom: '2rem' }}>
-        <Link to="/archive">The Archive</Link>
-        <span style={{ margin: '0 0.5rem', opacity: 0.5 }}>/</span>
-        <Link to="/archive/inventory">Inventory</Link>
-        <span style={{ margin: '0 0.5rem', opacity: 0.5 }}>/</span>
-        <span style={{ color: 'var(--ink)' }}>{objectData.name}</span>
+        <Link to="/archive" style={{ color: 'var(--color-brass)' }}>The Archive</Link>
+        <span style={{ margin: '0 0.5rem', color: '#A79D88', opacity: 0.5 }}>/</span>
+        <Link to="/archive/inventory" style={{ color: 'var(--color-brass)' }}>Inventory</Link>
+        <span style={{ margin: '0 0.5rem', color: '#A79D88', opacity: 0.5 }}>/</span>
+        <span style={{ color: '#F1E9D6', fontWeight: 600 }}>{objectData.name}</span>
       </nav>
 
       <div style={{ maxWidth: '72ch', margin: '0 auto' }}>
@@ -128,8 +128,8 @@ export default function InventoryDetail() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#f7f4ec',
-          border: '1px solid var(--paper-line)',
+          backgroundColor: '#0c1210',
+          border: '1px solid rgba(222, 205, 169, 0.18)',
           borderRadius: '4px',
           padding: '2rem',
           marginBottom: '2.5rem'
@@ -148,77 +148,91 @@ export default function InventoryDetail() {
         </div>
 
         {/* Catalogue Record Details */}
-        <header style={{ marginBottom: '2.5rem', borderBottom: '2px solid var(--paper-line)', paddingBottom: '1.5rem' }}>
+        <header style={{ marginBottom: '2.5rem', borderBottom: '1px solid rgba(222, 205, 169, 0.18)', paddingBottom: '1.5rem' }}>
           <span className="archive-catalog-label" style={{ color: 'var(--color-brass)' }}>{objectData.catalogueNumber}</span>
-          <h1 className="page-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem' }}>
+          <h1 className="page-title" style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', marginBottom: '0.75rem', color: '#F1E9D6' }}>
             {objectData.name}
           </h1>
-          <p className="page-introduction" style={{ margin: 0, fontSize: 'var(--text-reading)' }}>
+          <p className="page-introduction" style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#C8BEA7' }}>
             {objectData.description}
           </p>
         </header>
 
-        {/* Catalogue Field Analysis */}
+        {/* Catalogue Field Analysis Cards (High-Contrast Light Boxes) */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '3rem' }}>
-          <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', borderLeft: '4px solid var(--color-brass)', borderRadius: '4px' }}>
-            <span className="archive-catalog-label">Condition & Surface</span>
-            <p style={{ margin: 0, fontSize: 'var(--text-reading)' }}>{objectData.condition}</p>
+          <div className="archive-light-box" style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', color: '#121615', borderLeft: '4px solid var(--color-brass)', borderRadius: '4px' }}>
+            <span className="archive-catalog-label" style={{ color: '#856404' }}>Condition & Surface</span>
+            <p style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#121615', fontWeight: 600 }}>{objectData.condition}</p>
           </div>
 
-          <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', borderLeft: '4px solid var(--red)', borderRadius: '4px' }}>
-            <span className="archive-catalog-label">What It Once Protected</span>
-            <p style={{ margin: 0, fontSize: 'var(--text-reading)' }}>{objectData.whatItProtected}</p>
+          <div className="archive-light-box" style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', color: '#121615', borderLeft: '4px solid var(--red)', borderRadius: '4px' }}>
+            <span className="archive-catalog-label" style={{ color: '#721c24' }}>What It Once Protected</span>
+            <p style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#121615', fontWeight: 600 }}>{objectData.whatItProtected}</p>
           </div>
 
-          <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', borderLeft: '4px solid var(--muted)', borderRadius: '4px' }}>
-            <span className="archive-catalog-label">What It Cost to Carry</span>
-            <p style={{ margin: 0, fontSize: 'var(--text-reading)' }}>{objectData.whatItCost}</p>
+          <div className="archive-light-box" style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', color: '#121615', borderLeft: '4px solid #6c757d', borderRadius: '4px' }}>
+            <span className="archive-catalog-label" style={{ color: '#383d41' }}>What It Cost to Carry</span>
+            <p style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#121615', fontWeight: 600 }}>{objectData.whatItCost}</p>
           </div>
 
-          <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', borderLeft: '4px solid var(--ink)', borderRadius: '4px' }}>
-            <span className="archive-catalog-label">What Happens When Released</span>
-            <p style={{ margin: 0, fontSize: 'var(--text-reading)' }}>{objectData.releaseMeaning}</p>
+          <div className="archive-light-box" style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f7f4ec', color: '#121615', borderLeft: '4px solid #1b1e21', borderRadius: '4px' }}>
+            <span className="archive-catalog-label" style={{ color: '#1b1e21' }}>What Happens When Released</span>
+            <p style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#121615', fontWeight: 600 }}>{objectData.releaseMeaning}</p>
           </div>
         </div>
-
-        {/* Manuscript Passage */}
-        {objectData.relatedExcerpt && (
-          <blockquote style={{ padding: '1.5rem 2rem', margin: '2.5rem 0', borderLeft: '3px solid var(--color-brass)', fontStyle: 'italic', fontSize: 'var(--text-reading)', backgroundColor: 'rgba(0,0,0,0.02)' }}>
-            "{objectData.relatedExcerpt}"
-            <footer style={{ marginTop: '0.5rem', fontSize: 'var(--text-xs)', fontStyle: 'normal', color: 'var(--muted)', fontFamily: 'var(--font-ui)' }}>
-              — From <em>How to Explain Yourself to Wolves</em> ({objectData.relatedChapter})
-            </footer>
-          </blockquote>
-        )}
 
         {/* Primary Action Button */}
-        <div style={{ marginTop: '3.5rem', textAlign: 'center', paddingTop: '2rem', borderTop: '2px solid var(--paper-line)' }}>
-          <button onClick={handleCarryAction} className="btn btn-primary btn-large">
-            {hasAnswers && isSameObject ? 'Continue Journey with This Object' : 'Carry This Into the Journey'}
+        <div style={{ marginBottom: '3.5rem', textAlign: 'center' }}>
+          <button 
+            className="btn btn-primary"
+            onClick={handleCarryAction}
+            style={{ width: '100%', padding: '1rem', fontSize: 'var(--text-base)' }}
+          >
+            {isSameObject && hasAnswers ? 'Continue Your Journey with this Object →' : `Carry ${objectData.name} into the Journey →`}
           </button>
         </div>
-      </div>
 
-      {/* Confirmation Dialog for Replacing Active Journey */}
-      <dialog ref={dialogRef} className="confirmation-dialog" onCancel={handleCancelDialog}>
-        <div className="dialog-content">
-          <h3>Restart Journey with {objectData.name}?</h3>
-          <p>
-            You have an unfinished Journey in progress with another object. Carrying <strong>{objectData.name}</strong> will replace your active route. Completed Maps Returned will remain safely preserved in your archive.
+        {/* Modal Dialog for Switching Objects */}
+        <dialog 
+          ref={dialogRef} 
+          style={{
+            padding: '2rem',
+            backgroundColor: '#0c1210',
+            color: '#EDE4CF',
+            border: '1px solid rgba(222, 205, 169, 0.25)',
+            borderRadius: '4px',
+            maxWidth: '500px',
+            boxShadow: '0 20px 50px rgba(0,0,0,0.8)'
+          }}
+        >
+          <h3 style={{ fontFamily: 'var(--font-display)', color: '#F1E9D6', marginTop: 0 }}>
+            Switch Carried Object?
+          </h3>
+          <p style={{ fontFamily: 'var(--font-body)', color: '#C8BEA7', lineHeight: '1.6' }}>
+            You are currently carrying another object in your active journey. Selecting <strong>{objectData.name}</strong> will start a new journey and reset your current answers.
           </p>
-          <div className="dialog-actions">
-            <button onClick={handleConfirmRestart} className="btn btn-primary">
-              Restart Carrying This Object
-            </button>
-            <button onClick={handleContinueCurrent} className="btn">
-              Continue Current Journey
-            </button>
-            <button onClick={handleCancelDialog} className="btn btn-text">
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+            <button className="btn btn-ghost-sm" onClick={handleCancelDialog} style={{ color: '#A79D88' }}>
               Cancel
             </button>
+            <button className="btn btn-ghost-sm" onClick={handleContinueCurrent} style={{ color: 'var(--color-brass)' }}>
+              Keep Current Journey
+            </button>
+            <button className="btn btn-primary btn-sm" onClick={handleConfirmRestart}>
+              Start New Journey
+            </button>
           </div>
-        </div>
-      </dialog>
+        </dialog>
+
+        <footer style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(222, 205, 169, 0.18)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Link to="/archive/inventory" className="text-link" style={{ color: 'var(--color-brass)' }}>
+            &larr; Back to Inventory
+          </Link>
+          <Link to="/journey" className="btn btn-primary">
+            View Journey Map
+          </Link>
+        </footer>
+      </div>
     </article>
   );
 }

@@ -60,22 +60,22 @@ export default function GlossaryDetail() {
 
   return (
     <article className="container archive-page" style={{ padding: '2rem 0 6rem' }}>
-      {/* Breadcrumbs */}
+      {/* High Contrast Breadcrumbs */}
       <nav className="entry-meta" aria-label="Breadcrumb" style={{ marginBottom: '2rem' }}>
-        <Link to="/archive">The Archive</Link>
-        <span style={{ margin: '0 0.5rem', opacity: 0.5 }}>/</span>
-        <Link to="/archive/glossary">Glossary</Link>
-        <span style={{ margin: '0 0.5rem', opacity: 0.5 }}>/</span>
-        <span style={{ color: 'var(--ink)' }}>{termData.term}</span>
+        <Link to="/archive" style={{ color: 'var(--color-brass)' }}>The Archive</Link>
+        <span style={{ margin: '0 0.5rem', color: '#A79D88', opacity: 0.5 }}>/</span>
+        <Link to="/archive/glossary" style={{ color: 'var(--color-brass)' }}>Glossary</Link>
+        <span style={{ margin: '0 0.5rem', color: '#A79D88', opacity: 0.5 }}>/</span>
+        <span style={{ color: '#F1E9D6', fontWeight: 600 }}>{termData.term}</span>
       </nav>
 
       <div style={{ maxWidth: '68ch', margin: '0 auto' }}>
-        <header style={{ marginBottom: '2.5rem', borderBottom: '2px solid var(--paper-line)', paddingBottom: '1.5rem' }}>
+        <header style={{ marginBottom: '2.5rem', borderBottom: '1px solid rgba(222, 205, 169, 0.18)', paddingBottom: '1.5rem' }}>
           <span className="archive-catalog-label" style={{ color: 'var(--color-storm-blue)' }}>{termData.category}</span>
-          <h1 className="page-title" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', marginBottom: '0.75rem' }}>
+          <h1 className="page-title" style={{ fontSize: 'clamp(2rem, 4vw, 3.25rem)', marginBottom: '0.75rem', color: '#F1E9D6' }}>
             {termData.term}
           </h1>
-          <p className="page-introduction" style={{ margin: 0, fontStyle: 'italic', fontSize: 'var(--text-reading-large)' }}>
+          <p className="page-introduction" style={{ margin: 0, fontStyle: 'italic', fontSize: 'var(--text-reading-large)', color: '#C8BEA7' }}>
             "{termData.shortDefinition}"
           </p>
         </header>
@@ -84,30 +84,53 @@ export default function GlossaryDetail() {
         {termData.extendedDefinition && (
           <div style={{ marginBottom: '2.5rem' }}>
             <span className="archive-catalog-label">Extended Interpretation</span>
-            <p style={{ fontSize: 'var(--text-reading)', lineHeight: '1.75' }}>
+            <p style={{ fontSize: 'var(--text-reading)', lineHeight: '1.75', color: '#C8BEA7' }}>
               {termData.extendedDefinition}
             </p>
           </div>
         )}
 
-        {/* First Appearance */}
+        {/* First Appearance (High Contrast Light Callout Box) */}
         {termData.firstAppearance && (
-          <div style={{ padding: '1.25rem 1.5rem', backgroundColor: '#f4f6f8', borderLeft: '4px solid var(--color-storm-blue)', borderRadius: '4px', marginBottom: '2.5rem' }}>
-            <span className="archive-catalog-label">First Appearance</span>
-            <p style={{ margin: 0, fontSize: 'var(--text-reading)' }}>{termData.firstAppearance}</p>
+          <div 
+            className="archive-light-box"
+            style={{ 
+              padding: '1.25rem 1.5rem', 
+              backgroundColor: '#f4f6f8', 
+              color: '#121615',
+              borderLeft: '4px solid var(--color-storm-blue)', 
+              borderRadius: '4px', 
+              marginBottom: '2.5rem' 
+            }}
+          >
+            <span className="archive-catalog-label" style={{ color: '#004085' }}>First Appearance</span>
+            <p style={{ margin: 0, fontSize: 'var(--text-reading)', color: '#121615', fontWeight: 600 }}>
+              {termData.firstAppearance}
+            </p>
           </div>
         )}
 
         {/* Related Manuscript Excerpt */}
         {termData.relatedExcerpt && (
-          <blockquote style={{ padding: '1.5rem 2rem', margin: '2.5rem 0', borderLeft: '3px solid var(--color-storm-blue)', fontStyle: 'italic', fontSize: 'var(--text-reading)', backgroundColor: 'rgba(0,0,0,0.02)' }}>
+          <blockquote 
+            style={{ 
+              padding: '1.5rem 2rem', 
+              margin: '2.5rem 0', 
+              borderLeft: '3px solid var(--color-storm-blue)', 
+              fontStyle: 'italic', 
+              fontSize: 'var(--text-reading)', 
+              backgroundColor: 'rgba(222, 205, 169, 0.08)',
+              color: '#F1E9D6',
+              borderRadius: '2px'
+            }}
+          >
             "{termData.relatedExcerpt}"
           </blockquote>
         )}
 
         {/* Cross-Links to Related Terms & Objects */}
         {termData.relatedTerms && termData.relatedTerms.length > 0 && (
-          <div style={{ paddingTop: '1.5rem', borderTop: '1px solid var(--paper-line)', marginBottom: '2rem' }}>
+          <div style={{ paddingTop: '1.5rem', borderTop: '1px solid rgba(222, 205, 169, 0.15)', marginBottom: '2rem' }}>
             <span className="archive-catalog-label">Related Terms</span>
             <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', marginTop: '0.5rem' }}>
               {termData.relatedTerms.map((tSlug) => (
@@ -115,7 +138,7 @@ export default function GlossaryDetail() {
                   key={tSlug} 
                   to={`/archive/glossary/${tSlug}`}
                   className="btn"
-                  style={{ fontSize: 'var(--text-xs)', padding: '0.35rem 0.75rem', textTransform: 'capitalize' }}
+                  style={{ fontSize: 'var(--text-xs)', padding: '0.35rem 0.75rem', textTransform: 'capitalize', color: '#F1E9D6', borderColor: 'rgba(222, 205, 169, 0.25)' }}
                 >
                   {tSlug.replace(/-/g, ' ')} &rarr;
                 </Link>
@@ -124,8 +147,8 @@ export default function GlossaryDetail() {
           </div>
         )}
 
-        <footer style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '2px solid var(--paper-line)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Link to="/archive/glossary" className="text-link">
+        <footer style={{ marginTop: '3.5rem', paddingTop: '2rem', borderTop: '1px solid rgba(222, 205, 169, 0.18)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Link to="/archive/glossary" className="text-link" style={{ color: 'var(--color-brass)' }}>
             &larr; Back to Glossary
           </Link>
           <Link to="/journey" className="btn btn-primary">
