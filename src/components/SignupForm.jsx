@@ -4,8 +4,7 @@ import './SignupForm.css';
 export default function SignupForm() {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
-  const [status, setStatus] = useState('idle'); // idle, loading, success, error, duplicate
-  const [errorMessage, setErrorMessage] = useState('');
+  const [status, setStatus] = useState('idle'); // idle, loading, success
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,43 +12,39 @@ export default function SignupForm() {
 
     setStatus('loading');
     
+    // Optional backend sync attempt
     try {
-      const response = await fetch('/api/subscribe', {
+      await fetch('/api/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, firstName })
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        setStatus('success');
-      } else if (response.status === 409) {
-        setStatus('duplicate');
-      } else {
-        setStatus('error');
-        setErrorMessage(data.error || 'Something went wrong. Please try again later.');
-      }
-    } catch (error) {
-      setStatus('error');
-      setErrorMessage('Network error. Please try again later.');
+    } catch (e) {
+      // Non-blocking fallback
     }
+
+    // Direct Substack pre-filled subscriber routing
+    const substackUrl = `https://otherpeoplesweather.substack.com/subscribe?email=${encodeURIComponent(email)}`;
+    window.open(substackUrl, '_blank', 'noopener,noreferrer');
+
+    setStatus('success');
   };
 
   return (
     <div className="signup-container">
       <h3 className="signup-headline">BE TOLD WHEN THE WOLVES ARE READY</h3>
       <p className="signup-text">
-        Join the release list for publication news, early excerpts, and new journeys from the world of How to Explain Yourself to Wolves.
+        Join the release list for publication news, early excerpts, and new journeys from the world of <em>How to Explain Yourself to Wolves</em>.
       </p>
 
       {status === 'success' ? (
         <div className="signup-success">
-          <p>Thank you for joining. The wolves will find you when it is time.</p>
-        </div>
-      ) : status === 'duplicate' ? (
-        <div className="signup-success">
-          <p>You are already on the list. We will be in touch soon.</p>
+          <p style={{ color: '#F1E9D6', fontWeight: '600' }}>
+            Thank you for joining. The wolves will find you when it is time.
+          </p>
+          <p style={{ fontSize: '13px', color: '#B99A55', marginTop: '0.5rem' }}>
+            Substack confirmation opened in a new tab.
+          </p>
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="signup-form">
@@ -77,15 +72,13 @@ export default function SignupForm() {
             />
           </div>
           
-          {status === 'error' && <p className="signup-error" role="alert">{errorMessage}</p>}
-          
           <button type="submit" className="btn btn-primary btn-submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Joining...' : 'JOIN THE BOOK LIST'}
+            {status === 'loading' ? 'Opening Substack...' : 'JOIN THE BOOK LIST →'}
           </button>
         </form>
       )}
 
-      <p className="privacy-note">Book news only. No noise, and no selling your address.</p>
+      <p className="privacy-note">Book news and field notes only. No noise, and no selling your address.</p>
     </div>
   );
 }
