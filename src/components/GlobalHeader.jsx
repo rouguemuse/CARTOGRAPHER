@@ -182,7 +182,7 @@ export default function GlobalHeader({ variant = 'archive' }) {
                         <a href="/#join" role="menuitem" className="dropdown-link">Join the Book List</a>
                       </li>
                       <li role="none">
-                        <NavLink to="/workbook" role="menuitem" className="dropdown-link">The Pilgrim Workbook</NavLink>
+                        <NavLink to="/workbook" role="menuitem" className="dropdown-link">Self-Cartography</NavLink>
                       </li>
                     </ul>
                   )}
@@ -270,7 +270,7 @@ export default function GlobalHeader({ variant = 'archive' }) {
                   <span className="drawer-group-title">ABOUT & BOOK</span>
                   <ul className="drawer-group-list">
                     <li><NavLink to="/book" className="drawer-nav-link">The Book</NavLink></li>
-                    <li><NavLink to="/workbook" className="drawer-nav-link">The Pilgrim Workbook</NavLink></li>
+                    <li><NavLink to="/workbook" className="drawer-nav-link">Self-Cartography</NavLink></li>
                     <li><NavLink to="/about" className="drawer-nav-link">About Jayme</NavLink></li>
                     <li><a href="/#join" className="drawer-nav-link">Join the Book List</a></li>
                   </ul>

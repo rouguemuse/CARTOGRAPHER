@@ -228,10 +228,10 @@ export default function Archive() {
           </div>
           
           <div className="archive-card">
-            <span className="archive-catalog-label">Resources</span>
-            <h3 className="card-title">The Pilgrim Workbook</h3>
-            <p style={{ marginBottom: '1.25rem' }}>Guided reflections for recognizing what you carry.</p>
-            <Link to="/workbook" className="btn" style={{ width: '100%', display: 'block' }}>Open Workbook</Link>
+            <span className="archive-catalog-label">Self-Cartography</span>
+            <h3 className="card-title">The Self-Cartography Field Guide</h3>
+            <p style={{ marginBottom: '1.25rem' }}>Guided maps for identifying what shaped you, what you inherited, and what still belongs to you.</p>
+            <Link to="/workbook" className="btn" style={{ width: '100%', display: 'block' }}>Begin Mapping</Link>
           </div>
         </div>
 

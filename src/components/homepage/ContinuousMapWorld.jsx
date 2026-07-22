@@ -117,14 +117,14 @@ export default function ContinuousMapWorld() {
 
           <div className="location-content">
             <div className="roadside-wooden-post">
-              <span className="small-label">LOCATION II — THE ROAD OPENS</span>
-              <h2 className="post-title">THE PATH WILL ASK WHAT YOU CARRY.</h2>
+              <span className="small-label">SELF-CARTOGRAPHY</span>
+              <h2 className="post-title" style={{ textTransform: 'uppercase' }}>A Field Guide for Mapping What You Carry</h2>
               <p className="post-body">
-                Your answer changes what it shows you. There is no correct route.
+                You inherited maps, learned to forecast other people’s weather, and adapted to roads you did not choose. These guided field notes help you identify what shaped you—and decide what still belongs in your hands.
               </p>
               <div style={{ marginTop: '1.75rem' }}>
-                <Link to="/journey" className="btn btn-primary">
-                  THE ROAD IS STILL BEING DRAWN &rarr;
+                <Link to="/workbook" className="btn btn-primary">
+                  BEGIN MAPPING &rarr;
                 </Link>
               </div>
             </div>

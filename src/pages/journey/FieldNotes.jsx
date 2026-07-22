@@ -54,7 +54,7 @@ export default function FieldNotes() {
         {/* Compact Physical Journal Header */}
         <header className="journal-header">
           <div>
-            <span className="journal-eyebrow">PILGRIM'S FIELD JOURNAL</span>
+            <span className="journal-eyebrow">SELF-CARTOGRAPHY FIELD NOTE</span>
             <h1 className="journal-title">Field Notes</h1>
           </div>
           <div className="journal-stamp">
