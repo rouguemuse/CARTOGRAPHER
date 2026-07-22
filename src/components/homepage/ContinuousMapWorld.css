@@ -354,7 +354,7 @@
 .location-archival-dossier {
   min-height: 100vh;
   width: 100%;
-  padding: 6rem 1rem 6rem;
+  padding: 8rem 1rem; /* Breathing room to keep card discovered inside the environment */
   position: relative;
 }
 
@@ -388,15 +388,18 @@
 }
 
 .archival-dossier-paper {
-  width: min(100% - 24px, 680px); /* Increased width */
+  width: 85vw; /* Clamped to 85vw on mobile to reveal the surrounding forest scenery */
+  max-width: 580px; /* Reduced by ~18-22% to prevent dominating the scene */
   margin: 0 auto;
   background: #e6dcc3;
   color: #121615; /* High contrast dark text */
   border: 1px solid #d4c8a8;
-  padding: 3rem 2.5rem; /* Increased breathing room */
+  padding: 2.25rem 2rem; /* Reduced internal padding slightly */
   border-radius: 3px;
   box-shadow: 8px 15px 35px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
+  position: relative;
+  z-index: 10; /* Card layer above backgrounds, seams, and thread */
 }
 
 .dossier-header-strip {
@@ -624,104 +627,67 @@
    CUSTOM SEAM TRANSITIONS (SEAM-REPAIR PASS ONLY)
    ================================================== */
 
-/* 1. Hero Map into Valley Path: Shallow Torn Parchment Contour & Roots */
-.location-hero::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.scene-seam-wrapper {
+  position: relative;
   width: 100%;
-  height: clamp(45px, 6vw, 85px); /* Reduced height by ~50% to prevent giant black mountains */
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 80' preserveAspectRatio='none'%3E%3Cpath d='M0,50 L30,48 L60,52 L90,49 L120,53 L150,50 L180,52 L210,48 L240,51 L270,49 L300,53 L330,50 L360,52 L390,48 L420,51 L450,49 L480,53 L510,50 L540,52 L570,48 L600,51 L630,49 L660,53 L690,50 L720,52 L750,48 L780,51 L810,49 L840,53 L870,50 L900,52 L930,48 L960,51 L990,49 L1020,53 L1050,50 L1080,52 L1110,48 L1140,51 L1170,49 L1200,53 L1230,50 L1260,52 L1290,48 L1320,51 L1350,49 L1380,53 L1410,50 L1440,52 L1440,80 L0,80 Z' fill='%23080d0c'/%3E%3C/svg%3E") repeat-x bottom;
-  background-size: 100% 100%;
-  z-index: 5;
+  height: clamp(55px, 7vw, 95px); /* Restrained height: 55px-85px on mobile, 85px-95px on desktop */
+  overflow: hidden; /* STRICT CONTAINMENT: prevents overflow into cards */
+  z-index: 2; /* Layer 2: scene-seam */
   pointer-events: none;
-  filter: drop-shadow(0 -4px 6px rgba(0, 0, 0, 0.45));
+  background: transparent;
+  margin-top: -30px;
+  margin-bottom: -30px;
 }
 
-/* 2. Valley Path into Carnival: Evening blue haze and distant low hills */
-.location-road-opens::after {
-  content: '';
+.scene-seam-graphic {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
-  height: clamp(55px, 8vw, 100px); /* Reduced height */
+  height: 100%;
+}
+
+/* 1. Hero Map into Valley Path: Extremely shallow torn parchment wave, roots, mist (no mountain peaks) */
+.hero-to-road-graphic {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,45 L30,44 L60,46 L90,43 L120,47 L150,44 L180,46 L210,43 L240,45 L270,43 L300,47 L330,44 L360,46 L390,43 L420,45 L450,43 L480,47 L510,44 L540,46 L570,43 L600,45 L630,43 L660,47 L690,44 L720,46 L750,43 L780,45 L810,43 L840,47 L870,44 L900,46 L930,43 L960,45 L990,43 L1020,47 L1050,44 L1080,46 L1110,43 L1140,45 L1170,43 L1200,47 L1230,44 L1260,46 L1290,43 L1320,45 L1350,43 L1380,47 L1410,44 L1440,46 L1440,60 L0,60 Z' fill='%23080d0c'/%3E%3C/svg%3E") repeat-x bottom;
+  background-size: 100% 100%;
+  filter: drop-shadow(0 -3px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* 2. Valley Path into Carnival: Evening blue haze & shallow low ridgetop hills (no high humps) */
+.road-to-carnival-graphic {
   background: 
     linear-gradient(to bottom, transparent, rgba(10, 22, 38, 0.35) 45%, #040807 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,80 Q360,60 720,75 T1440,70 L1440,100 L0,100 Z' fill='%23040807'/%3E%3C/svg%3E") repeat-x bottom;
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,48 Q360,38 720,45 T1440,42 L1440,60 L0,60 Z' fill='%23040807'/%3E%3C/svg%3E") repeat-x bottom;
   background-size: 100% 100%;
-  z-index: 5;
-  pointer-events: none;
 }
 
-/* 3. Carnival into Forest (Other People's Weather): Carnival smoke, tent silhouettes, and treetops */
-.carnival-single-section::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(55px, 8vw, 100px); /* Reduced height */
+/* 3. Carnival into Forest (Other People's Weather): Smoke, tent silhouettes, and treetops (no large round mound) */
+.carnival-to-forest-graphic {
   background: 
-    linear-gradient(to bottom, transparent, rgba(14, 28, 22, 0.45) 50%, #060e0c 100%),
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,85 Q180,75 360,82 T720,78 T1080,83 T1440,80 L1440,100 L0,100 Z' fill='%23060e0c'/%3E%3C/svg%3E") repeat-x bottom;
+    linear-gradient(to bottom, transparent, rgba(14, 28, 22, 0.4) 50%, #060e0c 100%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,50 Q180,42 360,47 T720,43 T1080,48 T1440,45 L1440,60 L0,60 Z' fill='%23060e0c'/%3E%3C/svg%3E") repeat-x bottom;
   background-size: 100% 100%;
-  z-index: 9;
-  pointer-events: none;
 }
 
-/* 4. Forest into Legend: Delicate roots, hanging branches, and drifting forest mist */
-.location-archival-dossier::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(50px, 7vw, 95px); /* Shallow organic transition */
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 100' preserveAspectRatio='none'%3E%3Cpath d='M0,75 Q150,85 300,72 T600,78 T900,70 T1200,82 T1440,75 L1440,100 L0,100 Z' fill='%23060c0a'/%3E%3C/svg%3E") repeat-x bottom;
+/* 4. Forest into Legend: Delicate roots, hanging branches, and drifting forest mist (no pointed peaks) */
+.forest-to-legend-graphic {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,45 Q150,52 300,43 T600,48 T900,42 T1200,50 T1440,46 L1440,60 L0,60 Z' fill='%23060c0a'/%3E%3C/svg%3E") repeat-x bottom;
   background-size: 100% 100%;
-  z-index: 5;
-  pointer-events: none;
-  filter: drop-shadow(0 -2px 4px rgba(0,0,0,0.35));
+  filter: drop-shadow(0 -2px 3px rgba(0,0,0,0.3));
 }
 
 /* 5. Legend into Two-Door Corridor: Dissolve into dust, shadows, and corridor darkness (no solid silhouette) */
-.location-relics-worktable::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(60px, 8vw, 110px);
+.legend-to-corridor-graphic {
   background: linear-gradient(to bottom, transparent, rgba(5, 12, 10, 0.45) 35%, rgba(18, 24, 22, 0.2) 70%, #040908 100%);
-  z-index: 5;
-  pointer-events: none;
 }
 
 /* 6. Corridor into Final Mist Road: Floor shadows dissolving naturally into pale fog */
-.location-corridor::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: clamp(80px, 12vw, 150px);
+.corridor-to-dawn-graphic {
   background: linear-gradient(to bottom, transparent, rgba(30, 40, 36, 0.25) 45%, rgba(60, 75, 70, 0.12) 100%);
-  z-index: 5;
-  pointer-events: none;
 }
 
-/* 7. Dawn road into Latest Dispatches: Organic grass/fog border overlay */
-.quiet-dispatches-wrapper::before {
-  content: '';
-  position: absolute;
-  top: -45px;
-  left: 0;
-  width: 100%;
-  height: 45px;
-  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,45 Q90,35 180,48 T360,32 T540,46 T720,35 T900,48 T1080,33 T1260,47 T1440,38 L1440,60 L0,60 Z' fill='%23040908'/%3E%3C/svg%3E") repeat-x top;
+/* 7. Dawn road into Latest Dispatches: Shallow grass and fog boundary */
+.dawn-to-dispatches-graphic {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60' preserveAspectRatio='none'%3E%3Cpath d='M0,45 Q90,38 180,46 T360,34 T540,45 T720,36 T900,47 T1080,34 T1260,45 T1440,39 L1440,60 L0,60 Z' fill='%23040908'/%3E%3C/svg%3E") repeat-x bottom;
   background-size: 100% 100%;
-  z-index: 5;
-  pointer-events: none;
 }

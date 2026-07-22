@@ -95,6 +95,11 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
+        {/* Seam 1: Hero Map to Road Opens */}
+        <div className="scene-seam-wrapper hero-to-road-seam" aria-hidden="true">
+          <div className="scene-seam-graphic hero-to-road-graphic"></div>
+        </div>
+
         {/* 2. LOCATION II: THE ROAD OPENS */}
         <section data-thread-anchor="road" className="map-location location-road-opens">
           <div className="location-bg-layer">
@@ -125,6 +130,11 @@ export default function ContinuousMapWorld() {
             </div>
           </div>
         </section>
+
+        {/* Seam 2: Road Opens to Carnival */}
+        <div className="scene-seam-wrapper road-to-carnival-seam" aria-hidden="true">
+          <div className="scene-seam-graphic road-to-carnival-graphic"></div>
+        </div>
 
         {/* 3. LOCATION III: THE CARNIVAL (ONE SINGLE SCROLL-LINKED CROSSFADE SECTION) */}
         <section ref={carnivalRef} data-thread-anchor="carnival" className="carnival-single-section">
@@ -179,6 +189,11 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
+        {/* Seam 3: Carnival to Forest (Weather) */}
+        <div className="scene-seam-wrapper carnival-to-forest-seam" aria-hidden="true">
+          <div className="scene-seam-graphic carnival-to-forest-graphic"></div>
+        </div>
+
         {/* 4. LOCATION IV: OTHER PEOPLE'S WEATHER */}
         <section data-thread-anchor="weather" className="map-location location-archival-dossier">
           <div className="location-bg-layer">
@@ -218,6 +233,11 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
+        {/* Seam 4: Forest (Weather) to Legend */}
+        <div className="scene-seam-wrapper forest-to-legend-seam" aria-hidden="true">
+          <div className="scene-seam-graphic forest-to-legend-graphic"></div>
+        </div>
+
         {/* 5. LOCATION V: THE LEGEND */}
         <section data-thread-anchor="legend" className="map-location location-relics-worktable">
           <div className="location-content location-worktable-content">
@@ -225,12 +245,22 @@ export default function ContinuousMapWorld() {
           </div>
         </section>
 
+        {/* Seam 5: Legend to Corridor */}
+        <div className="scene-seam-wrapper legend-to-corridor-seam" aria-hidden="true">
+          <div className="scene-seam-graphic legend-to-corridor-graphic"></div>
+        </div>
+
         {/* 6. LOCATION VI: CORRIDOR */}
         <section data-thread-anchor="corridor" className="map-location location-corridor">
           <div className="location-content location-corridor-content">
             <CorridorDoors />
           </div>
         </section>
+
+        {/* Seam 6: Corridor to Final mist road */}
+        <div className="scene-seam-wrapper corridor-to-dawn-seam" aria-hidden="true">
+          <div className="scene-seam-graphic corridor-to-dawn-graphic"></div>
+        </div>
 
         {/* 7. LOCATION VII: FINAL HORIZON & STAY NEAR THE ROAD */}
         <section data-thread-anchor="final" className="map-location location-final-landscape">
@@ -284,6 +314,11 @@ export default function ContinuousMapWorld() {
             </div>
           </div>
         </section>
+
+        {/* Seam 7: Dawn road to Latest Dispatches */}
+        <div className="scene-seam-wrapper dawn-to-dispatches-seam" aria-hidden="true">
+          <div className="scene-seam-graphic dawn-to-dispatches-graphic"></div>
+        </div>
 
         {/* 8. LATEST DISPATCHES */}
         <section data-thread-anchor="dispatches" className="quiet-dispatches-wrapper">

@@ -43,14 +43,14 @@ export default function CabinetOfRelics() {
       {/* Atmospheric Void Stage (Transparent Cutouts & Vector Red Thread) */}
       <div className="home-relic-void-stage">
         
-        {/* Continuous Red Thread Vector Path (Placed Beneath Relics) */}
         <svg
           className="relic-thread"
           viewBox="0 0 1200 700"
           preserveAspectRatio="none"
           aria-hidden="true"
         >
-          <path d="M170 135 C255 175 225 300 365 322 C505 344 505 205 665 305 C805 393 830 510 1040 330" />
+          {/* Refined relic thread loop connecting all relics organically and meeting the journey thread at the Red Thread relic */}
+          <path d="M 198,392 C 160,250 180,180 216,126 C 250,80 350,280 426,350 C 480,400 520,200 594,140 C 660,90 730,300 810,378 C 870,440 920,200 972,119" />
         </svg>
 
         {/* Floating Isolated Relic Cutout Buttons */}
