@@ -20,16 +20,15 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Continuous Full-Page Paths spanning from Y=0 to Y=10,000 (100% of full document height)
-  // Hero (0-1000) -> Road Opens (1000-2000) -> Carnival (2000-3500) -> Weather (3500-5000) -> Legend (5000-6500) -> Corridor (6500-8000) -> Dispatches & Horizon (8000-10000)
+  // Organic curves with slack, bends, and varying positions that wind around content cards/buttons
   const desktopThreadPath = 
-    "M 490,50 C 540,400 460,800 500,1200 C 550,1600 440,2000 520,2500 C 580,3000 430,3500 490,4000 C 550,4500 460,5000 510,5500 C 560,6000 440,6500 520,7000 C 580,7500 460,8000 510,8500 C 550,9000 490,9500 500,9950";
+    "M 480,50 C 220,380 280,720 420,1100 C 580,1500 240,1900 360,2400 C 650,2900 320,3400 480,3900 C 620,4400 320,4900 460,5400 C 640,5900 280,6400 420,6900 C 580,7400 320,7900 480,8400 C 620,8900 360,9400 500,9950";
 
   const tabletThreadPath = 
-    "M 500,50 C 530,400 470,800 500,1200 C 530,1600 470,2000 510,2500 C 550,3000 450,3500 500,4000 C 540,4500 470,5000 500,5500 C 530,6000 460,6500 510,7000 C 550,7500 470,8000 500,8500 C 530,9000 495,9500 500,9950";
+    "M 490,50 C 310,380 340,720 430,1100 C 540,1500 320,1900 400,2400 C 580,2900 360,3400 480,3900 C 590,4400 360,4900 460,5400 C 580,5900 340,6400 430,6900 C 540,7400 370,7900 480,8400 C 580,8900 410,9400 500,9950";
 
   const mobileThreadPath = 
-    "M 500,50 C 515,400 485,800 500,1200 C 515,1600 485,2000 500,2500 C 515,3000 485,3500 500,4000 C 515,4500 485,5000 500,5500 C 515,6000 485,6500 500,7000 C 515,7500 485,8000 500,8500 C 515,9000 495,9500 500,9950";
+    "M 495,50 C 420,380 430,720 460,1100 C 510,1500 440,1900 470,2400 C 530,2900 450,3400 490,3900 C 520,4400 460,4900 485,5400 C 525,5900 455,6400 480,6900 C 510,7400 465,7950 490,8400 C 520,8900 480,9400 500,9950";
 
   const selectedPath = 
     viewport === 'mobile'
@@ -51,29 +50,29 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
       >
         <defs>
           <filter id="thread-ember-glow" x="-30%" y="-30%" width="160%" height="160%">
-            <feDropShadow dx="0" dy="0" stdDeviation="3" floodColor="#ab1d20" floodOpacity="0.9" />
-            <feDropShadow dx="0" dy="0" stdDeviation="8" floodColor="#ab1d20" floodOpacity="0.45" />
+            <feDropShadow dx="0" dy="0" stdDeviation="1.0" floodColor="#9e1b21" floodOpacity="0.6" />
+            <feDropShadow dx="0" dy="0" stdDeviation="2.5" floodColor="#9e1b21" floodOpacity="0.25" />
           </filter>
         </defs>
 
-        {/* 1. Base Thread: Dark Oxblood, Low Opacity, Always Visible */}
+        {/* 1. Base Thread: Quieter, thinner, more physical dark oxblood path */}
         <path
           d={selectedPath}
           fill="none"
-          stroke="#541417"
-          strokeWidth="4.5"
-          opacity="0.6"
+          stroke="#4a1012"
+          strokeWidth="1.8"
+          opacity="0.45"
           strokeLinecap="round"
           strokeLinejoin="round"
           className="thread-base"
         />
 
-        {/* 2. Active Illuminated Thread: Bright Dyed Red (Thicker, Glow, Highly Visible) */}
+        {/* 2. Active Illuminated Thread: Quieter, thinner, organic slack path (guiding focus) */}
         <path
           d={selectedPath}
           fill="none"
-          stroke="#b51f27"
-          strokeWidth="3.8"
+          stroke="#9e1b21"
+          strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeDasharray={pathLength}
