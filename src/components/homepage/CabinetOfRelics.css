@@ -84,53 +84,53 @@
   outline: none;
 }
 
-/* Organic Cutout Positions in Atmospheric Void */
+/* Organic Cutout Positions in Atmospheric Void (Scaled up ~18%) */
 .void-relic-red_coat {
-  top: 8%;
-  left: 8%;
-  width: 20%;
+  top: 6%;
+  left: 6%;
+  width: 24%;
 }
 
 .void-relic-red_string {
-  top: 15%;
-  left: 42%;
-  width: 14%;
+  top: 12%;
+  left: 41%;
+  width: 17%;
 }
 
 .void-relic-red_crane {
-  top: 45%;
-  left: 28%;
-  width: 14%;
+  top: 42%;
+  left: 27%;
+  width: 17%;
 }
 
 .void-relic-red_envelope {
-  top: 48%;
-  left: 60%;
-  width: 16%;
+  top: 45%;
+  left: 58%;
+  width: 19%;
 }
 
 .void-relic-compass {
-  top: 10%;
-  left: 74%;
-  width: 15%;
+  top: 8%;
+  left: 72%;
+  width: 18%;
 }
 
 .void-relic-lantern {
-  top: 52%;
-  left: 10%;
-  width: 14%;
+  top: 48%;
+  left: 8%;
+  width: 17%;
 }
 
 @media (max-width: 768px) {
   .void-relics-cluster {
     height: 380px;
   }
-  .void-relic-red_coat { top: 5%; left: 4%; width: 28%; }
-  .void-relic-red_string { top: 8%; left: 42%; width: 20%; }
-  .void-relic-red_crane { top: 38%; left: 24%; width: 22%; }
-  .void-relic-red_envelope { top: 42%; left: 62%; width: 24%; }
-  .void-relic-compass { top: 5%; left: 70%; width: 22%; }
-  .void-relic-lantern { top: 52%; left: 4%; width: 22%; }
+  .void-relic-red_coat { top: 5%; left: 4%; width: 32%; }
+  .void-relic-red_string { top: 8%; left: 42%; width: 23%; }
+  .void-relic-red_crane { top: 38%; left: 24%; width: 25%; }
+  .void-relic-red_envelope { top: 42%; left: 62%; width: 27%; }
+  .void-relic-compass { top: 5%; left: 70%; width: 25%; }
+  .void-relic-lantern { top: 52%; left: 4%; width: 25%; }
 }
 
 .void-relic-img {
@@ -143,7 +143,7 @@
 
 .void-relic-label {
   font-family: var(--font-ui);
-  font-size: clamp(11px, 3vw, 13px);
+  font-size: clamp(12px, 3.2vw, 14px); /* Increased size for readability */
   color: var(--color-bone);
   margin-top: 0.5rem;
   opacity: 0.75;
@@ -154,14 +154,30 @@
   opacity: 0.65;
 }
 
+/* Restrained Hover Elevation and Glow */
+.void-relic-button:hover {
+  transform: translateY(-8px) scale(1.05);
+  opacity: 1;
+  z-index: 15;
+}
+
+.void-relic-button:hover .void-relic-img {
+  filter: drop-shadow(0 18px 32px rgba(212, 175, 55, 0.4)) brightness(1.1);
+}
+
+.void-relic-button:hover .void-relic-label {
+  opacity: 1;
+  color: var(--color-brass);
+}
+
 .void-relic-button.is-selected {
   opacity: 1;
   z-index: 12;
-  transform: translateY(-8px) scale(1.06);
+  transform: translateY(-10px) scale(1.08);
 }
 
 .void-relic-button.is-selected .void-relic-img {
-  filter: drop-shadow(0 18px 32px rgba(0, 0, 0, 0.95)) brightness(1.12);
+  filter: drop-shadow(0 20px 36px rgba(212, 175, 55, 0.55)) brightness(1.15);
 }
 
 .void-relic-button.is-selected .void-relic-label {

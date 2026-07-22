@@ -38,6 +38,9 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  /* Atmospheric top/bottom mask transition to prevent hard edges */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .location-content {
@@ -147,6 +150,25 @@
   text-align: center;
 }
 
+.hero-secondary-text-link {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--color-bone);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.85rem 1.75rem;
+  transition: color 0.25s ease, transform 0.25s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.hero-secondary-text-link:hover {
+  color: var(--color-brass);
+  transform: translateX(4px);
+}
+
 .hero-subnote {
   font-family: var(--font-display);
   font-style: italic;
@@ -209,7 +231,7 @@
 .carnival-single-section {
   position: relative;
   width: 100%;
-  min-height: clamp(850px, 130vh, 1300px);
+  min-height: clamp(650px, 98vh, 980px); /* Reduced height by 25% */
   background: #040807;
 }
 
@@ -217,7 +239,7 @@
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh;
+  height: 98vh;
   overflow: hidden;
 }
 
@@ -229,6 +251,10 @@
   object-fit: cover;
   object-position: center;
   display: block;
+  filter: brightness(1.22) contrast(0.98); /* Raised brightness to reveal tents and pathways */
+  /* Blend sticky frame boundaries atmospheric transition */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 12%, black 88%, transparent 100%);
 }
 
 .carnival-layer-lit {
@@ -244,8 +270,28 @@
   position: absolute;
   inset: 0;
   z-index: 3;
-  background: radial-gradient(circle at center, rgba(14, 18, 16, 0.35) 0%, rgba(4, 8, 7, 0.85) 90%);
+  background: radial-gradient(circle at center, rgba(14, 18, 16, 0.25) 0%, rgba(4, 8, 7, 0.85) 90%);
   pointer-events: none;
+}
+
+/* Subtle Scroll Interaction Cue */
+.carnival-scroll-cue {
+  position: absolute;
+  bottom: 5%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 8;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.cue-text {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  color: var(--color-brass);
+  text-transform: uppercase;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.95);
 }
 
 .carnival-centered-content {
@@ -342,14 +388,14 @@
 }
 
 .archival-dossier-paper {
-  width: min(100% - 24px, 620px);
+  width: min(100% - 24px, 680px); /* Increased width */
   margin: 0 auto;
   background: #e6dcc3;
-  color: #121615;
+  color: #121615; /* High contrast dark text */
   border: 1px solid #d4c8a8;
-  padding: 2.75rem 2rem;
+  padding: 3rem 2.5rem; /* Increased breathing room */
   border-radius: 3px;
-  box-shadow: 8px 12px 30px rgba(0, 0, 0, 0.5);
+  box-shadow: 8px 15px 35px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
 }
 
@@ -358,13 +404,13 @@
   justify-content: space-between;
   align-items: center;
   border-bottom: 2px solid #c8ba96;
-  padding-bottom: 0.75rem;
-  margin-bottom: 1.15rem;
+  padding-bottom: 0.85rem;
+  margin-bottom: 1.5rem;
 }
 
 .dossier-wax-seal {
-  width: 22px;
-  height: 22px;
+  width: 24px;
+  height: 24px;
   background: #8b0000;
   border-radius: 50%;
   display: inline-block;
@@ -372,25 +418,25 @@
 
 .dossier-title {
   font-family: var(--font-display);
-  font-size: clamp(1.8rem, 8vw, 2.7rem);
+  font-size: clamp(2rem, 9vw, 3rem); /* Increased size */
   color: #121615;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.85rem;
 }
 
 .dossier-excerpt {
   font-family: var(--font-body);
-  font-size: clamp(15px, 4.2vw, 18px);
+  font-size: clamp(17px, 4.5vw, 21px); /* Increased size for readability */
   font-style: italic;
-  line-height: 1.6;
-  color: #2a3330;
-  border-left: 3px solid #b3211d;
-  padding-left: 1rem;
-  margin: 0 0 1.15rem 0;
+  line-height: 1.65;
+  color: #1a221f; /* High contrast reading text */
+  border-left: 4px solid #b3211d;
+  padding-left: 1.25rem;
+  margin: 0 0 1.5rem 0;
 }
 
 .dossier-desc {
   font-family: var(--font-body);
-  font-size: clamp(13px, 3.5vw, 15px);
+  font-size: clamp(15px, 3.8vw, 17px); /* Increased size for readability */
   color: #4a5550;
   margin: 0;
 }
@@ -422,12 +468,20 @@
    7. LOCATION VII: FINAL HORIZON
    ================================================== */
 .location-final-landscape {
-  min-height: 94vh;
+  min-height: 110vh; /* Increased min-height for vertical breathing room */
   width: 100%;
   position: relative;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  padding-bottom: 0;
+  padding: 8rem 0 0 0; /* Breathing room around title */
   background: transparent;
+}
+
+.location-final-landscape .location-bg-img {
+  /* Fades only at top to blend from the previous corridor, stays sharp at footer */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 18%, black 100%);
 }
 
 .final-lantern-glow {
@@ -445,8 +499,19 @@
   text-align: center;
   width: min(100% - 24px, 680px);
   margin: 0 auto;
-  padding-top: 4.5rem;
+  padding-bottom: 4rem;
   box-sizing: border-box;
+}
+
+/* Quieter separated editorial/newsletter footer region */
+.quiet-dispatches-wrapper {
+  width: 100%;
+  border-top: 1px solid rgba(230, 220, 195, 0.16);
+  background: rgba(4, 9, 8, 0.96);
+  padding: 4.5rem 1.5rem;
+  margin-top: 4.5rem;
+  z-index: 10;
+  position: relative;
 }
 
 .final-heading {

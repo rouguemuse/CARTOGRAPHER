@@ -81,13 +81,13 @@ export default function ContinuousMapWorld() {
             </p>
             
             <div className="hero-buttons-row">
-              <Link to="/journey" className="btn btn-primary btn-large">
-                PREVIEW THE JOURNEY &rarr;
-              </Link>
-              <Link to="/archive" className="btn btn-secondary-dark btn-large">
-                Enter the Archive
-              </Link>
-            </div>
+            <Link to="/journey" className="btn btn-primary btn-large">
+              PREVIEW THE JOURNEY &rarr;
+            </Link>
+            <Link to="/archive" className="hero-secondary-text-link">
+              Enter the Archive &rarr;
+            </Link>
+          </div>
 
             <p className="hero-subnote">
               "You do not have to explain yourself before entering."
@@ -169,6 +169,11 @@ export default function ContinuousMapWorld() {
                   Some roads only appear after dark.
                 </p>
               </div>
+            </div>
+
+            {/* Subtle Scroll Interaction Cue */}
+            <div className="carnival-scroll-cue" style={{ opacity: Math.max(0, 1 - carnivalDarkOpacity * 1.8) }}>
+              <span className="cue-text">Scroll to dim the lights &darr;</span>
             </div>
 
           </div>
@@ -281,7 +286,7 @@ export default function ContinuousMapWorld() {
         </section>
 
         {/* 8. LATEST DISPATCHES */}
-        <section data-thread-anchor="dispatches">
+        <section data-thread-anchor="dispatches" className="quiet-dispatches-wrapper">
           <SubstackDispatches />
         </section>
 
