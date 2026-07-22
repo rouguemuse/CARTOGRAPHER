@@ -47,14 +47,14 @@ export default function ContinuousMapWorld() {
 
   return (
     <div ref={containerRef} className="continuous-map-world relative overflow-hidden">
-      {/* Fixed Full-Page Continuous Red Thread Overlay */}
-      <SvgRoutePath scrollProgress={scrollProgress} />
-
       {/* Floating Ember Signal Lights */}
       <FireflyCanvas />
 
       {/* Primary Narrative Sections */}
       <main className="relative z-10">
+        
+        {/* Fixed Full-Page Continuous Red Thread Overlay (Inside main stack context) */}
+        <SvgRoutePath scrollProgress={scrollProgress} />
         
         {/* 1. HERO MAP */}
         <section data-thread-anchor="hero" className="map-location location-hero">

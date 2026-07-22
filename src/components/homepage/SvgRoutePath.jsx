@@ -56,24 +56,24 @@ export default function SvgRoutePath({ scrollProgress = 0 }) {
           </filter>
         </defs>
 
-        {/* 1. Base Thread: Dark Oxblood, Low Opacity, Always Visible Through Entire Page */}
+        {/* 1. Base Thread: Dark Oxblood, Low Opacity, Always Visible */}
         <path
           d={selectedPath}
           fill="none"
           stroke="#541417"
-          strokeWidth="3.5"
+          strokeWidth="4.5"
           opacity="0.6"
           strokeLinecap="round"
           strokeLinejoin="round"
           className="thread-base"
         />
 
-        {/* 2. Active Illuminated Thread: Bright Crimson, Revealed with Scroll across Entire Page */}
+        {/* 2. Active Illuminated Thread: Bright Dyed Red (Thicker, Glow, Highly Visible) */}
         <path
           d={selectedPath}
           fill="none"
           stroke="#b51f27"
-          strokeWidth="2.5"
+          strokeWidth="3.8"
           strokeLinecap="round"
           strokeLinejoin="round"
           strokeDasharray={pathLength}

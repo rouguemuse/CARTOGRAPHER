@@ -20,7 +20,6 @@
   align-items: center;
   padding: 4.5rem 1rem;
   box-sizing: border-box;
-  isolation: isolate;
   overflow-x: hidden;
 }
 
@@ -63,7 +62,6 @@
   width: 100%;
   text-align: center;
   padding: 6rem 1rem 4rem;
-  z-index: 10;
 }
 
 .hero-vignette-overlay {
@@ -165,7 +163,6 @@
   min-height: clamp(440px, 55vh, 560px);
   width: 100%;
   margin-top: 0;
-  z-index: 11;
   padding: 3rem 1rem;
 }
 
@@ -213,7 +210,6 @@
   position: relative;
   width: 100%;
   min-height: clamp(850px, 130vh, 1300px);
-  z-index: 12;
   background: #040807;
 }
 
@@ -313,7 +309,6 @@
   min-height: 100vh;
   width: 100%;
   padding: 6rem 1rem 6rem;
-  z-index: 15;
   position: relative;
 }
 
@@ -408,7 +403,6 @@
   min-height: 100vh;
   width: 100%;
   padding: 6rem 1rem;
-  z-index: 16;
   background: transparent;
 }
 
@@ -420,7 +414,6 @@
   min-height: clamp(720px, 90vh, 960px);
   width: 100%;
   margin-top: 0;
-  z-index: 17;
   background: transparent;
 }
 
@@ -431,7 +424,6 @@
 .location-final-landscape {
   min-height: 94vh;
   width: 100%;
-  z-index: 19;
   position: relative;
   justify-content: space-between;
   padding-bottom: 0;
