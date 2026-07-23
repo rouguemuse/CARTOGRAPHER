@@ -23,18 +23,15 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(0.65) contrast(0.95);
+  filter: brightness(0.85) contrast(1.02); /* Increased brightness to showcase the artwork */
   display: block;
 }
 
 .journey-holding-fog-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(
-    circle at center, 
-    rgba(5, 12, 10, 0.45) 0%, 
-    rgba(5, 12, 10, 0.75) 100%
-  );
+  /* Subtler vignette to let the center and upper artwork shine through cleanly */
+  background: linear-gradient(to bottom, rgba(5, 12, 10, 0.15) 0%, rgba(5, 12, 10, 0.5) 100%);
   pointer-events: none;
 }
 
@@ -50,7 +47,7 @@
   justify-content: center;
 }
 
-/* Open Direct Content with Strong Radial Gradient (No Box or Border) */
+/* Open Direct Content with a lighter radial backing to let more artwork show */
 .journey-holding-direct-content {
   text-align: center;
   width: 100%;
@@ -58,9 +55,9 @@
   border: none;
   background: radial-gradient(
     circle at center, 
-    rgba(5, 12, 10, 0.82) 0%, 
-    rgba(5, 12, 10, 0.35) 48%, 
-    transparent 72%
+    rgba(5, 12, 10, 0.6) 0%, 
+    rgba(5, 12, 10, 0.15) 55%, 
+    transparent 80%
   );
   box-sizing: border-box;
 }
@@ -72,6 +69,7 @@
   line-height: 1.15;
   margin: 0 0 1rem 0;
   letter-spacing: 0.02em;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95);
 }
 
 .holding-body-text {
@@ -80,6 +78,7 @@
   color: var(--color-parchment);
   line-height: 1.5;
   margin-bottom: 0.75rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 .holding-body-subtext {
@@ -88,6 +87,7 @@
   color: var(--color-bone);
   font-style: italic;
   margin-bottom: 2.25rem;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
 }
 
 .holding-actions-group {
