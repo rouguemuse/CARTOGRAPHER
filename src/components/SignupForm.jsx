@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import './SignupForm.css';
 
-export default function SignupForm() {
+export default function SignupForm({
+  headlineText = "BE TOLD WHEN THE WOLVES ARE READY",
+  bodyText = "Join the release list for publication news, early excerpts, and new journeys from the world of How to Explain Yourself to Wolves.",
+  buttonText = "JOIN THE BOOK LIST →",
+  privacyText = "Book news and field notes only. No noise, and no selling your address."
+}) {
   const [email, setEmail] = useState('');
   const [firstName, setFirstName] = useState('');
   const [status, setStatus] = useState('idle'); // idle, loading, success
@@ -32,10 +37,8 @@ export default function SignupForm() {
 
   return (
     <div className="signup-container">
-      <h3 className="signup-headline">BE TOLD WHEN THE WOLVES ARE READY</h3>
-      <p className="signup-text">
-        Join the release list for publication news, early excerpts, and new journeys from the world of <em>How to Explain Yourself to Wolves</em>.
-      </p>
+      <h3 className="signup-headline">{headlineText}</h3>
+      <p className="signup-text">{bodyText}</p>
 
       {status === 'success' ? (
         <div className="signup-success">
@@ -73,12 +76,12 @@ export default function SignupForm() {
           </div>
           
           <button type="submit" className="btn btn-primary btn-submit" disabled={status === 'loading'}>
-            {status === 'loading' ? 'Opening Substack...' : 'JOIN THE BOOK LIST →'}
+            {status === 'loading' ? 'Opening Substack...' : buttonText}
           </button>
         </form>
       )}
 
-      <p className="privacy-note">Book news and field notes only. No noise, and no selling your address.</p>
+      <p className="privacy-note">{privacyText}</p>
     </div>
   );
 }

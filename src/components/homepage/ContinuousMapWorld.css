@@ -231,7 +231,7 @@
 .carnival-single-section {
   position: relative;
   width: 100%;
-  min-height: clamp(1200px, 180vh, 1600px);
+  min-height: 180vh; /* Scroll runway for linked crossfade */
   background: #040807;
 }
 
@@ -241,6 +241,7 @@
   width: 100%;
   height: 100vh;
   overflow: hidden;
+  z-index: 1;
 }
 
 .carnival-layer {
@@ -352,10 +353,17 @@
    4. LOCATION IV: OTHER PEOPLE’S WEATHER
    ================================================== */
 .location-archival-dossier {
-  min-height: 100vh;
+  min-height: auto; /* Content-driven height, no large empty viewport block */
   width: 100%;
   padding: 8rem 1rem; /* Breathing room to keep card discovered inside the environment */
   position: relative;
+  z-index: 10; /* Layer on top of sticky carnival frame during overlap */
+}
+
+.carnival-to-forest-seam {
+  margin-top: -80vh; /* Pulls the seam and subsequent sections up to cover empty sticky space */
+  position: relative;
+  z-index: 12;
 }
 
 .weather-readability-overlay {
@@ -462,10 +470,18 @@
 .location-corridor {
   min-height: clamp(720px, 90vh, 960px);
   width: 100%;
-  margin-top: -130px; /* Pull upward to eliminate large empty black field from Legend section */
+  margin-top: -130px; /* Pull upward to eliminate large empty black field from Legend section on desktop */
   position: relative;
   z-index: 10;
   background: transparent;
+}
+
+@media (max-width: 768px) {
+  .location-corridor {
+    min-height: auto;
+    margin-top: -40px;
+    padding: 3rem 1rem;
+  }
 }
 
 
