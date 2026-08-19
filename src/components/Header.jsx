@@ -19,7 +19,7 @@ const Header = () => {
         </div>
         
         <nav className="site-nav">
-          <Link to="/library" className="nav-link">Valley Library</Link>
+          <Link to="/library" className="nav-link">Literature</Link>
           <Link to="/dear-red" className="nav-link">Dear Red</Link>
           <Link to="/book" className="nav-link">The Book</Link>
           <Link to="/about" className="nav-link">About</Link>

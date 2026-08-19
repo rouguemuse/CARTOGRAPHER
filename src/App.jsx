@@ -30,8 +30,9 @@ function App() {
       <Routes>
         <Route path="/" element={<Archive />} />
         
-        {/* Library Routes */}
+        {/* Library & Literature Routes */}
         <Route path="/library" element={<Library />} />
+        <Route path="/literature" element={<Library />} />
         <Route path="/library/stories" element={<Stories />} />
         <Route path="/library/field-guide" element={<FieldGuide />} />
         <Route path="/library/inventory" element={<Inventory />} />
